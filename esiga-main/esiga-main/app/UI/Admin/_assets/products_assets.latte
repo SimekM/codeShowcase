@@ -1,0 +1,601 @@
+<style>
+
+
+.edit-modal {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 95%;
+  overflow: hidden;
+  background-color: transparent;
+  justify-content: center;
+  align-items: start;
+  top: 3%;
+}
+
+.edit-modal-content {
+    background-color: #fff;
+    padding: 30px 15px 30px 30px;
+    border: 1px solid #888;
+    border-radius: 30px;
+    width: 80%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    box-shadow: 0 0.125rem 0.25rem 0 var(--text);
+}
+
+.edit-modal-scroll-wrapper{
+    padding-right: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.edit-modal-content .modal-title-container {
+  display: flex;
+  justify-content: space-between;
+align-items: center;
+  margin-bottom: 20px;
+
+}
+
+.edit-modal-content .modal-title-container h2 {
+  margin: 0;
+}
+
+.edit-modal-close {
+  color: black;
+  float: right;
+  font-size: 30px;
+}
+
+.edit-modal-close:hover,
+.edit-modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.edit-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+
+
+
+.form-label-group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-checkbox-container{
+    width:100%;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+  padding: 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-label-group > input {
+  height: 3.125rem;
+}
+
+.form-label-group > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #495057;
+  pointer-events: none;
+  cursor: text;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: 1.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 12px;
+  color: #777;
+}
+
+.status-field{
+  border: solid 2px;
+  border-radius: 20px;
+  padding: 4px 0;
+}
+
+
+
+.child-table-container{
+    width: 100%;
+    
+}
+
+.child-table-list{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column
+}
+
+.child-table-item{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    flex-direction: row;
+}
+
+
+
+
+
+
+
+
+.badge.logout {
+    color: #F95F53;
+	border: 1px solid #F95F53;
+}
+
+.badge.login {
+	color: #ffaf00;
+	border: 1px solid #ffaf00;
+}
+
+
+
+.badge {
+	border-radius: 20px;
+    margin: -1px;
+}
+
+
+</style>
+
+
+
+<script>
+
+
+    var linkSaveItem = {link saveItem!};
+    var linkGetRowData = {link getRowData!};
+    var linkDeleteItem = {link deleteItem!};
+    var imagePath = "/assets/images/products/"; // Base path for product images
+
+    let isEditing = false;
+    let editModal = null;
+    let imageChanged = false;
+
+
+
+   const productsConfigArray = {$configArray}.main_tables;
+
+
+ document.addEventListener('DOMContentLoaded', function() {
+        editModal = document.getElementById("productModal");
+        const closeBtn = document.getElementsByClassName("edit-modal-close")[0];
+        
+        closeBtn.onclick = function() {
+            editModal.style.display = "none";
+        }
+        
+        // Image preview functionality
+        const fileInput = document.querySelector('input[type="file"]');
+        const imagePreview = document.getElementById('image-preview');
+        
+        if (fileInput) {
+            fileInput.addEventListener('change', function() {
+                imageChanged = true;
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+
+
+
+
+
+ function cleanModal(){
+   // 1. Clear all child table containers
+    const childTableLists = document.querySelectorAll('[id$="-list-container"]');
+    childTableLists.forEach(container => {
+        container.innerHTML = '';
+    });
+    
+    // 2. Clear all relationship checkboxes
+    const relationshipContainers = document.querySelectorAll('div[agenda]');
+    relationshipContainers.forEach(container => {
+        // Only clear checkbox containers, not all agenda elements
+        if (container.classList.contains('form-checkbox-container')) {
+            // Remove all checkboxes but keep the heading
+            const heading = container.querySelector('h3');
+            container.innerHTML = '';
+            if (heading) container.appendChild(heading);
+        }
+    });
+    
+    // 3. Reset all form inputs
+    const formInputs = document.querySelectorAll('#editProductForm input');
+    formInputs.forEach(input => {
+        if (input.type === 'checkbox') {
+            input.checked = false;
+        } else {
+            input.value = '';
+        }
+    });
+    
+    // 4. Reset image preview
+    const imagePreview = document.getElementById('image-preview');
+    if (imagePreview) {
+        imagePreview.style.display = 'none';
+        imagePreview.src = '';
+    }
+ }
+
+
+
+ function openModal(button) {
+
+    cleanModal();
+    const row = button.closest('tr');
+    const itemId = row.getAttribute('data-id');
+    let getRowDataObject = new FormData();
+    getRowDataObject.append('item_id', itemId);
+     
+
+
+    naja.makeRequest('POST', linkGetRowData, getRowDataObject, { history: false })
+            .then(function(itemData) {
+
+                for (const [tableName, table] of Object.entries(productsConfigArray)) {
+
+                    const tableProperties = productsConfigArray[tableName].properties;
+
+                    if (tableProperties.type == 'child_table'){
+                      
+                        var mainDiv = document.querySelector(`div[id='${ tableName }-list-container']`);
+                        const baseListItem = document.createElement('div');
+                        baseListItem.className = 'child-table-item';
+
+                        for (const [variableKey, value] of Object.entries(productsConfigArray[tableName].variables)) {
+
+                            if (value.type == 'text' || value.type == 'number'){
+                                const inputWrapper = document.createElement('div');
+                                inputWrapper.className = 'child-table-input-container form-label-group';
+
+                                const input = document.createElement('input');
+                                input.type = value.type;
+                                input.name = variableKey;
+                                input.className = 'form-control';
+                            
+                                const label = document.createElement('label');
+                                label.htmlFor = variableKey;
+                                label.textContent = value.title;
+                                
+                                inputWrapper.appendChild(input);
+                                inputWrapper.appendChild(label);
+                                
+                                baseListItem.appendChild(inputWrapper);
+
+                            }else if(value.type == "position"){
+
+                                // dodelat pozici
+
+                            }
+                        }
+
+
+                     for (const variablesArray of itemData['main_tables'][tableName]) {
+                            
+                            const newItem = baseListItem.cloneNode(true);
+                            const itemId = variablesArray.id;
+                            newItem.setAttribute('data-id', itemId);
+
+                            for (const [key, value] of Object.entries(variablesArray)) {
+                                    // Fill in values
+                                    const inputs = newItem.querySelectorAll('input');
+                                    inputs.forEach(input => {
+                                        const fieldName = input.name;
+
+                                        if (key == fieldName) {
+                                            input.value = value;
+                                            input.name = `${ itemId }-${ fieldName }`;
+                                        }
+                                    });
+                            }
+                            mainDiv.appendChild(newItem);
+                        } 
+
+
+                    }else if (tableProperties.type == 'relationships_table'){
+                        
+                        var parentDiv = document.querySelector(`div[agenda='${ tableName }']`);
+                        const otherTables = itemData["otherTables"][table.properties.data_fill_table];
+
+                        // create checkboxes
+                        for (const otherTableItem of otherTables) {
+                            const checkboxGroup = document.createElement('div');
+                            checkboxGroup.className = 'form-checkbox-group';
+                            
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = tableName;
+                            checkbox.value = otherTableItem.id;
+                            checkbox.id = tableName + otherTableItem.id;
+                            checkbox.className = 'form-checkbox';
+                            
+                            // Check if this checkbox should be checked
+                            for (const checkedBox of itemData['main_tables'][tableName]) {
+                                if (checkedBox[tableProperties.data_fill_table_reference_value] == otherTableItem.id) {
+                                    checkbox.checked = true;
+                                    break;
+                                }
+                            }
+                            
+                            const label = document.createElement('label');
+                            label.htmlFor = tableName + otherTableItem.id;
+                            label.className = 'checkbox-label';
+                            label.textContent = otherTableItem.title_cs;
+                            
+                            checkboxGroup.appendChild(checkbox);
+                            checkboxGroup.appendChild(label);
+                            
+                            parentDiv.appendChild(checkboxGroup);
+                        }
+
+
+                    }else{
+
+                        for (const [key, value] of Object.entries(productsConfigArray[tableName].variables)) {
+
+                            const input = document.querySelector(`input[name="${ key }"]`);
+                            const itemValue = itemData['main_tables'][tableName][0][key];
+
+                                //if (value.visibility != 'hidden'){
+                                    if (input) {
+                                        if (key === 'id') {
+                                            input.value = itemId;
+                                        } else if (key === 'img_src') {
+ console.log('image', imagePath + input.value)
+                                            const imagePreview = document.getElementById('image-preview');
+                                            // Handle image field separately
+                                            input.value = itemValue;
+                                            // Update image preview if there's an existing image
+                                            if (input.value && imagePreview) {
+                                                console.log('image', imagePath + input.value)
+                                                imagePreview.src = imagePath + input.value;
+                                                imagePreview.style.display = 'block';
+                                            }
+                                        } else {
+                                            input.value = itemValue;
+                                        }
+                                    }
+                                //}
+                        }
+                     }
+                }
+
+                document.getElementById("editProductForm").addEventListener('submit', saveFormData);
+                editModal.style.display = "flex";
+
+            }).catch(function(error) {
+                console.error('Error:', error);
+                const message = {
+                    error: true,
+                    message: 'Nepodařilo se dostat data'
+                };
+                showNotification(message);
+                isEditing = false;
+        });
+            
+
+        
+    }
+
+
+
+
+
+
+function saveFormData(event) {
+    
+    event.preventDefault();
+
+    let formData = {};
+
+    const mainTableName = Object.keys(productsConfigArray).find(
+        table => productsConfigArray[table]?.properties?.type === 'main_table'
+    );
+    const mainIdInput = document.querySelector(`input[name="id"][agenda="${ mainTableName}"]`);
+    const mainId = mainIdInput ? mainIdInput.value : '-1';
+    
+    for (const tableName in productsConfigArray) {
+        
+        const tableObject = productsConfigArray[tableName];
+        const tableType = tableObject.properties.type;
+        
+        formData[tableName] = {};
+        
+        if (tableType === 'main_table') {
+            for (const key in tableObject.variables) {
+                const input = document.querySelector(`input[name="${ key }"]`);
+                if (input) {
+                    formData[tableName][key] = input.value;
+                }
+            }
+        } 
+        else if (tableType === 'relationships_table') {
+        
+
+            const checkboxes = document.querySelectorAll(`input[name="${ tableName}"]:checked`);
+            // Id checkboxu
+            const values = Array.from(checkboxes).map(cb => parseInt(cb.value));    
+
+            if (values.length > 0) 
+            {
+                formData[tableName] = values;
+            } else 
+            {
+                formData[tableName] = [];
+            }
+
+
+        } else if (tableType === 'child_table') {
+
+            const container = document.getElementById(`${ tableName}-list-container`);
+            const childItems = container.querySelectorAll('.child-table-item');
+                        
+            formData[tableName] = [];
+            
+            childItems.forEach(item => {
+                const itemId = item.getAttribute('data-id');
+                const childItem = { 
+                    id: itemId,
+                };
+                
+                // Get all inputs for this child item
+                const inputs = item.querySelectorAll('input');
+                inputs.forEach(input => {
+                    const fieldName = input.name.split('-')[1];
+                    if (fieldName) {
+                        childItem[fieldName] = input.value;
+                    }
+                });
+                
+                formData[tableName].push(childItem);
+            });
+        }
+    }
+
+
+    //IMAGE
+
+    const fileInput = document.querySelector('input[type="file"]');
+    const hasFileUpload = fileInput && fileInput.files.length > 0;
+    let formDataTemp = new FormData();
+
+    if (hasFileUpload) {
+        
+        formDataTemp.append('image_file', fileInput.files[0]);
+        
+        for (const tableName in productsConfigArray) {
+            const tableConfig = productsConfigArray[tableName];
+            
+            for (const key in tableConfig.variables) {
+                if (tableConfig.variables[key].type === 'image') {
+                    // Generate a unique filename
+                    const timestamp = new Date().getTime();
+                    const fileName = timestamp + '_' + fileInput.files[0].name;
+                    formData[tableName][key] = fileName;
+                }
+            }
+        }
+        
+        
+    } 
+
+    formDataTemp.append('formData', JSON.stringify(formData))
+        formData = formDataTemp;
+    
+    naja.makeRequest('POST', linkSaveItem, formData, {
+        fetch: {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        },
+        history: false
+    })
+    .then(function(response) {
+         const respons = {'error' : false, 'message' : 'Uloženo'};
+        toastSystem.showNotification(respons); 
+        editModal.style.display = "none";
+
+    })
+    .catch(function(error) {
+        console.error(error);
+    });
+    
+
+
+
+}
+
+
+    function deleteItem(button){
+
+
+            let row = button.closest('tr');
+            let id = row.getAttribute('data-id');
+
+            if (confirm("Opravdu chcete smazat tento řádek?")) {
+                naja.makeRequest('POST', linkDeleteItem, { id: id }, { history: false })
+                    .then(function(response) {
+                        
+                    })
+                    .catch(function(error) {
+                        console.error(error);
+                    });
+            } else {
+                return;
+            }
+    }
+
+
+
+</script>
+
+

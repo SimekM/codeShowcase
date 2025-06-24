@@ -1,0 +1,211 @@
+<style>
+  /* Contact */
+  section.contact-form {
+    background-color: var(--white-color);
+    padding-top: 250px;
+    padding-bottom: 220px;
+    padding-left: var(--margin-sides);
+    padding-right: var(--margin-sides);
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    column-gap: 50px;
+    row-gap: 100px;
+  }
+
+  .contact {
+    margin: var(--margin-sides);
+    display: flex;
+    padding: 40px 20px;
+  }
+
+  .contact-form-info {
+    max-width: 453px;
+    width: 100%;
+    align-items: baseline;
+    gap: 0;
+  }
+
+  .contact-form-info>p {
+    margin-top: 18px;
+    margin-bottom: 45px;
+  }
+
+  /* Form */
+  .contact-container {
+    max-width: 848px;
+    width: 100%;
+    background-color: var(--primary-color);
+    padding-left: 8px
+  }
+
+  .contact-wrapper {
+    padding: 70px 88px;
+    color: var(--white-color);
+    background-color: var(--secondary-color);
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 700px) {
+    .contact-wrapper {
+      padding: 50px 50px;
+    }
+  }
+
+  .contact-container .text-wrapper {
+    margin-bottom: 56px;
+  }
+
+  .contact-container .text-wrapper h2 {
+    margin-bottom: 15px;
+  }
+
+  .contact-container label {
+    font-weight: bold;
+  }
+
+  .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+  }
+
+  .form-grid-item {
+    grid-column: span 2;
+  }
+
+  .flex-input-wrapper {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .form-input-grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    justify-content: space-between;
+  }
+
+  .contact-form form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+
+  .contact-form textarea {
+    height: 150px;
+  }
+
+  @media (max-width: 500px) {
+    .form-input-grid-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+  }
+</style>
+
+
+<script>
+  var linkSendForm = {link SendForm!}
+  const getElementValue = (string) => {
+    let elVal = document.getElementById(string);
+    if (!elVal) return "";
+    return elVal.value.trim(); // removing whitespaces on both sides
+  };
+
+  const handleFocusOut = (event) => {
+    let id = event.target.id;
+    let value = event.target.value.trim();
+    let errorMessage = "";
+
+    if (id === "name" && value.length < 3) {
+      errorMessage = "Název musí mít alespoň 3 znaky.";
+    } else if (id === "email" && !isValidEmail(value)) {
+      errorMessage = "Neplatná emailová adresa.";
+    } else if (id === "subject" && value.length < 3) {
+      errorMessage = "Předmět musí mít alespoň 3 znaky.";
+    } else if (id === "message" && value.length < 10) {
+      errorMessage = "Zpráva musí mít alespoň 10 znaků.";
+    };
+
+    if (errorMessage) {
+      document.getElementById("messageOut").innerText = errorMessage;
+    } else {
+      document.getElementById("messageOut").innerText = "";
+    };
+  };
+
+  const isValidEmail = (email) => {
+    // Simple email validation regex
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
+  const sendForm = () => {
+
+    let data = {
+      "name": getElementValue("name"),
+      "email": getElementValue("email"),
+      "subject": getElementValue("subject"),
+      "message": getElementValue("message")
+    };
+
+    let errorMessage = "";
+    if (!data.name) {
+      errorMessage = "jméno je vyžadováné.";
+    };
+
+    if (!data.subject) {
+      errorMessage = "Předmět je vyžadován."
+    }
+
+    if (!isValidEmail(data.email)) {
+      errorMessage = "Email je vyžadován.";
+    };
+
+    if (!data.message) {
+      errorMessage = "zpráva je vyžadováná.";
+    };
+
+    if (errorMessage) {
+      document.getElementById("messageOut").innerText = errorMessage;
+    } else {
+      document.getElementById("messageOut").innerText = "";
+
+      fetch(linkSendForm, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+        .then((response) => {
+          console.log(response);
+          outElement = document.getElementById("messageOut");
+          if (response.result === "success") {
+            outElement.parentNode.className = outElement.parentNode.className + " success";
+          } else {
+            outElement.parentNode.className = outElement.parentNode.className + " warning";
+          };
+          response.text().then((responsetext) => outElement.innerText = responsetext);
+        })
+        .catch((error) => {
+          console.log(error);
+          outElement = document.getElementById("messageOut");
+          outElement.parentNode.className = outElement.parentNode.className + " error";
+          error.text().then((errortext) => outElement.innerText = errortext);
+        });
+    };
+  };
+</script>

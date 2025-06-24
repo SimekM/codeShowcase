@@ -1,0 +1,20 @@
+
+
+{if !$repeatLoad}
+  
+
+    {include '_assets_table.latte'}
+    {include '_assets_product.latte'}
+
+    <script>
+        var endOfList = {$endOfList};
+    </script>
+
+
+
+        {foreach $products->items as $product}
+            {control $presenter->getComponent(core)->getComponent(productItem) $product}
+        {/foreach}
+    
+
+{/if}

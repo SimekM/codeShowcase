@@ -1,0 +1,22 @@
+{block content}
+{include _assets.latte}
+
+
+<div class="big-page-wrapper" style="margin-top: 80px; margin-bottom: 220px;">
+    <h3>Váš účet</h3>
+    <div class="flex-wrapper" style="gap: 9vw; align-items: baseline; justify-content: left;">
+        <div class="flex-wrapper column" style="margin-top: 20px; align-items: baseline;">
+            <div class="left-bar flex-wrapper column">
+                <a href="{plink User:orders}">Objednávky</a>
+                <a href="{plink User:favorite}">Oblíbené produkty</a>
+                <a href="{plink User:info}">Osobní údaje</a>
+            </div>
+        </div>
+        <div>
+            <p>Vítejte na svém účtu. Zde si můžete kontrolovat své objednávky, vrátit se ke svým oblíbeným produktům či
+                upravovat osobní údaje.</p>
+            <a style="margin-top: 80px; width: fit-content;" href="{plink Products:default}" class="cta-button">
+                < Zpět k nákupu</a>
+        </div>
+    </div>
+</div>

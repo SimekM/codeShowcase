@@ -1,0 +1,263 @@
+<style>
+
+
+body {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: var(--very-light-gray);
+}
+
+
+.form-wrapper{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+}
+
+
+.login-register-link{
+    color: var(--secondary-variant);
+    text-align: center;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+    height: 3.125rem;
+    padding: .75rem;
+}
+
+.form-label-group > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    margin-bottom: 0; 
+    line-height: 1.5;
+    color: #495057;
+    pointer-events: none;
+    cursor: text;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::placeholder {
+    color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+
+ #notification-container {
+      position: fixed;
+      display: flex;
+      align-items: center;
+      top: 5%;
+      right: 10%;
+      left: 10%;
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 1000;
+      text-align: center;
+      font-size: 18px;
+      opacity: 1;
+      transition: opacity 1s ease-out;
+  }
+
+  @media screen and (max-width: 500px) {
+      #notification-container {
+            top: 68px;
+      }
+  }
+
+</style>
+
+
+<script>
+
+	var linkLogIn = {link logIn!};
+
+
+
+    function showNotification(messageData) 
+        {
+            var notification = document.createElement('div');
+            notification.id = 'notification-container';
+            if (messageData.error) {
+                notification.style.backgroundColor = '#f8d7da';
+                notification.style.color = '#721c24';
+                notification.style.border = '2px solid #f5c6cb'; 
+            } else {
+                notification.style.backgroundColor = '#d4edda';
+                notification.style.color = '#155724'; 
+                notification.style.border = '2px solid #c3e6cb'; 
+            }
+
+            var notificationText = document.createElement('div');
+            notificationText.innerText = messageData.message;
+            
+            notification.appendChild(notificationText);
+            document.body.appendChild(notification);
+
+            setTimeout(function() {
+                notification.classList.add('fade-out');
+                setTimeout(function() {
+                notification.remove();
+                }, 1000); 
+            }, 8000);
+    }
+
+        $(document).ready(function() {
+
+            $('input[name="email"]').on('input', function() {
+                this.setCustomValidity('');
+                if (!this.validity.valid) {
+                    this.setCustomValidity('Prosím, zadejte platnou emailovou adresu.');
+                }
+            });
+
+            $('input[name="email"]').on('invalid', function() {
+                if (this.value === '') {
+                    this.setCustomValidity('Toto pole je povinné.');
+                } else {
+                    this.setCustomValidity('Prosím, zadejte platnou emailovou adresu.');
+                }
+            });
+
+            $('input[name="password"]').on('input', function() {
+                this.setCustomValidity('');
+                if (this.value.length < 3) {
+                    this.setCustomValidity('Heslo musí být alespoň 3 znaky dlouhé.');
+                }
+            });
+
+            $('input[name="password"]').on('invalid', function() {
+                if (this.value === '') {
+                    this.setCustomValidity('Toto pole je povinné.');
+                } else {
+                    this.setCustomValidity('Heslo musí být alespoň 3 znaky dlouhé.');
+                }
+            });
+
+            $('input[name="passwordConfirm"]').on('input', function() {
+                this.setCustomValidity('');
+                if (this.value !== $('input[name="password"]').val()) {
+                    this.setCustomValidity('Hesla se neshodují.');
+                }
+            });
+
+            $('input[name="passwordConfirm"]').on('invalid', function() {
+                if (this.value === '') {
+                    this.setCustomValidity('Toto pole je povinné.');
+                } else if (this.value !== $('input[name="password"]').val()) {
+                    this.setCustomValidity('Hesla se neshodují.');
+                }
+            });
+
+
+
+
+
+            $('form[name="logInForm"]').on('submit', function(event) {
+               
+               if (!this.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                var form = this;
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    event.preventDefault();
+
+                var formData = {
+                    email: $('input[name="email"]').val(),
+                    password: $('input[name="password"]').val()
+                };
+              
+                $.ajax({
+                    url: linkLogIn,
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        showNotification(response);
+                        console.log(response)
+                        if (!response.error){
+                            window.location.href = {$baseUrl} + '/editor';
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                          const response = {
+                            error: true,
+                            message: 'Nepodařilo se přihlásit'
+                        };
+                        showNotification(response);
+                    }
+                });
+                }
+
+            });
+        });
+
+
+
+</script>
+
+

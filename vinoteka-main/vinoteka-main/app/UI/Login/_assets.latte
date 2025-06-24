@@ -1,0 +1,208 @@
+<style>
+
+.form-wrapper{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    height: calc(100vh - 185px);
+    align-items:center;
+}
+
+
+.login-register-link{
+    color: var(--secondary-variant);
+    text-align: center;
+}
+
+.form-login {
+    width: 100%;
+    padding: 15px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    }
+
+    .login-btn{
+        height: 45px;
+        width: 200px;
+    }
+
+
+.form-label-group {
+    position: relative;
+    width: 100%;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+    height: 3.125rem;
+    padding: .75rem;
+    width: 100%;
+}
+
+.form-label-group > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    margin-bottom: 0; 
+    line-height: 1.5;
+    color: #495057;
+    pointer-events: none;
+    cursor: text;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    transition: all .1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+    color: transparent;
+}
+
+.form-label-group input::placeholder {
+    color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+    padding-top: 1.25rem;
+    padding-bottom: .25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+    font-size: 12px;
+    color: #777;
+}
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+}
+
+
+.form-heading{
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.login-register-link{
+    color: blue;
+    text-align: center;
+    font-size: 18px;
+    color: var(--primary);
+}
+
+
+.login-btn{
+    height: 45px;
+    width: 200px;
+    margin-top: 1rem;
+}
+
+
+
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+
+</style>
+
+
+<script>
+
+   var loginLink = {link logIn!}
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var emailInput = document.querySelector('input[name="loginEmail"]');
+        var passwordInput = document.querySelector('input[name="password"]');
+        var loginForm = document.querySelector('form[name="logInForm"]');
+
+          emailInput.addEventListener('input', function() {
+            this.setCustomValidity('');
+            if (!this.validity.valid) {
+                this.setCustomValidity('Prosím, zadejte platnou emailovou adresu.');
+            }
+        });
+
+        emailInput.addEventListener('invalid', function() {
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, zadejte platnou emailovou adresu.');
+            } else {
+                this.setCustomValidity('Prosím, zadejte platnou emailovou adresu.');
+            }
+        });
+
+        passwordInput.addEventListener('input', function() {
+            this.setCustomValidity('');
+            if (this.value.length < 8) {
+                this.setCustomValidity('Heslo musí být alespoň 8 znaků dlouhé.');
+            }
+        });
+
+        passwordInput.addEventListener('invalid', function() {
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, zadejte heslo alespoň 8 znaků dlouhé.');
+            } else {
+                this.setCustomValidity('Heslo musí být alespoň 8 znaků dlouhé.');
+            }
+        });
+
+
+    loginForm.addEventListener('submit', function(event) {
+        if (!this.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            event.preventDefault();
+
+            var formData = {
+                email: emailInput.value,
+                password: passwordInput.value
+            };
+
+            naja.makeRequest('POST', loginLink, formData, { history: false })
+                .then(function(response) {
+                    toastSystem.showNotification(response);
+                    if (!response.error) {
+                        window.location.href = {$baseUrl} + '/admin';  // Assumes baseUrl is a global variable
+                    }
+                })
+                .catch(function(error) {
+                    const response = {
+                        error: true,
+                        message: 'Nepodařilo se přihlásit'
+                    };
+                    toastSystem.showNotification(response);
+                });
+        }
+    });
+});
+
+
+</script>
+
+

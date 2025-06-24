@@ -1,0 +1,173 @@
+<script>
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const platbyCheckboxes = document.querySelectorAll('.zpusob-platby .item input[type="checkbox"]');
+    const dopravyCheckboxes = document.querySelectorAll('.zpusob-dopravy .item input[type="checkbox"]');
+    const messageBox = document.querySelector('.delivery-info');
+    
+    function uncheckOthers(current, checkboxes) {
+        checkboxes.forEach(cb => {
+            if (cb !== current && cb.checked) {
+                cb.checked = false;
+            }
+        });
+    }
+
+    function checkVisibleCheckbox(container) {
+        // Get visible checkboxes within the container
+        const visibleCheckboxes = Array.from(container.querySelectorAll('.item input[type="checkbox"]'))
+            .filter(cb => {
+                const item = cb.closest('.item');
+                return item && window.getComputedStyle(item).display !== 'none';
+            });
+        
+        // Check if any visible checkbox is already checked
+        const anyChecked = visibleCheckboxes.some(cb => cb.checked);
+        
+        // If none are checked and there are visible checkboxes, check the first one
+        if (!anyChecked && visibleCheckboxes.length > 0) {
+            visibleCheckboxes[0].checked = true;
+            return visibleCheckboxes[0]; // Return the checkbox that was checked
+        }
+        
+        return null;
+    }
+
+    platbyCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function(e) {
+            if (!this.checked) {
+                this.checked = true; // Prevent unchecking
+            }
+            uncheckOthers(this, platbyCheckboxes);
+            handlePaymentSelection(this);
+        });
+    });
+
+    dopravyCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function(e) {
+            if (!this.checked) {
+                this.checked = true; // Prevent unchecking
+            }
+            uncheckOthers(this, dopravyCheckboxes);
+            updateMessage(); // Update message when delivery method changes
+        });
+    });
+
+    function handlePaymentSelection(selectedCheckbox) {
+        const dopravaHotove = document.querySelector('.doprava-hotove');
+        const dopravaPPL = document.querySelector('.doprava-ppl');
+        
+        // First uncheck all delivery checkboxes
+        dopravyCheckboxes.forEach(cb => cb.checked = false);
+
+        switch (selectedCheckbox.name) {
+            case 'checkbox-platba-hotove':
+                dopravaHotove.style.display = 'flex';
+                dopravaPPL.style.display = 'none';
+                // Select the "Osobní odběr na prodejně" checkbox
+                document.querySelector('input[name="checkbox-doprava-hotove"]').checked = true;
+                break;
+            case 'checkbox-platba-bakovni-prevod':
+                dopravaHotove.style.display = 'flex';
+                dopravaPPL.style.display = 'flex';
+                // Keep current selection if visible, otherwise select the first visible
+                checkVisibleCheckbox(document.querySelector('.zpusob-dopravy'));
+                break;
+            case 'checkbox-platba-dobirka':
+                dopravaHotove.style.display = 'none';
+                dopravaPPL.style.display = 'flex';
+                // Select the PPL checkbox since it's the only available option
+                document.querySelector('input[name="checkbox-doprava-ppl"]').checked = true;
+                break;
+        }
+        
+        updateMessage(); // Update message after changing payment selection
+    }
+    
+    function updateMessage() {
+        // Get selected payment and delivery methods
+        const selectedPayment = Array.from(platbyCheckboxes).find(cb => cb.checked);
+        const selectedDelivery = Array.from(dopravyCheckboxes).find(cb => cb.checked);
+        
+        if (!selectedPayment || !selectedDelivery || !messageBox) return;
+        
+        // Set appropriate message based on combination
+        if (selectedPayment.name === 'checkbox-platba-hotove') {
+            // Cash payment
+            messageBox.innerHTML = "<p>Zboží zaplatí zákazník hotově při osobním převzetí. Zákazník si zboží převezme osobně na pobočce Otrokovice.</p>";
+        } 
+        else if (selectedPayment.name === 'checkbox-platba-bakovni-prevod') {
+            // Bank transfer
+            if (selectedDelivery.name === 'checkbox-doprava-hotove') {
+                // Personal pickup
+                messageBox.innerHTML = "<p>Úhradu proveďte na bankovní účet naší společnosti 123-6516170227/0100. Jako variabilní symbol uveďte číslo objednávky. Zákazník si zboží převezme osobně na pobočce Otrokovice.</p>";
+            } else if (selectedDelivery.name === 'checkbox-doprava-ppl') {
+                // PPL delivery
+                messageBox.innerHTML = "<p>Úhradu proveďte na bankovní účet naší společnosti 123-6516170227/0100. Jako variabilní symbol uveďte číslo objednávky. Objednané zboží bude doručeno prostřednictvím přepravní služby PPL. Zboží rozesíláme jen v rámci ČR! Poštovné: 130,- Kč.</p>";
+            }
+        } 
+        else if (selectedPayment.name === 'checkbox-platba-dobirka') {
+            // Cash on delivery
+            messageBox.innerHTML = "<p>Zboží bude zákazníkovi zasláno na dobírku. Objednané zboží bude doručeno prostřednictvím přepravní služby PPL. Zboží rozesíláme jen v rámci ČR! Poštovné: 130,- Kč + Dobírka: 30,- Kč.</p>";
+        }
+    }
+
+    // Add form submission handler
+    const form = document.querySelector('.form-wrapper');
+    if (form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+            notifySystem.showLoading('Odesílání objednávky...');
+
+            // Create an object to hold form data
+            const formData = {};
+            
+            // Get all input values
+            Array.from(form.elements).forEach(function(element) {
+                if(element.name && element.type !== 'submit' && element.type !== 'checkbox') {
+                    formData[element.name] = element.value;
+                }
+            });
+            
+            // Handle payment method (zpusob-platby)
+            const selectedPlatba = Array.from(platbyCheckboxes).find(cb => cb.checked);
+            if(selectedPlatba) {
+                formData['zpusob-platby'] = selectedPlatba.name;
+            }
+            
+            // Handle delivery method (zpusob-dopravy)
+            const selectedDoprava = Array.from(dopravyCheckboxes).find(cb => cb.checked);
+            if(selectedDoprava) {
+                formData['zpusob-dopravy'] = selectedDoprava.name;
+            }
+            
+            var linkSendOrder = {link sendOrder!};
+
+            naja.makeRequest('POST', linkSendOrder, formData, { history:false } )
+                    .then((response) => {
+                            notifySystem.processResponse(response, 2000, 
+                                () => {
+
+                                    window.location.href = {$baseUrl} + '/order/summary/';                     
+                                }
+                            );
+                        
+                    })
+                    .catch((error) => {
+                        response = {"error" : true, "message" : "Objednávku se nepodařilo objednat zkuste to znovu, nebo nás kontaktujte."}
+                        notifySystem.processResponse(response);
+            });            
+            
+        });
+    }
+
+    // Initial setup: Auto-select and set initial visibility
+    const initialPlatba = document.querySelector('input[name="checkbox-platba-hotove"]');
+    if (initialPlatba) {
+        initialPlatba.checked = true;
+        handlePaymentSelection(initialPlatba);
+    }
+});
+</script>

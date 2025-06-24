@@ -1,0 +1,57 @@
+ <script>
+   
+         
+
+            document.addEventListener('DOMContentLoaded', function() {
+
+                naja.initialize();
+
+                var closeBtn = document.querySelector('.close-btn');
+                var sidebar = document.querySelector('.sidebar');
+                var pageContainer = document.querySelector('.page-container');
+
+                closeBtn.addEventListener('click', function() {
+
+                    // Get the computed style of the sidebar to check the animation name
+                    var sidebarAnimation = window.getComputedStyle(sidebar).getPropertyValue('animation-name');
+
+                    if (sidebarAnimation === 'slide-right') {
+                        sidebar.style.animationName = 'slide-left';
+                        if (window.innerWidth > 768) {
+                            pageContainer.style.marginLeft = '-250px';
+                        }
+                    } else {
+                        sidebar.style.animationName = 'slide-right';
+                        pageContainer.style.marginLeft = '0px';
+                    }
+                });
+
+
+
+                //sidebar dropdown
+
+                const dropdowBtnProducts = document.getElementById('btn-products-dropdown');
+                const submenuProducts = document.getElementById('sidebar-dropdown-menu');
+                const sidebarItem = submenuProducts.closest(".sidebar-item-hover");
+
+                dropdowBtnProducts.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    submenuProducts.classList.toggle('dropdown-active');
+                    sidebarItem.classList.toggle('dropdown-active');
+
+                    dropdowBtnProducts.querySelector(".dropdown-arrow").classList.toggle("rotated");
+
+                    if (submenuProducts.classList.contains('dropdown-active')) {
+                        submenuProducts.style.display = 'flex';
+                    } else {
+                        submenuProducts.style.display = 'none';
+                    }
+                });
+
+
+            });
+
+
+
+
+   </script>

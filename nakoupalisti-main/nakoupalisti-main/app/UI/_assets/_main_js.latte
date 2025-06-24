@@ -1,0 +1,292 @@
+<script>
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+        naja.initialize();
+        AOS.init();
+        
+    }); 
+
+
+      
+
+
+        {* Spinner *}
+
+        {* Spinner usage 
+         
+            notifySystem.processResponse(response);
+            notifySystem.showLoading('Odesílání objednávky...');
+            notifySystem.processResponse(response, 2000, 
+                () => {
+                    window.location.href = 'http://esiga.localhost/order/summary';
+                }
+            );
+
+
+            const response = await notifySystem.during(
+                naja.makeRequest('POST', linkSendOrder, formData, { history: false }),
+                'Odesílání objednávky...'
+            );
+
+
+            toastSystem.showNotification(response);
+
+        *}
+
+
+
+/**
+ * Notification System
+ * Handles loading spinners and status notifications
+ */
+const notifySystem = {
+    _element: null,
+    _textElement: null,
+    _timeoutId: null,
+    _currentType: null,
+    
+    /**
+     * Get the notification element
+     * @returns { HTMLElement } The notification element
+     */
+    get element() {
+        if (!this._element) {
+            this._element = document.getElementById('notificationSystem');
+            if (!this._element) {
+                console.error('Notification system element not found. Make sure to include the HTML.');
+            }
+        }
+        return this._element;
+    },
+    
+    /**
+     * Get the text element
+     * @returns { HTMLElement } The text element
+     */
+    get textElement() {
+        if (!this._textElement) {
+            this._textElement = this.element.querySelector('.notification-text');
+        }
+        return this._textElement;
+    },
+    
+    /**
+     * Set the notification type (loading, success, error)
+     * @param { string } type - The notification type
+     */
+    setType(type) {
+        const element = this.element;
+        
+        // Remove existing type classes
+        element.classList.remove('type-loading', 'type-success', 'type-error');
+        
+        // Add the new type class
+        if (type) {
+            element.classList.add(`type-${ type }`);
+            this._currentType = type;
+        }
+    },
+    
+    /**
+     * Show the loading spinner
+     * @param { string } message - Optional message to display
+     */
+    showLoading(message = 'Načítání...') {
+        this.clearTimeout();
+        this.setType('loading');
+        this.textElement.textContent = message;
+        this.element.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    },
+    
+    /**
+     * Show a success notification
+     * @param { string } message - The success message
+     * @param { number } duration - How long to show the notification (ms)
+     * @param { Function } callback - Optional callback after notification is hidden
+     */
+    showSuccess(message, duration = 2000, callback = null) {
+        this.clearTimeout();
+        this.setType('success');
+        this.textElement.textContent = message;
+        this.element.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        if (duration > 0) {
+            this._timeoutId = setTimeout(() => {
+                this.hide();
+                if (callback && typeof callback === 'function') {
+                    callback();
+                }
+            }, duration);
+        }
+    },
+    
+    /**
+     * Show an error notification
+     * @param { string } message - The error message
+     * @param { number } duration - How long to show the notification (ms)
+     * @param { Function } callback - Optional callback after notification is hidden
+     */
+    showError(message, duration = 2000, callback = null) {
+        this.clearTimeout();
+        this.setType('error');
+        this.textElement.textContent = message;
+        this.element.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        if (duration > 0) {
+            this._timeoutId = setTimeout(() => {
+                this.hide();
+                if (callback && typeof callback === 'function') {
+                    callback();
+                }
+            }, duration);
+        }
+    },
+    
+    /**
+     * Hide the notification
+     */
+    hide() {
+        this.clearTimeout();
+        this.element.classList.remove('active');
+        document.body.style.overflow = '';
+    },
+    
+    /**
+     * Clear any active timeout
+     */
+    clearTimeout() {
+        if (this._timeoutId) {
+            clearTimeout(this._timeoutId);
+            this._timeoutId = null;
+        }
+    },
+    
+    /**
+     * Process API response and show appropriate notification
+     * @param { Object } response - The API response object
+     * @param { number } duration - How long to show the notification (ms)
+     * @param { Function } successCallback - Optional callback for success
+     * @param { Function } errorCallback - Optional callback for error
+     */
+    processResponse(response, duration = 2000, successCallback = null, errorCallback = null) {
+        if (response.error) {
+            this.showError(response.message || 'Nastala chyba', duration, errorCallback);
+        } else {
+            this.showSuccess(response.message || 'Úspěšně dokončeno', duration, successCallback);
+        }
+    },
+    
+    /**
+     * Show notification during async operation
+     * @param { Promise } promise - The promise to wait for
+     * @param { string } loadingMessage - Message to show during loading
+     * @param { number } duration - How long to show success/error message
+     * @returns { Promise } - The original promise
+     */
+    async during(promise, loadingMessage = 'Načítání...', duration = 2000) {
+        this.showLoading(loadingMessage);
+        
+        try {
+            const result = await promise;
+            
+            // Check if result is an API response
+            if (result && typeof result === 'object') {
+                this.processResponse(result, duration);
+            } else {
+                this.hide();
+            }
+            
+            return result;
+        } catch (error) {
+            this.showError('Nastala chyba: ' + (error.message || ''), duration);
+            throw error;
+        }
+    }
+};
+
+
+/**
+ * Toast Notification System
+ * Shows simple notifications at the top of the page
+ */
+/**
+ * Toast Notification System
+ * Shows simple notifications at the top of the page that match SIGA website styling
+ */
+const toastSystem = {
+    /**
+     * Show a notification based on API response
+     * @param { object} response - API response object
+     * @param { boolean} response.error - Whether there's an error
+     * @param { string} response.message - The message to display
+     * @param { number|string} [response.cartTotal] - Optional cart total
+     * @param { number} duration - How long to show the notification in ms (default 5000ms)
+     */
+    showNotification(response, duration = 5000) {
+        if (!response || !response.message) {
+            return;
+        }
+        
+        // Remove any existing notification
+        this.removeExistingNotification();
+        
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.id = 'toast-notification';
+        
+        // Set color scheme based on response type
+        if (response.error) {
+            notification.className = 'error';
+        } else {
+            notification.className = 'success';
+        }
+        
+        // Create message element
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        messageElement.textContent = response.message;
+        
+        // Add to notification
+        notification.appendChild(messageElement);
+        
+       
+        
+        // Add to document
+        document.body.appendChild(notification);
+        
+        // Trigger animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+        
+        // Set timeout for auto-removal
+        setTimeout(() => {
+            notification.classList.remove('show');
+            
+            setTimeout(() => {
+                this.removeExistingNotification();
+            }, 300);
+        }, duration);
+    },
+    
+    /**
+     * Remove any existing notification
+     */
+    removeExistingNotification() {
+        const existingNotification = document.getElementById('toast-notification');
+        if (existingNotification) {
+            existingNotification.remove();
+        }
+    }
+};
+           
+
+
+
+
+</script>

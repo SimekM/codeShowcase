@@ -1,0 +1,84 @@
+{block content}
+{include _assets.latte}
+
+
+<section class="main-banner">
+    <div class="banner-wrapper">
+        <div class="content">
+            <h1 class="scale-up">NÁVODY A DOKUMENTY</h1>
+        </div>
+        <img src="{$baseUrl}/assets/images/document-banner.png">
+    </div>
+</section>
+
+<!-- INFO SECTION -->
+<section class="info">
+    <div class="page-wrapper">
+        <div class="flex-wrapper info-section">
+            <h1 class="scale-up">Návody k účtování ve <br> FIS3000</h1>
+            <p class="fade-in">Upozorňujeme, že všechny zde uvedené návody jsou pouze naše doporučení na možné způsoby účtování a
+                rozhodně je neberte jako závazné předpisy. V případě nejasností kontaktujte nás nebo svého daňového
+                poradce či auditora.</p>
+        </div>
+    </div>
+</section>
+
+{control core-fileTable $presenter->getName()}
+
+<section class="features">
+    <div class="page-wrapper">
+        <div class="scale-up flex-wrapper column">
+            <h1>ODKAZY NA WEBY A <br> ROZCESTNÍKY</h1>
+            <p class="info-text">V této sekci naleznete užitečné odkazy na stránky a rozcestníky, které vám pomohou lépe
+                porozumět účetním
+                předpisům, postupům a legislativním změnám. Vybrali jsme pro vás ověřené zdroje, které jsou relevantní
+                pro
+                správu financí a vedení účetnictví. Ať už hledáte inspiraci pro efektivnější účetní procesy, aktuální
+                daňové
+                informace, nebo software pro účetnictví, najdete zde vše potřebné.</p>
+        </div>
+        <div class="features-list">
+
+            {foreach $links as $link}
+            <a style="color: var(--white-color); text-decoration: none;" href="{$link->url}">
+
+                <div class="feature">
+                    <div class="content">
+                        <div class="flex-wrapper" style="gap: 50px;">
+                            <div class="image-wrapper">
+                                <img src="{$baseUrl}/assets/icons/globe.svg">
+                            </div>
+                            <div>
+                                <h3>{$link->title}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="svg-wrapper">
+                        <img src="{$baseUrl}/assets/icons/arrow-digital-right.svg">
+                    </div>
+                </div>
+            </a>
+            {/foreach}
+
+        </div>
+    </div>
+</section>
+
+<!-- Software Info Section -->
+<section class="software-info" id="skoleni">
+    <div class="image">
+        <img src="{$baseUrl}/assets/images/skoleni.png" alt="FIS 3000 Software">
+    </div>
+    <div class="text-content">
+        <h1>Školení - <span style="text-wrap: nowrap;">Naučte se</span> <br> ovládat FISS3000</h1>
+        <p>Protože potřebujete více než jen čísla. Náš systém FISS 3000 vám nabízí přesná data. Díky pokročilým funkcím
+            a uživatelsky přívětivému rozhraní vám umožníme dosáhnout lepších výsledků, rychleji se rozhodovat a zůstat
+            vždy o krok napřed.</p>
+        <div class="btn-group">
+            <a href="{plink Contact:default}">
+                <button class="cta-button">Mám zájem</button>
+            </a>
+        </div>
+
+    </div>
+</section>

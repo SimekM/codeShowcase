@@ -1,0 +1,87 @@
+{block content}
+{include _assets/products_assets.latte}
+
+
+
+
+
+
+
+<div class="page-wrapper">
+
+    <div class="table-container">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    {foreach $configArray["main_tables"] as $table}
+                        {if !isset($table['properties']['visibility']) || $table['properties']['visibility'] == 'visible'}
+                            {foreach $table['variables'] as $productConfig}
+                            {if !isset($productConfig['visibility']) || $productConfig['visibility'] == 'visible'}
+                                    <th>
+                                        <div>
+                                            
+                                                <p>{$productConfig['title']}</p>
+                                            
+                                        </div>
+                                    </th>
+                                {/if}
+                            {/foreach}
+                        {/if}
+                    {/foreach}    
+                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="ajax" n:snippet="itemsList">
+               {dump $productsArray}
+                {if $productsArray}
+                    {foreach $productsArray as $product}
+
+                        <tr data-id="{$product->id}">
+
+                            {foreach $configArray["main_tables"] as $table}
+                                {if !isset($table['properties']['visibility']) || $table['properties']['visibility'] == 'visible'}
+                                    {foreach $table['variables'] as $configKey => $productConfig}
+                                        {if !isset($productConfig['visibility']) || $productConfig['visibility'] == 'visible'}
+                                            {if $productConfig['type'] == 'image'}
+                                                <td class="{$configKey}">{$product[$configKey]}</td>
+                                            {else}
+                                                <td class="{$configKey}">{$product[$configKey]}</td>
+                                            {/if}
+
+                                        {/if}
+                                    {/foreach}
+                                {/if}
+                            {/foreach}
+                        
+                            <td>
+                                <div class="table-action-container">
+                                    <button class="table-edit-btn icon-btn hover-btn-raise" onclick="openModal(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+                                    <button class="table-delete-btn icon-btn hover-btn-raise" onclick="deleteItem(this)"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    {/foreach}
+                {else}
+                    {* <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Váš list je prázdný</td>
+                        <td></td>
+                        <td></td>
+                    </tr> *}
+                {/if}
+                
+            </tbody>
+        </table>
+
+        <button class="table-add-btn hover-btn-raise" onclick="openModal(this)"><i class="fa-solid fa-plus"></i> Vytvořit produkt</button>
+    </div>
+</div>
+
+
+
+

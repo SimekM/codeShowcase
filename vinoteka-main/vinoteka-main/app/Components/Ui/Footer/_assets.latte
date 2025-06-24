@@ -1,0 +1,99 @@
+<style>
+    /* Footer Section */
+    .main-footer {
+        background-color: var(--primary-color);
+        background-image: url("{$baseUrl}/assets/images/footer-bg.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: var(--white-color);
+        padding-top: 75px;
+        padding-bottom: 60px;
+        justify-content: space-evenly;
+        padding-left: var(--margin-sides);
+        padding-right: var(--margin-sides);
+    }
+
+    .main-footer a {
+        color: var(--white-color);
+        text-decoration: none;
+    }
+
+    .main-footer a:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .main-footer .logo-footer-wrapper {
+        display: flex;
+        margin-bottom: 110px;
+        flex-shrink: 0;
+        flex-direction: column;
+    }
+
+    .main-footer .logo-footer-wrapper .logo {
+        height: 150px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        object-fit: contain;
+        margin-bottom: 20px;
+    }
+
+    .main-footer h4 {
+        margin-bottom: 40px;
+    }
+
+    .main-footer .column {
+        max-width: 250px;
+        width: 100%;
+    }
+
+    .main-footer .column ul {
+        list-style: none;
+    }
+
+
+    .main-footer ul.flex-wrapper {
+        gap: 18px;
+    }
+
+    .main-footer .flex-wrapper {
+        justify-content: left;
+        align-items: baseline;
+        text-align: left;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+
+/*     .main-footer p {
+        color: var(--grey-text);
+    } */
+
+    .footer-wrapper {
+        display: flex;
+        gap: 20px;
+        row-gap: 100px;
+    }
+
+    .footer-main-wrapper {
+        justify-content: right !important;
+    }
+
+    @media only screen and (max-width: 1300px) {
+        .footer-wrapper {
+            flex-wrap: wrap;
+        }
+
+        .footer-main-wrapper {
+            justify-content: left !important;
+        }
+    }
+
+    .footer-bottom-bar {
+        margin-top: 110px;
+        width: 100%;
+        border-top: 2px solid var(--grey-text);
+        text-align: center;
+        padding-top: 20px;
+    }
+</style>

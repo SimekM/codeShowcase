@@ -1,0 +1,14 @@
+{include _assets.latte}
+
+
+<h3>Sledujte nás na instagramu</h3>
+<div class="SInstagram-wrapper" style="flex-wrap: wrap;">
+    {for $i = 1; $i <= 4; $i++}
+    <a href="#">
+        <div class="flex-wrapper column item">
+            <img src="{$baseUrl}/assets/images/instagram/image{$i}.png">
+            <img src="{$baseUrl}/assets/images/instagram/ig-bottom.png">
+        </div>
+    </a>
+    {/for}
+</div>

@@ -1,0 +1,32 @@
+{block content}
+{include _assets.latte}
+
+
+
+<div class="page-wrapper">
+    <section class="description">
+        <div style="max-width: 800px;">
+            <h3 style="margin-bottom: 10px; color: var(--primary-color);">Podpora prodeje</h3>
+            <p style="color: var(--grey-text);">Pro naše obchodní partnery jsme připravili kompletní sadu marketingových materiálů, které podpoří prodej
+                našich
+                produktů ve vašem obchodě. Tyto materiály zahrnují stojany, letáky, vzorky produktů a další propagační
+                předměty.
+                Stáhněte si kompletní katalog marketingových produktů pro vaši prodejnu <a target="_blank" href="{$baseUrl}/assets/pdf/esiga-katalog-podpora-prodeje.pdf">zde.</a></p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0; margin-bottom: 50px;"><iframe
+                style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;"
+                src="{$baseUrl}/assets/pdf/esiga-katalog-podpora-prodeje.pdf" seamless="seamless" scrolling="no" frameborder="0"
+                allowtransparency="true" allowfullscreen="true"></iframe></div>
+        <div class="button-wrapper">
+            <a target="_blank" href="{$baseUrl}/assets/pdf/esiga-katalog-podpora-prodeje.pdf" class="cta-button outline">
+                <div class="icon-text">Stáhnout Katalog <img src="{$baseUrl}/assets/icons/download.svg">
+                </div>
+            </a>
+        </div>
+    </section>
+</div>
+
+{control core-uiKeyBottom}

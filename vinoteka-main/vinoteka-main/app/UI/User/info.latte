@@ -1,0 +1,75 @@
+{block content}
+{include _assets.latte}
+
+
+<div class="big-page-wrapper user-section" style="margin-top: 80px; margin-bottom: 220px;">
+    <h3>Váš účet</h3>
+    <div class="flex-wrapper user-wrapper" style="gap: 9vw; align-items: baseline;">
+        <div class="flex-wrapper column" style="margin-top: 20px; align-items: baseline;">
+            <div class="left-bar flex-wrapper column">
+                <a href="{plink User:orders}">Objednávky</a>
+                <a href="{plink User:favorite}">Oblíbené produkty</a>
+                <a href="#">Osobní údaje</a>
+            </div>
+        </div>
+        <div class="container">
+            <h3 style="margin-bottom: 20px;">Osobní údaje</h3>
+            <p class="description">
+                Zde si můžete prohlédnout a upravit své údaje.<br />
+                Zde můžete upravit své přihlašovací možnosti a hesla.
+            </p>
+
+            <div class="info-section">
+                <div class="info-grid">
+                    <div class="icon-text">
+                        <svg width="23" height="28" viewBox="0 0 33 38" stroke="#333" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1 36.0632V33.8745C1 31.8625 1.39607 29.8702 2.16559 28.0113C2.93512 26.1525 4.06303 24.4635 5.48493 23.0408C6.90682 21.6181 8.59486 20.4896 10.4527 19.7196C12.3105 18.9496 14.3016 18.5533 16.3125 18.5533C18.3234 18.5533 20.3145 18.9496 22.1723 19.7196C24.0301 20.4896 25.7182 21.6181 27.1401 23.0408C28.562 24.4635 29.6899 26.1525 30.4594 28.0113C31.2289 29.8702 31.625 31.8625 31.625 33.8745V36.0632"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M16.3125 18.5533C18.6331 18.5533 20.8587 17.6309 22.4997 15.9891C24.1406 14.3472 25.0625 12.1203 25.0625 9.79839C25.0625 7.47644 24.1406 5.24959 22.4997 3.60772C20.8587 1.96585 18.6331 1.04346 16.3125 1.04346C13.9919 1.04346 11.7663 1.96585 10.1253 3.60772C8.48437 5.24959 7.5625 7.47644 7.5625 9.79839C7.5625 12.1203 8.48437 14.3472 10.1253 15.9891C11.7663 17.6309 13.9919 18.5533 16.3125 18.5533V18.5533Z"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div>
+                            <span class="label">Název</span><br />
+                            <span class="value">Johny Ronny</span>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="label">Číslo mobilního telefonu</span><br />
+                        <span class="value">+420333333333</span>
+                    </div>
+                    <div>
+                        <span class="label">Datum narození</span><br />
+                        <span class="value">--</span>
+                    </div>
+                </div>
+                <button class="edit-button">Upravit</button>
+            </div>
+
+            <div class="info-section">
+                <div class="icon-text">
+                    <i style="width: 23px; height: 28px;" class="fa-solid fa-envelope"></i>
+
+                    <div class="info-row">
+                        <span class="label">Vaše e-mailová adresa</span>
+                        <span class="value">random@seznam.cz</span>
+                    </div>
+                </div>
+                <button class="edit-button">Upravit</button>
+            </div>
+
+            <div class="info-section">
+                <div class="icon-text">
+                    <i style="width: 23px; height: 28px;" class="fa-solid fa-lock"></i>
+                    <div class="info-row">
+                        <span class="label">Vaše heslo</span>
+                        <span class="value">********</span>
+                    </div>
+                </div>
+                <button class="edit-button">Upravit</button>
+            </div>
+        </div>
+    </div>
+</div>

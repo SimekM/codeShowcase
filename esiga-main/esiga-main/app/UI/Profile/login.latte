@@ -1,0 +1,25 @@
+{block content} {include _profile.latte}
+
+<div class="page-wrapper">
+    <div>
+        <div class="flex-wrapper" style="margin-bottom: 50px;">
+            <img src="{$baseUrl}/assets/icons/user/logo.svg">
+        </div>
+        <div class="login-container">
+            <h4>Přihlášení</h4>
+            <p style="margin-bottom: 40px;">Pro přihlášení ke svému účtu vyplňte údaje, které jste použili při
+                registraci</p>
+
+            <div><p>E-Mail</p></div>
+            <input id="email" type="email" >
+            <div class="flex-wrapper" style="justify-content: space-between;">
+                <p>Heslo</p>
+                <a href="{plink Profile:forgot}" style="color: var(--grey-text);">Zapomenuté heslo?</a>
+            </div>
+            <input id="password" type="password">
+
+            <button>Přihlásit se</button>
+            <a href="{plink Profile:register}"  class="register-link">Nová registrace</a>
+        </div>
+    </div>
+</div>

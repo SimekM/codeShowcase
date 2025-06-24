@@ -1,0 +1,17 @@
+services:
+	- App\Core\RouterFactory::createRouter
+	- App\Core\ModelCore
+	- App\Core\Models\Language
+	- App\Core\Models\Config
+	- App\Core\Models\Shop
+	- App\Core\Models\Cart
+	- App\Core\Models\Query_database
+	- App\Core\Models\Admin
+
+
+
+search:
+	-	in: %appDir%
+		classes:
+			- *Factory
+			- *Facade

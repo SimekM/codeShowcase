@@ -1,0 +1,198 @@
+<style>
+    /* Table Styling */
+    .document-table {
+        padding: 0 var(--margin-sides);
+        width: 100%;
+        margin-bottom: 150px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Table header styling */
+    thead {
+        background-color: var(--primary-color);
+    }
+
+/*     thead tr {
+        border-bottom: 3px solid #161616;
+    } */
+
+    thead th {
+        font-size: 25px;
+        font-family: "AnekLatin";
+        text-transform: uppercase;
+        text-align: center;
+        padding: 10px 25px;
+        color: var(--white-color);
+    }
+
+    /* Table body styling */
+    tbody td {
+        padding: 10px;
+        border-top: 2px solid #D9D9D9;
+        border-bottom: 2px solid #D9D9D9;
+        vertical-align: middle;
+        font-size: 20px;
+        font-family: "NotoSans";
+        color: var(--grey-text);
+    }
+    
+
+    /* First column: icon and text */
+    .file-link{
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .file-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .file-icon img {
+        margin-right: 10px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #E9E9E9;
+    }
+
+    .label {
+        background-color: #D9D9D9;
+        text-wrap: nowrap;
+        padding: 4px 8px;
+        border-radius: 20px;
+        font-size: 12px;
+        margin-right: 8px;
+    }
+
+    tr.spacer td {
+        padding: 0;
+        padding-top: 15px;
+        border: none;
+    }
+
+    tr.highlight td {
+        border-top: 1px solid var(--grey-text);
+        border-bottom: none;
+        padding-bottom: 25px;
+    }
+
+/*     tbody tr:hover {
+        background-color: #D9D9D9;
+        border-bottom: 3px solid var(--secondary-color);
+        cursor: pointer;
+    }
+
+    tbody tr:hover .label {
+        background-color: #646361;
+        color: var(--white-color);
+    } */
+
+    tbody tr:first-child td {
+        /* padding-top: 50px; */
+        border-spacing: 0 1em;
+    }
+
+
+    /* Table data cell size adjustments */
+    tbody td:nth-child(2),
+    tbody td:nth-child(4) {
+        width: 15%;
+        text-align: left;
+    }
+
+
+     @media screen and (max-width: 680px) {
+
+        /* Vymazani stylu */
+       
+
+        .file-icon img {
+            display: none;
+        }
+
+        th {
+            display: none;
+        }
+        tbody td {
+            display: grid;
+            border-bottom: none !important;
+            font-size: 12px;
+            padding: 0.7rem 1rem !important;
+            grid-template-columns: 15ch auto;
+            
+        }
+
+        tbody td::before {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 13px;
+            color: #161616;
+        }
+
+         tbody td p{
+            font-size: 12px;
+        }
+
+        tbody tr:first-child td {
+            padding-top: 0px;
+        }
+
+        tbody td:nth-child(1) {
+            padding-top: 25px !important;
+        }
+
+       
+
+        tbody td:nth-child(4) {
+            border-bottom: 3px solid #161616 !important;
+            padding-bottom: 30px !important;  
+        }
+
+       
+
+
+        tbody td:nth-child(2),
+        tbody td:nth-child(4) {
+            width: 100%;
+        }
+
+        tbody td:nth-of-type(1)::before{
+            content: "Oddělení: ";
+        }
+
+        tbody td:nth-of-type(2)::before{
+            content: "Specializace: ";
+        }
+
+        tbody td:nth-of-type(3)::before{
+            content: "Jméno: ";
+        }
+
+        tbody td:nth-of-type(4)::before{
+            content: "Telefon: ";
+        }
+
+        tbody td:nth-of-type(5)::before{
+            content: "E-mail: ";
+        }
+
+        .type-container{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .label{
+            padding: 3px 7px;
+            font-size: 12px;
+            margin: 0;
+        }
+
+    }
+</style>

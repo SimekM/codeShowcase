@@ -1,0 +1,57 @@
+{include _assets.latte}
+
+<footer class="main-footer" id="kontakt">
+  <div class="footer-wrapper">
+    <div class="logo-footer-wrapper">
+      <img class="logo" src="{$baseUrl}/assets/images/nav-logo-white.png" />
+      <div class="flex-wrapper" style="justify-content: center;">
+        <img src="{$baseUrl}/assets/icons/instagram.png">
+        <img src="{$baseUrl}/assets/icons/facebook.png">
+      </div>
+    </div>
+    <div class="flex-wrapper footer-main-wrapper" style="width: 100%;">
+      <div class="column">
+        <h4>Menu</h4>
+        <ul class="flex-wrapper column">
+          <li><a href="{plink Products:default}">Druhy vína</a></li>
+          <li><a href="{plink Products:default}{plink Services:default}">Země původu</a></li>
+          <li><a href="{plink Products:default}">Prémiová vína</a></li>
+          <li><a href="{plink Products:default}">Akce 2 + 1 zdarma</a></li>
+          <li><a href="{plink Services:night}">Degustační večery</a></li>
+        </ul>
+      </div>
+      <div class="column">
+        <h4>Vše o nákupu</h4>
+        <ul class="flex-wrapper column">
+          <li><a href="{plink Howtobuy:default}">Jak nakupovat</a></li>
+          <li><a href="{plink Shoppingterms:default}">Obchodní podmínky</a></li>
+          <li><a href="{plink Privacy:default}">Podmínky GDPR</a></li>
+          <li><a href="{plink Deliveryterms:default}">Doprava zboží</a></li>
+          <li><a href="{plink Refundterms:default}">Vrácení peněz</a></li>
+        </ul>
+      </div>
+      <div class="column">
+        <h4>Kontakt</h4>
+        <ul class="flex-wrapper column">
+          <li class="icon-text" style="gap: 13px;">
+            <img src="{$baseUrl}/assets/icons/home/phone-white.svg">
+            <a href="tel:+420608866399">
+              +420 608 866 399</a>
+          </li>
+          <li class="icon-text" style="gap: 13px;">
+            <img src="{$baseUrl}/assets/icons/home/phone-white.svg">
+            <a href="tel:+420774199650">
+              +420 774 199 650</a>
+          </li>
+          <li class="icon-text" style="gap: 13px;">
+            <img src="{$baseUrl}/assets/icons/home/mail-white.svg">
+            <a href="mailto:mille@mille.cz">mille@mille.cz</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom-bar">
+    <p>Copyright © 2024 Nodelogi & Táňa Kotasová | Všechna práva vyhrazena</p>
+  </div>
+</footer>

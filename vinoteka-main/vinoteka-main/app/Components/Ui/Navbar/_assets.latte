@@ -1,0 +1,372 @@
+<style>
+    .header.sticky {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+    }
+
+    header.header {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 35px;
+        font-size: 20px;
+        z-index: 2;
+        width: 100%;
+    }
+
+    .header-container {
+        border-radius: 60px;
+        padding: 18px 2vw;
+        background-color: var(--primary-color);
+        background-image: url("{$baseUrl}/assets/images/wine-nav.png");
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        display: flex;
+        align-items: inherit;
+    }
+
+    .selected {
+        color: var(--primary-color) !important;
+    }
+
+    .header p {
+        white-space: nowrap;
+    }
+
+    .logo-wrapper {
+        height: 85px;
+    }
+
+    .navbar.main {
+        width: 100%;
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+    .nav-right-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 27px;
+        justify-self: right;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .nav-right-wrapper svg {
+        height: 35px;
+        stroke: var(--white-color);
+    }
+
+    .logo-wrapper img {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        object-fit: contain;
+    }
+
+    .navbar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 5vw;
+    }
+
+    .navbar ul {
+        list-style: none;
+        display: flex;
+        gap: 2.604vw;
+    }
+
+    .navbar.main ul {
+        text-wrap: nowrap;
+    }
+
+    .navbar ul li a {
+        color: var(--white-color);
+        text-decoration: none;
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+        color: var(--secondary-color);
+    }
+
+    /* Hamburger */
+    .hamburger {
+        cursor: pointer;
+        width: 30px;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .hamburger span {
+        display: block;
+        height: 3px;
+        background-color: var(--white-color);
+        border-radius: 3px;
+        transition: 0.3s ease-in-out;
+    }
+
+    #ham-nav {
+        display: none !important;
+        align-items: center;
+        background-color: transparent;
+        width: 100%;
+        display: flex;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 300px;
+        height: 100%;
+        background-color: var(--white-color);
+        transition: 0.3s;
+        padding-top: 60px;
+        padding-left: 30px;
+        z-index: 20;
+    }
+
+    .overlay {
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: none;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 13px;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        gap: 20px;
+    }
+
+    .sidebar-link:hover {
+        cursor: pointer;
+        color: var(--secondary-color);
+    }
+
+    .sidebar-link.selected {
+        color: var(--secondary-color);
+    }
+
+
+    .sidebar ul li a {
+        font-family: "Inter", sans-serif;
+        font-size: 20px;
+        text-decoration: none;
+        transition: 0.3s;
+        color: var(--white-color);
+        text-decoration: none;
+        position: relative;
+    }
+
+    .sidebar ul li a:hover {
+        color: var(--grey-color);
+    }
+
+    .contact-info {
+        position: absolute;
+        right: 7.5vw;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .contact-info p {
+        white-space: nowrap;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        #ham-nav {
+            display: flex !important;
+            justify-content: right;
+            padding-right: 50px;
+        }
+
+        .navbar.main {
+            display: none;
+        }
+
+        .contact-info.main {
+            display: none;
+        }
+
+        .contact-info.insidebar {
+            right: unset;
+            bottom: 60px;
+        }
+
+        .selected {
+            color: var(--grey-text) !important;
+        }
+    }
+
+    @media only screen and (max-width: 500px) {
+        #ham-nav {
+            padding-right: 20px;
+        }
+    }
+
+    /* DROPDOWN */
+    .dropdown {
+        position: relative;
+    }
+
+    .navbar-arrow {
+        margin-left: 5px;
+        transition: transform 0.3s ease-in-out;
+        display: inline-block;
+        color: var(--white-color);
+    }
+
+    .dropdown .dropdown-menu {
+        width: 300%;
+        display: none !important;
+        position: absolute;
+        z-index: 4;
+        top: 100%;
+        left: 0;
+        padding: 25px !important;
+        gap: 30px !important;
+        background-color: var(--white-color);
+    }
+
+    .dropdown .dropdown-menu li {
+        display: block !important;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .dropdown:hover .navbar-arrow {
+        transform: rotate(90deg);
+        color: var(--secondary-color);
+    }
+
+    .arrow {
+        color: var(--white-color);
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .dropdown-menu a {
+        color: var(--black-color) !important;
+    }
+
+    .dropdown-menu a:hover {
+        color: var(--primary-color) !important;
+    }
+
+    /* Search-bar */
+    .nav-right-wrapper .searchbar {
+        max-width: 600px;
+        width: 100%;
+        background-color: #faf2f4;
+        border-radius: 50px;
+        padding: 24px;
+        gap: 10px;
+        justify-content: left;
+    }
+
+    .nav-right-wrapper .searchbar p {
+        color: var(--grey-text);
+    }
+
+    /* Dropdown mobile */
+    .dropdown-mobile .dropdown-menu {
+        display: none !important;
+        z-index: 4;
+        top: 100%;
+        left: 0;
+        padding: 25px !important;
+        gap: 30px !important;
+        margin-bottom: 0px;
+    }
+
+    .dropdown-mobile.active .navbar-arrow {
+        transform: rotate(90deg);
+    }
+
+    .dropdown-mobile.active .dropdown-menu {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    #dropmobile_toggle {
+        color: var(--black-color) !important;
+    }
+    #dropmobile_toggle .navbar-arrow {
+        color: var(--black-color) !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const dropmobile = document.querySelectorAll(".sidebar #dropmobile");
+        dropmobile.forEach(element => {
+            element.querySelector("#dropmobile_toggle").addEventListener("click", () => {
+                element.classList.toggle("active");
+            });
+        });
+
+        // hamburger
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        hamburger.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+</script>

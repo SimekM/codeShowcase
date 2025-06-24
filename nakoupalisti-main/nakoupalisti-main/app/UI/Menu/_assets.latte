@@ -1,0 +1,731 @@
+<style>
+    .menu-page-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 100vh;
+        background-color: var(--secondary-color);
+        padding-top: 80px;
+        position: relative;
+    }
+
+   
+
+    .menu-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 0 20px;
+    }
+
+    .menu-header h1 {
+        font-size: 60px;
+        margin-bottom: 20px;
+        color: var(--primary-variant);
+    }
+
+    .menu-header p {
+        max-width: 800px;
+        margin: 0 auto;
+        color: var(--primary-variant);
+    }
+
+    .menu-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 50px;
+        flex-wrap: wrap;
+        padding: 0 20px;
+    }
+
+    .menu-tab {
+        padding: 15px 30px;
+        background-color: var(--secondary-variant);
+        color: var(--primary-variant);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu-tab:hover {
+        background-color: var(--primary-variant);
+        color: var(--secondary-color);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-tab.active {
+        background-color: var(--primary-variant);
+        color: var(--secondary-color);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-content {
+        display: none;
+        width: 100%;
+        padding: 40px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .menu-content.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Common section title styles */
+    .section-title {
+        font-size: 36px;
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--primary-variant);
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--primary-variant);
+    }
+
+    /* Polední menu styles */
+    .day-menu-container {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        margin-bottom: 50px;
+    }
+
+    .day-menu {
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.03);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+
+    .day-menu:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .day-heading {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #e5eadc;
+        position: relative;
+        padding-bottom: 15px;
+        display: inline-block;
+    }
+
+    .day-heading::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 70%;
+        height: 2px;
+        background-color: var(--secondary-variant);
+    }
+
+    .daily-menu-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+    }
+
+    .daily-menu-col {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .menu-category {
+        margin-bottom: 30px;
+    }
+
+    .menu-category h4 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        color: #cfd9c5;
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .menu-category h4::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--secondary-variant);
+    }
+
+    .menu-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-item:hover {
+        transform: none;
+    }
+
+    .menu-item:last-child {
+        border-bottom: none;
+    }
+
+    .menu-item-content {
+        flex: 1;
+        padding-right: 20px;
+    }
+
+    .item-name {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 8px;
+        color: #e5eadc;
+    }
+
+    .item-desc {
+        font-size: 14px;
+        color: #b8c4a8;
+    }
+
+    .item-price {
+        font-size: 18px;
+        font-weight: 600;
+        color: #e8f0d0;
+        white-space: nowrap;
+    }
+
+    .menu-footer {
+        text-align: center;
+    }
+
+    .menu-footer p {
+        margin-bottom: 20px;
+        font-size: 16px;
+        color: #cfd9c5;
+    }
+
+    /* Večerní menu styles */
+    .vecerni-menu-section {
+        margin-bottom: 50px;
+        background-color: rgba(255, 255, 255, 0.03);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .vecerni-menu-section:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .vecerni-menu-section h2 {
+        font-size: 28px;
+        margin-bottom: 25px;
+        color: #e5eadc;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--secondary-variant);
+        display: inline-block;
+    }
+
+    .vecerni-menu-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        align-items: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .vecerni-menu-item:hover {
+        transform: none;
+    }
+
+    .vecerni-menu-item-name {
+        flex: 1;
+        font-size: 18px;
+        padding-right: 20px;
+        color: #e5eadc;
+        font-weight: 500;
+    }
+
+    .vecerni-menu-item-price {
+        font-weight: 600;
+        font-size: 18px;
+        color: #e8f0d0;
+        white-space: nowrap;
+    }
+
+    /* Nápojový lístek styles */
+    .napojovy-container {
+        padding: 20px 0;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .napojovy-section {
+        margin-bottom: 40px;
+        background-color: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    .napojovy-section:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .napojovy-section h2 {
+        font-size: 28px;
+        color: #e5eadc;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        position: relative;
+        display: inline-block;
+    }
+
+    .napojovy-section h2::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 70%;
+        height: 2px;
+        background-color: var(--secondary-variant);
+    }
+
+    .drinks-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .drink-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 15px;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        border-radius: 5px;
+    }
+
+    .drink-item:hover {
+        background-color: transparent;
+        transform: none;
+    }
+
+    .drink-item:last-child {
+        border-bottom: none;
+    }
+
+    .drink-name {
+        font-size: 16px;
+        color: #e5eadc;
+        padding-right: 20px;
+        font-weight: 500;
+    }
+
+    .drink-price {
+        font-weight: 600;
+        font-size: 18px;
+        color: #e8f0d0;
+        white-space: nowrap;
+    }
+
+    /* Vinná karta styles */
+    .vinna-container {
+        padding: 20px 0;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .wine-section-title {
+        font-size: 36px;
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--primary-variant);
+        position: relative;
+        padding-bottom: 15px;
+    }
+
+    .wine-section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--secondary-variant);
+    }
+
+    .wine-category {
+        position: relative;
+        background-color: rgba(255, 255, 255, 0.03);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 50px;
+    }
+
+    .wine-category-title {
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #e5eadc;
+        position: relative;
+        padding-bottom: 15px;
+        display: inline-block;
+    }
+
+    .wine-category-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 70%;
+        height: 2px;
+        background-color: var(--secondary-variant);
+    }
+
+    .wine-category-items {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .wine-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .wine-item:last-child {
+        border-bottom: none;
+    }
+
+    .wine-details {
+        flex: 1;
+        padding-right: 20px;
+    }
+
+    .wine-name {
+        font-size: 18px;
+        font-weight: 500;
+        color: #e5eadc;
+        margin-bottom: 5px;
+    }
+
+    .wine-region {
+        font-size: 14px;
+        color: #b8c4a8;
+        font-style: italic;
+    }
+
+    .wine-price {
+        font-size: 18px;
+        font-weight: 600;
+        color: #e8f0d0;
+        white-space: nowrap;
+    }
+
+    /* Empty section styles */
+    .empty-section {
+        text-align: center;
+        padding: 80px 20px;
+        background-color: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        margin: 20px 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .empty-section h2 {
+        font-size: 30px;
+        margin-bottom: 20px;
+        color: var(--primary-variant);
+    }
+
+    .empty-section p {
+        color: var(--primary-variant);
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    /* Hero section */
+    .menu-hero {
+        position: relative;
+        width: 100%;
+        height: 70vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .menu-hero-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+    
+    .menu-hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.7);
+    }
+
+    .menu-hero-content {
+        text-align: center;
+        color: var(--primary-variant);
+        z-index: 2;
+        padding: 0 20px;
+        max-width: 800px;
+    }
+    
+    .menu-hero-content h1 {
+        font-size: 3.5rem;
+        margin-bottom: 20px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .menu-hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .menu-hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .menu-hero .divider {
+        width: 80px;
+        height: 3px;
+        background-color: var(--primary-color);
+        margin: 20px auto;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .day-menu, .vecerni-menu-section, .napojovy-section, .wine-category {
+            padding: 25px;
+        }
+        
+        .wine-item {
+            padding: 15px;
+        }
+        
+        .menu-tab {
+            padding: 12px 20px;
+            font-size: 16px;
+        }
+        
+        .wine-section-title, .section-title {
+            font-size: 30px;
+        }
+        
+        .wine-category-title, .day-heading, .vecerni-menu-section h2, .napojovy-section h2 {
+            font-size: 24px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .menu-content {
+            padding: 20px;
+        }
+        
+        .daily-menu-grid, .wine-grid {
+            gap: 30px;
+        }
+
+        .daily-menu-col, .wine-col {
+            flex: 0 0 100%;
+        }
+
+        .day-menu, .wine-category {
+            padding: 25px;
+        }
+
+        .drinks-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .vecerni-menu-item {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .vecerni-menu-item-name {
+            margin-bottom: 10px;
+            padding-right: 0;
+        }
+        
+        .menu-hero-content h1 {
+            font-size: 2.5rem;
+        }
+        
+        .wine-name, .item-name {
+            font-size: 16px;
+        }
+        
+        .wine-price, .item-price, .vecerni-menu-item-price {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .menu-tab {
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+        
+        .wine-category-title {
+            font-size: 20px;
+            padding: 12px 20px;
+        }
+        
+        .day-menu, .vecerni-menu-section, .napojovy-section {
+            padding: 20px;
+        }
+    }
+
+    /* Enhancing section headings */
+    .day-heading, .vecerni-menu-section h2, .napojovy-section h2 {
+       
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu-category h4 {
+        color: #bdcda4;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Hover effect improvement */
+    .menu-item:hover, .vecerni-menu-item:hover, .drink-item:hover, .wine-item:hover {
+        background-color: transparent;
+    }
+
+    .view-full-menu {
+        display: inline-block;
+        background-color: var(--secondary-variant);
+        color: var(--primary-variant);
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+    }
+    
+    .view-full-menu:hover {
+        background-color: #4d6100;
+        color: #f5f9ef;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .wine-category-container {
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        margin-bottom: 50px;
+    }
+    
+    .wine-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 50px;
+    }
+    
+    .wine-col {
+        flex: 1;
+        min-width: 300px;
+    }
+</style>
+
+<!-- AOS Library -->
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        AOS.init({
+            duration: 800,
+            easing: 'ease',
+            once: true,
+            offset: 100
+        });
+        
+        const menuTabs = document.querySelectorAll('.menu-tab');
+        
+        // Menu tabs functionality
+        menuTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                menuTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all content
+                const contents = document.querySelectorAll('.menu-content');
+                contents.forEach(content => content.classList.remove('active'));
+                
+                // Show selected content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    });
+</script>
+
+

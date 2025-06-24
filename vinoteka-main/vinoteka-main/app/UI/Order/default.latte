@@ -1,0 +1,86 @@
+{block content}
+{include _assets.latte}
+{include _quantity_control.latte}
+
+<div class="page-wrapper">
+    <div class="page-container">
+        <div class="top-banner">
+            <div class="icon-text">
+                <div class="number">
+                    <h3>1</h3>
+                </div>
+                <p>Košík</p>
+            </div>
+
+            <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+            <div class="icon-text">
+                <div class="number">
+                    <h3>2</h3>
+                </div>
+                <p>Osobní údaje a platba</p>
+            </div>
+            <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+            <div class="icon-text">
+                <div class="number">
+                    <h3>3</h3>
+                </div>
+                <p>Shrnutí objednávky</p>
+            </div>
+        </div>
+
+    <!-- Holder (wrapper) -->
+    <div style="width:100%;" class="products">
+        <div class="cart-container" n:snippet="cartList">
+            
+
+                {if empty($cartItems)}
+                    <p class="empty-cart">Váš košík je prázdný. <a href="{plink Products:default}"> Zpět do obchodu</a></p>
+                {else}
+
+                <div class="cart-header">
+                    <div>Produkt</div>
+                    <div>Množství</div>
+                    <div>Cena</div>
+                </div>
+                                    {dump $cartItems}
+
+                {foreach $cartItems as $cartItem}
+                    <div class="cart-item" data-unit-price="{$cartItem->price}">
+                        <div class="product-details">
+                            <img class="cart-product-img"src="{$baseUrl}/assets/images/products/{$cartItem->img_src}" />
+                            <div>
+                                <p class="product-title">{$cartItem->title}</p>
+                                <p class="product-code">Kód položky: {$cartItem->id}</p>
+                            </div>
+                        </div>
+                        <div class="quantity-controls">
+                            <div>
+                                <span  id="minus-product-quantity">-</span>
+                                <input id="result" cart_item_id="{$cartItem->id}" step="1" min="0" type="number" value="{$cartItem->quantity}">
+                                <span  id="plus-product-quantity">+</span>
+                            </div>
+                        </div>
+                        <div class="price-remove">
+                            <span><span id="total_price">{$cartItem->price * $cartItem->quantity}</span> Kč</span>
+                            <button onclick="deleteItemFromCart({$cartItem->product_id},{$cartId})" class="remove-button">
+                                <img src="{$baseUrl}/assets/icons/close.svg">
+                            </button>
+                        </div>
+                    </div>
+
+                {/foreach}
+            {/if}
+            <!-- Total -->
+            <div class="cart-total">
+                <span>Cena celkem:</span>
+                <span id="full-price"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-action">
+        <a href="{plink Products:default}" class="cta-button outline"><- Zpět do eshopu</a>
+        <a href="{plink Order:address}" class="cta-button">Platba a osobní údaje -></a>
+    </div>
+    </div>
+</div>

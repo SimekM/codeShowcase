@@ -1,0 +1,1130 @@
+<script>
+    // Check if toastSystem exists
+    console.log('ToastSystem check:', typeof toastSystem !== 'undefined' ? 'exists' : 'missing');
+    
+    var linkSaveItem = {link saveItem!};
+    var linkGetRowData = {link getRowData!};
+    var linkDeleteItem = {link deleteItem!};
+    var imagePath = "/assets/images/products/"; // Base path for product images
+
+    let isEditing = false;
+    let editModal = null;
+    let imageChanged = false;
+    let isSubmitting = false; // Track form submission state
+
+    const productsConfigArray = {$configArray}.main_tables;
+
+    // Setup Naja event listeners for snippets
+    document.addEventListener('DOMContentLoaded', function() {
+        // Register Naja success event handler for refreshing the table
+        naja.addEventListener('success', (event) => {
+            // Handle snippet redrawing here if needed
+            console.log('Naja success event', event);
+        });
+        
+        // Get references to DOM elements
+        editModal = document.getElementById("productModal");
+        const closeBtn = document.getElementsByClassName("edit-modal-close")[0];
+        
+        // Initialize the submit button and form with one-time event listeners
+        initFormEventListeners();
+        
+        // Setup modal close button
+        closeBtn.onclick = function() {
+            // Check if form has been modified
+            const form = document.getElementById("editProductForm");
+            if (formHasChanges(form)) {
+                if (confirm("Máte neuložené změny. Opravdu chcete zavřít tento formulář?")) {
+                    closeAndResetModal();
+                }
+            } else {
+                closeAndResetModal();
+            }
+        }
+        
+        // Close modal if clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == editModal) {
+                if (formHasChanges(document.getElementById("editProductForm"))) {
+                    if (confirm("Máte neuložené změny. Opravdu chcete zavřít tento formulář?")) {
+                        closeAndResetModal();
+                    }
+                } else {
+                    closeAndResetModal();
+                }
+            }
+        }
+        
+        // Initialize image preview functionality
+        initImagePreview();
+    });
+
+    // Function to initialize event listeners for the form
+    function initFormEventListeners() {
+        // Setup add item buttons for child tables
+        const addItemButtons = document.querySelectorAll('.add-item-btn');
+        addItemButtons.forEach(button => {
+            // Remove any existing listeners
+            const newButton = button.cloneNode(true);
+            button.parentNode.replaceChild(newButton, button);
+            
+            // Add new listener
+            newButton.addEventListener('click', function() {
+                const tableName = this.getAttribute('data-target');
+                addChildTableItem(tableName);
+            });
+        });
+        
+        // Setup the form submission handler
+        const form = document.getElementById("editProductForm");
+        if (form) {
+            // Remove any existing listeners first
+            const newForm = form.cloneNode(true);
+            if (form.parentNode) {
+                form.parentNode.replaceChild(newForm, form);
+            }
+            
+            // Add event listener to the new form
+            newForm.addEventListener('submit', function(event) {
+                // Only process if not already submitting
+                if (!isSubmitting) {
+                    saveFormData(event);
+                } else {
+                    event.preventDefault();
+                }
+            });
+            
+            // Reinitialize add item buttons in the new form
+            const formAddButtons = newForm.querySelectorAll('.add-item-btn');
+            formAddButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tableName = this.getAttribute('data-target');
+                    addChildTableItem(tableName);
+                });
+            });
+        }
+    }
+    
+    // Function to close and reset the modal properly
+    function closeAndResetModal() {
+        // Reset submission state
+        isSubmitting = false;
+        
+        // Reset the submit button
+        const submitButton = document.querySelector('#editProductForm button[type="submit"]');
+        if (submitButton) {
+            submitButton.innerHTML = 'Uložit';
+            submitButton.disabled = false;
+        }
+        
+        // Hide modal
+        editModal.style.display = "none";
+        
+        // Clean the modal
+        cleanModal();
+    }
+
+    function cleanModal(){
+        // 1. Clear all child table containers
+        const childTableLists = document.querySelectorAll('[id$="-list-container"]');
+        childTableLists.forEach(container => {
+            container.innerHTML = '';
+        });
+        
+        // 2. Clear all relationship checkboxes
+        const relationshipContainers = document.querySelectorAll('div[agenda]');
+        relationshipContainers.forEach(container => {
+            // Only clear checkbox containers, not all agenda elements
+            if (container.classList.contains('form-checkbox-container')) {
+                // Remove all checkboxes but keep the heading
+                const heading = container.querySelector('h3');
+                container.innerHTML = '';
+                if (heading) container.appendChild(heading);
+            }
+        });
+        
+        // 3. Reset all form inputs
+        const formInputs = document.querySelectorAll('#editProductForm input');
+        formInputs.forEach(input => {
+            if (input.type === 'checkbox') {
+                input.checked = false;
+            } else if (input.type === 'file') {
+                input.value = '';
+            } else {
+                input.value = '';
+            }
+        });
+        
+        // 4. Reset all select dropdowns
+        const formSelects = document.querySelectorAll('#editProductForm select');
+        formSelects.forEach(select => {
+            select.selectedIndex = 0;
+        });
+        
+        // 5. Reset image preview
+        const imagePreview = document.getElementById('image-preview');
+        if (imagePreview) {
+            imagePreview.style.display = 'none';
+            imagePreview.src = '';
+        }
+        
+        // Also reset any image hidden inputs
+        const hiddenImageInputs = document.querySelectorAll('input[type="hidden"][id$="_file"]');
+        hiddenImageInputs.forEach(input => {
+            input.value = '';
+        });
+        
+        // Reset image changed flag
+        imageChanged = false;
+        
+        // Reset submission state
+        isSubmitting = false;
+    }
+
+    function addChildTableItem(tableName) {
+        const container = document.getElementById(`${ tableName}-list-container`);
+        if (!container) return;
+        
+        // Create a new child item
+        const newItem = document.createElement('div');
+        newItem.className = 'child-table-item';
+        
+        // Generate a temporary unique ID (negative to avoid conflicts with DB IDs)
+        const tempId = 'new-' + Date.now();
+        newItem.setAttribute('data-id', tempId);
+        
+        // Add input fields based on the table configuration
+        for (const [variableKey, value] of Object.entries(productsConfigArray[tableName].variables)) {
+            if (variableKey === 'id' || variableKey.includes('_id') && variableKey !== 'parent_id') continue; // Skip id fields except parent_id
+            
+            if (value.type === 'text' || value.type === 'number') {
+                const inputWrapper = document.createElement('div');
+                inputWrapper.className = 'child-table-input-container';
+                
+                const label = document.createElement('label');
+                label.htmlFor = variableKey;
+                label.textContent = value.title;
+                
+                const input = document.createElement('input');
+                input.type = value.type;
+                
+                // Ensure we use exact field names for product attributes
+                if (tableName === 'product_attributes') {
+                    input.name = variableKey;  // Use the actual field name (attribute_name, attribute_value)
+                    input.setAttribute('data-item-id', tempId);
+                } else {
+                    // For other tables, continue using the existing convention
+                    input.name = `${ tempId}-${ variableKey}`;
+                }
+                
+                input.className = 'form-control';
+                
+                inputWrapper.appendChild(label);
+                inputWrapper.appendChild(input);
+                newItem.appendChild(inputWrapper);
+            } else if (value.type === 'dropdown' && variableKey === 'taxonomy') {
+                // Special handling for taxonomy dropdown
+                const inputWrapper = document.createElement('div');
+                inputWrapper.className = 'child-table-input-container';
+                
+                const label = document.createElement('label');
+                label.htmlFor = variableKey;
+                label.textContent = value.title;
+                
+                const select = document.createElement('select');
+                select.name = `${ tempId}-${ variableKey}`;
+                select.className = 'form-control';
+                
+                // Add options for taxonomy dropdown
+                const taxonomyOptions = ['product_category', 'product_country', 'food_type'];
+                taxonomyOptions.forEach(option => {
+                    const optElement = document.createElement('option');
+                    optElement.value = option;
+                    optElement.textContent = option;
+                    select.appendChild(optElement);
+                });
+                
+                inputWrapper.appendChild(label);
+                inputWrapper.appendChild(select);
+                newItem.appendChild(inputWrapper);
+            } else if (variableKey === 'parent_id') {
+                // Special handling for parent_id dropdown (needs to be populated with tags)
+                const inputWrapper = document.createElement('div');
+                inputWrapper.className = 'child-table-input-container';
+                
+                const label = document.createElement('label');
+                label.htmlFor = variableKey;
+                label.textContent = value.title;
+                
+                const select = document.createElement('select');
+                select.name = `${ tempId}-${ variableKey}`;
+                select.className = 'form-control';
+                
+                // Add empty option (for null value)
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.textContent = '-- Žádná nadřazená kategorie --';
+                select.appendChild(emptyOption);
+                
+                // We'll populate this with tags dynamically in the openModal function
+                select.setAttribute('data-parent-select', 'true');
+                
+                inputWrapper.appendChild(label);
+                inputWrapper.appendChild(select);
+                newItem.appendChild(inputWrapper);
+            }
+        }
+        
+        // Add delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'delete-child-item-btn';
+        deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        deleteBtn.title = 'Smazat položku';
+        deleteBtn.onclick = function() {
+            container.removeChild(newItem);
+        };
+        
+        newItem.appendChild(deleteBtn);
+        container.appendChild(newItem);
+        
+        // If this is tags_taxonomy, populate the parent_id dropdown
+        if (tableName === 'tags_taxonomy') {
+            populateParentDropdowns();
+        }
+    }
+
+    function openModal(button) {
+        // Reset modal state first
+        closeAndResetModal();
+        
+        // Get row ID if editing
+        const row = button.closest('tr');
+        const itemId = row ? row.getAttribute('data-id') : null;
+        
+        // Set modal title based on whether we're creating or editing
+        const modalTitle = document.querySelector('.modal-title-container h2');
+        if (modalTitle) {
+            modalTitle.textContent = itemId ? 'Editace' : 'Vytvořit nový';
+        }
+        
+        // Make sure the submit button is in its default state
+        const submitButton = document.querySelector('#editProductForm button[type="submit"]');
+        if (submitButton) {
+            submitButton.innerHTML = 'Uložit';
+            submitButton.disabled = false;
+        }
+
+        // Initialize relationship tables for new items
+        if (!itemId) {
+            // Load relationships data for new items
+            initializeRelationshipsForNewItem();
+            
+            // Reinitialize event listeners
+            initFormEventListeners();
+            
+            // Reinitialize image preview
+            initImagePreview();
+            
+            // Show modal
+            editModal.style.display = "flex";
+            return;
+        }
+        
+        // Otherwise fetch existing data for editing
+        let getRowDataObject = new FormData();
+        getRowDataObject.append('item_id', itemId);
+        
+        naja.makeRequest('POST', linkGetRowData, getRowDataObject, { history: false })
+            .then(function(itemData) {
+                for (const [tableName, table] of Object.entries(productsConfigArray)) {
+                    const tableProperties = productsConfigArray[tableName].properties;
+
+                    if (tableProperties.type == 'child_table'){
+                        var mainDiv = document.querySelector(`div[id='${ tableName }-list-container']`);
+                        const baseListItem = document.createElement('div');
+                        baseListItem.className = 'child-table-item';
+
+                        for (const [variableKey, value] of Object.entries(productsConfigArray[tableName].variables)) {
+                            if (value.type == 'text' || value.type == 'number'){
+                                const inputWrapper = document.createElement('div');
+                                inputWrapper.className = 'child-table-input-container';
+
+                                const label = document.createElement('label');
+                                label.htmlFor = variableKey;
+                                label.textContent = value.title;
+                                
+                                const input = document.createElement('input');
+                                input.type = value.type;
+                                
+                                // Special handling for product attributes
+                                if (tableName === 'product_attributes') {
+                                    input.name = variableKey;
+                                } else {
+                                    input.name = variableKey;
+                                }
+                                
+                                input.className = 'form-control';
+                                
+                                inputWrapper.appendChild(label);
+                                inputWrapper.appendChild(input);
+                                
+                                baseListItem.appendChild(inputWrapper);
+                            } else if (value.type == 'dropdown' && variableKey == 'taxonomy') {
+                                // Create select element for taxonomy dropdown
+                                const inputWrapper = document.createElement('div');
+                                inputWrapper.className = 'child-table-input-container';
+
+                                const select = document.createElement('select');
+                                select.name = variableKey;
+                                select.className = 'form-control';
+                                
+                                // Add options for taxonomy dropdown
+                                const taxonomyOptions = ['product_category', 'product_country', 'food_type'];
+                                taxonomyOptions.forEach(option => {
+                                    const optElement = document.createElement('option');
+                                    optElement.value = option;
+                                    optElement.textContent = option;
+                                    select.appendChild(optElement);
+                                });
+                                
+                                const label = document.createElement('label');
+                                label.htmlFor = variableKey;
+                                label.textContent = value.title;
+                                
+                                inputWrapper.appendChild(select);
+                                inputWrapper.appendChild(label);
+                                
+                                baseListItem.appendChild(inputWrapper);
+                            } else if (variableKey == 'parent_id') {
+                                // Create select element for parent_id dropdown
+                                const inputWrapper = document.createElement('div');
+                                inputWrapper.className = 'child-table-input-container';
+
+                                const select = document.createElement('select');
+                                select.name = variableKey;
+                                select.className = 'form-control';
+                                select.setAttribute('data-parent-select', 'true');
+                                
+                                // Add empty option (for null value)
+                                const emptyOption = document.createElement('option');
+                                emptyOption.value = '';
+                                emptyOption.textContent = '-- Žádná nadřazená kategorie --';
+                                select.appendChild(emptyOption);
+                                
+                                const label = document.createElement('label');
+                                label.htmlFor = variableKey;
+                                label.textContent = value.title;
+                                
+                                inputWrapper.appendChild(select);
+                                inputWrapper.appendChild(label);
+                                
+                                baseListItem.appendChild(inputWrapper);
+                            }
+                        }
+
+                        if (itemData['main_tables'][tableName] && itemData['main_tables'][tableName].length > 0) {
+                            for (const variablesArray of itemData['main_tables'][tableName]) {
+                                const newItem = baseListItem.cloneNode(true);
+                                const itemId = variablesArray.id;
+                                newItem.setAttribute('data-id', itemId);
+
+                                for (const [key, value] of Object.entries(variablesArray)) {
+                                    // Skip the ID field when populating
+                                    if (key === 'id') continue;
+                                    
+                                    // For product attributes, we need to handle them differently
+                                    if (tableName === 'product_attributes') {
+                                        const input = newItem.querySelector(`input[name="${ key}"]`);
+                                        if (input) {
+                                            input.value = value;
+                                        }
+                                    } else if (key === 'taxonomy') {
+                                        // Handle taxonomy dropdown selection
+                                        const select = newItem.querySelector(`select[name="taxonomy"]`);
+                                        if (select) {
+                                            // Store the value as a data attribute
+                                            select.setAttribute('data-value', value || '');
+                                            // Then update the name attribute to include the item ID
+                                            select.name = `${ itemId }-taxonomy`;
+                                            
+                                            // Try to set the value immediately
+                                            try {
+                                                select.value = value;
+                                            } catch (e) {
+                                                console.error('Error setting taxonomy value:', e);
+                                            }
+                                            
+                                            // Add extra debug
+                                            console.log('Setting taxonomy dropdown', select, 'to value', value);
+                                        }
+                                    } else if (key === 'parent_id') {
+                                        // Handle parent_id dropdown selection
+                                        const select = newItem.querySelector(`select[name="parent_id"]`);
+                                        if (select) {
+                                            // Store the selected value as an attribute for later
+                                            select.setAttribute('data-selected-value', value || '');
+                                            // Update the name attribute to include the item ID
+                                            select.name = `${ itemId }-parent_id`;
+                                            
+                                            // Add extra debug
+                                            console.log('Setting parent_id dropdown', select, 'to value', value);
+                                        }
+                                    } else {
+                                        // Fill in values for other fields
+                                        const inputs = newItem.querySelectorAll('input');
+                                        inputs.forEach(input => {
+                                            const fieldName = input.name;
+
+                                            if (key == fieldName) {
+                                                input.value = value;
+                                                input.name = `${ itemId }-${ fieldName }`;
+                                            }
+                                        });
+                                    }
+                                }
+                                
+                                // Add delete button to existing items
+                                const deleteBtn = document.createElement('button');
+                                deleteBtn.type = 'button';
+                                deleteBtn.className = 'delete-child-item-btn';
+                                deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                                deleteBtn.title = 'Smazat položku';
+                                deleteBtn.onclick = function() {
+                                    mainDiv.removeChild(newItem);
+                                };
+                                
+                                newItem.appendChild(deleteBtn);
+                                mainDiv.appendChild(newItem);
+                            }
+                        }
+                    }else if (tableProperties.type == 'relationships_table'){
+                        var parentDiv = document.querySelector(`div[agenda='${ tableName }']`);
+                        const otherTables = itemData["otherTables"][table.properties.data_fill_table];
+
+                        // create checkboxes
+                        for (const otherTableItem of otherTables) {
+                            const checkboxGroup = document.createElement('div');
+                            checkboxGroup.className = 'form-checkbox-group';
+                            
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = tableName;
+                            checkbox.value = otherTableItem.id;
+                            checkbox.id = tableName + otherTableItem.id;
+                            checkbox.className = 'form-checkbox';
+                            
+                            // Check if this checkbox should be checked
+                            for (const checkedBox of itemData['main_tables'][tableName]) {
+                                if (checkedBox[tableProperties.data_fill_table_reference_value] == otherTableItem.id) {
+                                    checkbox.checked = true;
+                                    break;
+                                }
+                            }
+                            
+                            const label = document.createElement('label');
+                            label.htmlFor = tableName + otherTableItem.id;
+                            label.className = 'checkbox-label';
+                            label.textContent = otherTableItem.title;
+                            
+                            checkboxGroup.appendChild(checkbox);
+                            checkboxGroup.appendChild(label);
+                            
+                            parentDiv.appendChild(checkboxGroup);
+                        }
+                    }else{
+                        for (const [key, value] of Object.entries(productsConfigArray[tableName].variables)) {
+                            const input = document.querySelector(`input[name="${ key }"]`);
+                            const itemValue = itemData['main_tables'][tableName][0][key];
+
+                            if (input) {
+                                if (key === 'id') {
+                                    input.value = itemId;
+                                } else if (key === 'img_src') {
+                                    const imagePreview = document.getElementById('image-preview');
+                                    // Handle image field separately
+                                    input.value = itemValue;
+                                    // Update image preview if there's an existing image
+                                    if (input.value && imagePreview) {
+                                        console.log('image', imagePath + input.value)
+                                        imagePreview.src = imagePath + input.value;
+                                        imagePreview.style.display = 'block';
+                                    }
+                                } else if (input.type === 'checkbox') {
+                                    // Handle boolean values for checkboxes
+                                    input.checked = Boolean(itemValue);
+                                } else {
+                                    input.value = itemValue;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                // After populating all fields, populate parent dropdowns for tags_taxonomy and set values with a slight delay
+                setTimeout(() => {
+                    populateParentDropdowns(itemData);
+                    
+                    // Apply the taxonomy dropdown values after a short delay to ensure selects are populated
+                    setTimeout(() => {
+                        // Find all tags_taxonomy containers
+                        const taxonomyContainers = document.querySelectorAll(`div[id$="tags_taxonomy-list-container"]`);
+                        taxonomyContainers.forEach(container => {
+                            setTaxonomyDropdownValues(container);
+                        });
+                    }, 200);
+                }, 100);
+                
+                // Reinitialize event listeners
+                initFormEventListeners();
+                
+                // Reinitialize image preview
+                initImagePreview();
+                
+                // Show modal
+                editModal.style.display = "flex";
+            }).catch(function(error) {
+                console.error('Error:', error);
+                const message = {
+                    error: true,
+                    message: 'Nepodařilo se dostat data'
+                };
+                toastSystem.showNotification(message);
+                isEditing = false;
+            });
+    }
+
+    function initializeRelationshipsForNewItem() {
+        // For each relationship table, we need to fetch the available options
+        for (const [tableName, table] of Object.entries(productsConfigArray)) {
+            if (table.properties.type === 'relationships_table') {
+                const dataFillTable = table.properties.data_fill_table;
+                
+                // Get relationship data using a separate request
+                naja.makeRequest('POST', linkGetRowData, {
+                    get_relationships: true,
+                    table_name: dataFillTable
+                }, { history: false })
+                .then(function(response) {
+                    if (response && response.otherTables && response.otherTables[dataFillTable]) {
+                        const parentDiv = document.querySelector(`div[agenda='${ tableName}']`);
+                        const otherTables = response.otherTables[dataFillTable];
+                        
+                        // Create checkboxes for each option
+                        for (const otherTableItem of otherTables) {
+                            const checkboxGroup = document.createElement('div');
+                            checkboxGroup.className = 'form-checkbox-group';
+                            
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = tableName;
+                            checkbox.value = otherTableItem.id;
+                            checkbox.id = tableName + otherTableItem.id;
+                            checkbox.className = 'form-checkbox';
+                            
+                            const label = document.createElement('label');
+                            label.htmlFor = tableName + otherTableItem.id;
+                            label.className = 'checkbox-label';
+                            label.textContent = otherTableItem.title;
+                            
+                            checkboxGroup.appendChild(checkbox);
+                            checkboxGroup.appendChild(label);
+                            
+                            parentDiv.appendChild(checkboxGroup);
+                        }
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error loading relationship data:', error);
+                });
+            }
+        }
+    }
+
+    function populateParentDropdowns(itemData) {
+        // Get all parent_id selects
+        const parentSelects = document.querySelectorAll('select[data-parent-select="true"]');
+        if (parentSelects.length === 0) return;
+        
+        // If we don't have item data, fetch tags data separately
+        if (!itemData || !itemData.otherTables || !itemData.otherTables.tags) {
+            // Get tags data for parent_id dropdown
+            naja.makeRequest('POST', linkGetRowData, {
+                get_relationships: true,
+                table_name: 'tags'
+            }, { history: false })
+            .then(function(response) {
+                if (response && response.otherTables && response.otherTables.tags) {
+                    populateDropdownOptions(parentSelects, response.otherTables.tags);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error loading tags data:', error);
+            });
+        } else {
+            // Use the tags data from item data
+            populateDropdownOptions(parentSelects, itemData.otherTables.tags);
+        }
+    }
+
+    function populateDropdownOptions(selectElements, options) {
+        selectElements.forEach(select => {
+            // Store the selected value before clearing options
+            const selectedValue = select.getAttribute('data-selected-value');
+            
+            // Keep the first option (empty) and remove others
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+            
+            // Add tag options
+            options.forEach(tag => {
+                const option = document.createElement('option');
+                option.value = tag.id;
+                option.textContent = tag.title;
+                select.appendChild(option);
+            });
+            
+            // Restore selected value if it was set before
+            if (selectedValue && selectedValue !== '') {
+                console.log('Restoring selected value for dropdown:', select, 'to', selectedValue);
+                select.value = selectedValue;
+            }
+        });
+    }
+
+    function saveFormData(event) {
+        // Prevent default form submission
+        event.preventDefault();
+        
+        console.log('Starting form submission process');
+        
+        // Prevent multiple submissions
+        if (isSubmitting) {
+            console.log('Form is already being submitted, ignoring...');
+            return;
+        }
+        
+        // Set submission flag
+        isSubmitting = true;
+
+        // Show loading indicator
+        const submitButton = document.querySelector('#editProductForm button[type="submit"]');
+        const originalButtonText = submitButton ? submitButton.innerHTML : 'Uložit';
+        
+        if (submitButton) {
+            submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Ukládám...';
+            submitButton.disabled = true;
+        }
+
+        try {
+            // Build form data
+            let formData = {};
+            console.log('Building form data object');
+
+            const mainTableName = Object.keys(productsConfigArray).find(
+                table => productsConfigArray[table]?.properties?.type === 'main_table'
+            );
+            console.log('Main table name:', mainTableName);
+            
+            const mainIdInput = document.querySelector(`input[name="id"][agenda="${ mainTableName}"]`);
+            const mainId = mainIdInput ? mainIdInput.value : '-1';
+            console.log('Main ID:', mainId);
+            
+            for (const tableName in productsConfigArray) {
+                const tableObject = productsConfigArray[tableName];
+                const tableType = tableObject.properties.type;
+                
+                if (tableType === 'main_table') {
+                    formData[tableName] = {};
+                    for (const key in tableObject.variables) {
+                        const input = document.querySelector(`input[name="${ key }"]`);
+                        if (input) {
+                            if (input.type === 'checkbox') {
+                                // For boolean fields, use the checked property
+                                formData[tableName][key] = input.checked ? 1 : 0;
+                            } else {
+                                formData[tableName][key] = input.value;
+                            }
+                        }
+                    }
+                } 
+                else if (tableType === 'relationships_table') {
+                    const checkboxes = document.querySelectorAll(`input[name="${ tableName}"]:checked`);
+                    // Id checkboxu
+                    const values = Array.from(checkboxes).map(cb => parseInt(cb.value));    
+
+                    if (values.length > 0) {
+                        formData[tableName] = values;
+                    } else {
+                        formData[tableName] = [];
+                    }
+                } 
+                else if (tableType === 'child_table') {
+                    const container = document.getElementById(`${ tableName}-list-container`);
+                    const childItems = container.querySelectorAll('.child-table-item');
+                                
+                    formData[tableName] = [];
+                    
+                    // Special handling for product attributes
+                    if (tableName === 'product_attributes') {
+                        childItems.forEach(item => {
+                            const itemId = item.getAttribute('data-id');
+                            let childItem = {};
+                            
+                            // Get attribute name and value directly
+                            const nameInput = item.querySelector('input[name="attribute_name"]');
+                            const valueInput = item.querySelector('input[name="attribute_value"]');
+                            
+                            if (nameInput && valueInput) {
+                                childItem = {
+                                    attribute_name: nameInput.value,
+                                    attribute_value: valueInput.value
+                                };
+                                
+                                // Add ID if it's an existing item
+                                if (itemId && !itemId.startsWith('new-')) {
+                                    childItem.id = itemId;
+                                }
+                                
+                                formData[tableName].push(childItem);
+                            }
+                        });
+                    } else if (tableName === 'tags_taxonomy') {
+                        // Special handling for tags_taxonomy with dropdowns
+                        childItems.forEach(item => {
+                            const itemId = item.getAttribute('data-id');
+                            let childItem = {};
+                            
+                            // If it's an existing item, include the ID
+                            if (itemId && !itemId.startsWith('new-')) {
+                                childItem.id = itemId;
+                            }
+                            
+                            // Get taxonomy dropdown value
+                            const taxonomySelect = item.querySelector(`select[name^="${ itemId}-taxonomy"]`);
+                            if (taxonomySelect) {
+                                childItem.taxonomy = taxonomySelect.value;
+                                console.log('Found taxonomy value:', taxonomySelect.value, 'for item:', itemId);
+                            } else {
+                                console.warn('Could not find taxonomy select for item:', itemId);
+                                // Try a more general selector as fallback
+                                const anyTaxonomySelect = item.querySelector('select[name*="taxonomy"]');
+                                if (anyTaxonomySelect) {
+                                    childItem.taxonomy = anyTaxonomySelect.value;
+                                    console.log('Found taxonomy with backup selector:', anyTaxonomySelect.value);
+                                }
+                            }
+                            
+                            // Get parent_id dropdown value
+                            const parentSelect = item.querySelector(`select[name^="${ itemId}-parent_id"]`);
+                            if (parentSelect) {
+                                childItem.parent_id = parentSelect.value === '' ? null : parentSelect.value;
+                                console.log('Found parent_id value:', parentSelect.value, 'for item:', itemId);
+                            } else {
+                                console.warn('Could not find parent_id select for item:', itemId);
+                                // Try a more general selector as fallback
+                                const anyParentSelect = item.querySelector('select[name*="parent_id"]');
+                                if (anyParentSelect) {
+                                    childItem.parent_id = anyParentSelect.value === '' ? null : anyParentSelect.value;
+                                    console.log('Found parent_id with backup selector:', anyParentSelect.value);
+                                }
+                            }
+                            
+                            // Add reference to parent tag
+                            childItem.tag_id = mainId;
+                            
+                            // Only add if we have a taxonomy value
+                            if (childItem.taxonomy) {
+                                console.log('Adding taxonomy item to formData:', childItem);
+                                formData[tableName].push(childItem);
+                            } else {
+                                console.warn('Skipping taxonomy item without taxonomy value');
+                            }
+                        });
+                    } else {
+                        // Regular handling for other child tables
+                        childItems.forEach(item => {
+                            const itemId = item.getAttribute('data-id');
+                            let childItem = {};
+                            
+                            // For new items, we still include the ID but with 'new-' prefix
+                            // The server will recognize this and create a new record
+                            if (itemId.startsWith('new-')) {
+                                childItem.id = itemId;
+                            } else {
+                                childItem.id = itemId;
+                            }
+                            
+                            // Get all inputs for this child item
+                            const inputs = item.querySelectorAll('input');
+                            inputs.forEach(input => {
+                                const nameParts = input.name.split('-');
+                                if (nameParts.length > 1) {
+                                    const fieldName = nameParts[1];
+                                    childItem[fieldName] = input.value;
+                                }
+                            });
+                            
+                            formData[tableName].push(childItem);
+                        });
+                    }
+                }
+            }
+
+            // IMAGE
+            const fileInput = document.querySelector('input[type="file"]');
+            const hasFileUpload = fileInput && fileInput.files.length > 0;
+            console.log('Has file upload:', hasFileUpload);
+            
+            let formDataTemp = new FormData();
+
+            if (hasFileUpload) {
+                console.log('Adding file to FormData:', fileInput.files[0].name);
+                formDataTemp.append('image_file', fileInput.files[0]);
+                
+                for (const tableName in productsConfigArray) {
+                    const tableConfig = productsConfigArray[tableName];
+                    
+                    for (const key in tableConfig.variables) {
+                        if (tableConfig.variables[key].type === 'image') {
+                            // Generate a unique filename
+                            const timestamp = new Date().getTime();
+                            const fileName = timestamp + '_' + fileInput.files[0].name;
+                            formData[tableName][key] = fileName;
+                        }
+                    }
+                }
+            }
+
+            // Debug the form data before sending
+            console.log('Form data to send:', formData);
+            
+            formDataTemp.append('formData', JSON.stringify(formData));
+            console.log('FormData prepared, sending to server...');
+            
+            // Add a flag to indicate that we want to update the snippet
+            formDataTemp.append('update_snippet', '1');
+            
+            // Make AJAX request
+            console.log('Making AJAX request to:', linkSaveItem);
+            naja.makeRequest('POST', linkSaveItem, formDataTemp, {
+                history: false,
+                snippets: true
+            })
+            .then(function(response) {
+                console.log('Save response received:', response);
+                
+                // Display success message
+                try {
+                    const respons = {'error' : false, 'message' : 'Uloženo'};
+                    console.log('Showing notification');
+                    if (typeof toastSystem === 'undefined') {
+                        console.error('toastSystem is not defined!');
+                        alert('Uloženo');
+                    } else {
+                        toastSystem.showNotification(respons);
+                    }
+                } catch (e) {
+                    console.error('Error showing notification:', e);
+                    alert('Uloženo, ale nastala chyba při zobrazení notifikace');
+                }
+                
+                // Reset submission state
+                isSubmitting = false;
+                
+                // Close the modal
+                closeAndResetModal();
+            })
+            .catch(function(error) {
+                console.error('AJAX error:', error);
+                
+                try {
+                    const respons = {'error' : true, 'message' : 'Chyba při ukládání'};
+                    if (typeof toastSystem === 'undefined') {
+                        console.error('toastSystem is not defined!');
+                        alert('Chyba při ukládání: ' + (error.message || 'Neznámá chyba'));
+                    } else {
+                        toastSystem.showNotification(respons);
+                    }
+                } catch (e) {
+                    console.error('Error showing notification:', e);
+                    alert('Chyba při ukládání: ' + (error.message || 'Neznámá chyba'));
+                }
+                
+                // Reset submission state
+                isSubmitting = false;
+                
+                // Reset button state
+                if (submitButton) {
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                }
+            });
+        } catch (error) {
+            console.error('Error in form processing:', error);
+            
+            // Display error message
+            try {
+                const respons = {'error' : true, 'message' : 'Chyba při zpracování formuláře'};
+                if (typeof toastSystem === 'undefined') {
+                    console.error('toastSystem is not defined!');
+                    alert('Chyba při zpracování formuláře: ' + error.message);
+                } else {
+                    toastSystem.showNotification(respons);
+                }
+            } catch (e) {
+                console.error('Error showing notification:', e);
+                alert('Chyba při zpracování formuláře: ' + error.message);
+            }
+            
+            // Reset submission state
+            isSubmitting = false;
+            
+            // Reset button state
+            if (submitButton) {
+                submitButton.innerHTML = originalButtonText;
+                submitButton.disabled = false;
+            }
+        }
+    }
+
+    function deleteItem(button){
+        let row = button.closest('tr');
+        let id = row.getAttribute('data-id');
+
+        if (confirm("Opravdu chcete smazat tento řádek?")) {
+            // Add visual feedback - fade the row
+            row.style.opacity = '0.5';
+            
+            // Create form data with update_snippet flag
+            const formData = new FormData();
+            formData.append('id', id);
+            formData.append('update_snippet', '1');
+            
+            naja.makeRequest('POST', linkDeleteItem, formData, {
+                history: false,
+                snippets: true
+            })
+            .then(function(response) {
+                console.log('Delete response:', response);
+                
+                // Show success message
+                const respons = {'error' : false, 'message' : 'Položka byla smazána'};
+                toastSystem.showNotification(respons);
+            })
+            .catch(function(error) {
+                console.error(error);
+                
+                // Restore the row on error
+                row.style.opacity = '1';
+                
+                // Show error message
+                const respons = {'error' : true, 'message' : 'Chyba při mazání'};
+                toastSystem.showNotification(respons);
+            });
+        }
+    }
+
+    // Add new function to check if form has unsaved changes
+    function formHasChanges(form) {
+        let hasChanges = false;
+        
+        // Check regular inputs
+        const inputs = form.querySelectorAll('input:not([type="file"])');
+        inputs.forEach(input => {
+            if (input.type === 'hidden' && input.name === 'id') {
+                // Skip id field
+                return;
+            }
+            
+            if (input.type === 'checkbox') {
+                // For checkboxes, any checked box means changes
+                if (input.checked) {
+                    hasChanges = true;
+                }
+            } else if (input.value.trim() !== '') {
+                // For text inputs, any non-empty value means changes
+                hasChanges = true;
+            }
+        });
+        
+        // Check select dropdowns
+        const selects = form.querySelectorAll('select');
+        selects.forEach(select => {
+            if (select.value !== '') {
+                hasChanges = true;
+            }
+        });
+        
+        // Check file input
+        const fileInput = form.querySelector('input[type="file"]');
+        if (fileInput && fileInput.files.length > 0) {
+            hasChanges = true;
+        }
+        
+        // Check for child table items
+        const childItems = form.querySelectorAll('.child-table-item');
+        if (childItems.length > 0) {
+            hasChanges = true;
+        }
+        
+        return hasChanges || imageChanged;
+    }
+
+    // Function to set correct values for dropdowns
+    function setTaxonomyDropdownValues(container) {
+        if (!container) return;
+        
+        // Get all child items
+        const childItems = container.querySelectorAll('.child-table-item');
+        childItems.forEach(item => {
+            const itemId = item.getAttribute('data-id');
+            
+            // Find all selects in this item
+            const selects = item.querySelectorAll('select');
+            selects.forEach(select => {
+                // Check for taxonomy value
+                if (select.name.includes('taxonomy')) {
+                    const value = select.getAttribute('data-value');
+                    if (value) {
+                        console.log('Setting taxonomy value:', value, 'for select:', select);
+                        select.value = value;
+                    }
+                }
+                
+                // Check for parent_id value
+                if (select.name.includes('parent_id')) {
+                    const value = select.getAttribute('data-selected-value');
+                    if (value) {
+                        console.log('Setting parent_id value:', value, 'for select:', select);
+                        select.value = value;
+                    }
+                }
+            });
+        });
+    }
+
+    // Function to initialize image preview functionality
+    function initImagePreview() {
+        const fileInput = document.querySelector('input[type="file"]');
+        const imagePreview = document.getElementById('image-preview');
+        
+        if (fileInput && imagePreview) {
+            fileInput.addEventListener('change', function() {
+                imageChanged = true;
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    }
+</script>
+
+

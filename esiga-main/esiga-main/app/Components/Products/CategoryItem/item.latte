@@ -1,0 +1,34 @@
+{include _assets.latte}
+
+
+        {foreach $categories as $categoryData}
+
+            {if $currentCategory == null}
+
+              <a href="{plink 'Products:default', 'category' => $categoryData->categories->slug}" class="category-item">
+                  <span class="icon-wrapper">
+                    <img src="{$baseUrl}/assets/images/categories/{$categoryData->categories->img_src}"/>
+                  </span>
+                  <p>{$categoryData->categories->title}</p>
+                  <img class="arrow" src="{$baseUrl}/assets/icons/arrow-right.svg" />
+              </a>
+
+
+
+            {elseif $categoryData->categories->slug == $currentCategory->categoryData->slug} 
+
+                {foreach $categoryData->subcategories as $subCategory}
+                    
+
+                  <a href="{plink 'Products:default', 'category' => $subCategory->slug}" class="category-item">
+                    <span class="icon-wrapper">
+                      <img src="{$baseUrl}/assets/images/categories/{$subCategory->img_src}"/>
+                    </span>
+                    <p>{$subCategory->title}</p>
+                    <img class="arrow" src="{$baseUrl}/assets/icons/arrow-right.svg" />
+                  </a>
+                {/foreach}
+
+            {/if}
+        {/foreach}   
+

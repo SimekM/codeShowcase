@@ -1,0 +1,48 @@
+{include _assets.latte}
+
+
+<header class="header">
+   
+
+    <nav class="navbar main">
+       <a class="logo-wrapper" href="{plink Home:default}">
+          <img src="{$baseUrl}/assets/images/logo.png" alt="Nakoupalisti" />
+      </a>
+
+      <div class="link-container">
+        <a href="{plink Home:default}" class="{if $presenterName == 'Home'}selected{/if}">Domů</a>
+        <a href="{plink Menu:default}" class="{if $presenterName == 'Menu'}selected{/if}">Menu</a>
+        <a href="{plink Salon:default}" class="{if $presenterName == 'Salon'}selected{/if}">Salónek</a>
+        <a href="{plink Wedding:default}" class="{if $presenterName == 'Wedding'}selected{/if}">Svatby a oslavy</a>
+        <a href="{plink Catering:default}" class="{if $presenterName == 'Catering'}selected{/if}">Catering</a>
+        <a href="{plink Contact:default}" class="{if $presenterName == 'Contact'}selected{/if}">Kontakt</a>
+      </div>
+
+      <p><i class="fa-solid fa-phone"></i>+420 606 727 739</p>
+
+    </nav>
+
+     <nav id="ham-nav">
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav> 
+  
+</header>
+
+
+<div class="overlay" id="overlay"></div>
+<div class="sidebar" id="sidebar">
+  <ul>
+    <li><a href="{plink Home:default}" class="{if $presenterName == 'Home'}selected{/if}">Domů</a></li>
+    <li><a href="{plink Menu:default}" class="{if $presenterName == 'Menu'}selected{/if}">Menu</a></li>
+    <li><a href="{plink Salon:default}" class="{if $presenterName == 'Salon'}selected{/if}">Salónek</a></li>
+    <li><a href="{plink Wedding:default}" class="{if $presenterName == 'Wedding'}selected{/if}">Svatby a oslavy</a></li>
+    <li><a href="{plink Catering:default}" class="{if $presenterName == 'Catering'}selected{/if}">Catering</a></li>
+    <li><a href="{plink Contact:default}" class="{if $presenterName == 'Contact'}selected{/if}">Kontakt</a></li>
+    <li class="phone-item"><i class="fa-solid fa-phone"></i>+420 606 727 739</li>
+  </ul>
+</div>
+

@@ -1,0 +1,7 @@
+
+    {include '_assets.latte'}
+
+{dump $products}
+{foreach $products as $product}
+            {control $presenter->getComponent(core)->getComponent(productItem) $product}
+{/foreach}

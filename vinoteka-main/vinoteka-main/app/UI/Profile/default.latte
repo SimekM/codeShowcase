@@ -1,0 +1,29 @@
+{block content}
+{include _assets.latte}
+
+
+<div class="big-page-wrapper" style="margin-top: 50px; margin-bottom: 220px;">
+    <div class="login-wrapper flex-wrapper">
+        <div class="image-wrapper">
+            <img class="bg" src="{$baseUrl}/assets/images/login-bg.png">
+            <img class="bg2" src="{$baseUrl}/assets/images/login-bg2.png">
+        </div>
+        <div class="content">
+            <h2>Přihlášení</h2>
+            <div class="flex-input-wrapper">
+                <label for="email">Přihlašovací email</label>
+                <input onfocusout="handleFocusOut(event)" id="email" name="email" type="email" />
+            </div>
+            <div class="flex-input-wrapper" style="margin-top: 20px;">
+                <label for="password">Heslo</label>
+                <input onfocusout="handleFocusOut(event)" id="password" name="password" type="password" />
+                <a style="width: 100%; text-align: right;" href="{plink Profile:forgot}">Zapomenuté heslo</a>
+            </div>
+
+            <button class="cta-button" style="width: 100%; margin-top: 40px;">
+                Přihlásit se
+            </button>
+            <p style="text-align: center; width: 100%; margin-top: 20px;">Nemáte u nás ještě zřízený účet? <a href="{plink Profile:register}">Zaregistrovat se</a></p>
+        </div>
+    </div>
+</div>

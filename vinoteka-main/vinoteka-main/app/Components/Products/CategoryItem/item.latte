@@ -1,0 +1,10 @@
+{include _assets.latte}
+
+
+
+<a href="{plink Products:default, 'category' => $category->slug}" class="category-item">
+  <span class="icon-wrapper">
+    <img src="{$baseUrl}/assets/images/products/{$category->img_src}" />
+  </span>
+  <p>{$category->title}</p>
+</a>

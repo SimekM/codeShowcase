@@ -1,0 +1,41 @@
+<script>
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+        naja.initialize();
+
+    }); 
+
+
+       function showNotification(messageData) 
+        {
+            var notification = document.createElement('div');
+            notification.id = 'notification-container';
+            if (messageData.error) {
+                notification.style.backgroundColor = '#f8d7da';
+                notification.style.color = '#721c24';
+                notification.style.border = '2px solid #f5c6cb'; 
+            } else {
+                notification.style.backgroundColor = '#d4edda';
+                notification.style.color = '#155724'; 
+                notification.style.border = '2px solid #c3e6cb'; 
+            }
+
+            var notificationText = document.createElement('div');
+            notificationText.innerText = messageData.message;
+            
+            notification.appendChild(notificationText);
+            document.body.appendChild(notification);
+
+            setTimeout(function() {
+                notification.classList.add('fade-out');
+                setTimeout(function() {
+                notification.remove();
+                }, 1000); 
+            }, 8000);
+         }
+
+
+
+</script>

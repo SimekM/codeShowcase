@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+    {include '../_assets/_libraries_css.latte'}
+    {include '../_assets/_libraries_js.latte'}
+
+    {include '_assets/main_css.latte'}
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+	<title>Admin Esiga</title>
+
+</head>
+
+<body>
+
+
+
+        {control core-notification}
+
+        <div class="navbar">
+            <div class="navbar-header">
+                <img src="{$baseUrl}/assets/images/logo.png"/>
+                <button class="close-btn hover-btn-raise"><i class="bi bi-layout-sidebar-inset"></i></button>
+            </div>
+    
+        <div class="main-heading-wrapper">
+            <h1 class="main-heading"> {if $currentAction == 'default'} Přehled {elseif $currentAction == 'account'} Přehled účtu {elseif $currentAction == 'products'} Seznam produktů  {elseif $currentAction == 'productCategories'} Kategorie produktů {elseif $currentAction == 'productCategories'} Stránky {/if}</h1>
+        </div>
+
+
+      </div>
+
+
+
+      <div class="content-container">
+
+
+
+        <nav class="sidebar">
+
+        <div class="sidebar-item sidebar-item-hover{if $currentAction == 'default'} active{/if}">
+          <a n:href="Admin:default"><i class="bi bi-house"></i>Přehled</a>
+        </div>
+
+        <div class="sidebar-item sidebar-item-hover{if $currentAction == 'products' || $currentAction == 'productCategories'} active{/if}">
+
+            <div class="dropdown-wrapper">
+              <div id="btn-products-dropdown" class="sidebar-dropdown-toggler">
+                <a n:href="Admin:products" class="dropdown-toggle"><i class="bi bi-archive"></i>Produkty</a>
+                <span class="dropdown-arrow"><i class="fa-solid fa-angle-right"></i></span>
+              </div>
+
+                <ul id="sidebar-dropdown-menu" class="dropdown-menu">
+                  <li><a n:href="Admin:products">Seznam produktů</a></li>
+                  <li><a n:href="Admin:productCategories">Kategorie produktů</a></li>
+              </ul>
+            </div>
+        </div>
+
+        <div class="sidebar-item sidebar-item-hover{if $currentAction == 'sales'} active{/if}">
+            <a n:href="Admin:sales"> <i class="bi bi-bag"></i>Poptávka</a>
+        </div>
+
+        <div class="sidebar-item sidebar-item-hover{if $currentAction == 'pages'} active{/if}">
+            <a n:href="Admin:pages"> <i class="bi bi-file-earmark"></i>Stránky</a>
+        </div>
+
+        <div class="sidebar-item sidebar-item-hover{if $currentAction == 'editor'} active{/if}">
+            <a n:href="Admin:editor"> <i class="bi bi-person"></i>Editor stránek</a>
+        </div>
+
+        <div class="sidebar-item sidebar-item-hover{if $currentAction == 'account'} active{/if}">
+            <a n:href="Admin:account"> <i class="bi bi-file-earmark"></i>Aktivita účtu</a>
+        </div>
+
+        <div class="sidebar-item sidebar-item-hover logout">
+          <a n:href="logout!"><i class="bi bi-box-arrow-in-right"></i>Odhlásit se</a>
+        </div>
+
+
+        </nav>
+
+
+          <main class="page-container">
+              {include content}
+          </main>
+
+      </div>
+
+	{block scripts}
+        {include '_assets/main_js.latte'}
+	{/block}
+</body>
+</html>

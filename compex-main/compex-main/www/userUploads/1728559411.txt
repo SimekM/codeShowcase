@@ -1,0 +1,4 @@
+Soubory 'Compex VIP podpora.exe' musí být v tomto adresáøi celkem 2 (jsou totožné):
+
+1. bez podtržítek pro stahování ze stránek
+2. s podtržítkama pro stahování z programu FIS3000

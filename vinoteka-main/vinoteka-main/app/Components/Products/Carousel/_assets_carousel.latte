@@ -1,0 +1,140 @@
+<style>
+  /* Carousel */
+  .product-item {
+    min-width: 300px !important;
+    max-width: 300px !important;
+  }
+
+  .carousel .item-wrapper .flex-wrapper {
+    transition: transform 0.3s ease-in-out;
+    /*18px*/
+  }
+
+  .carousel .item-wrapper {
+    justify-content: left;
+    overflow-x: hidden;
+    flex-shrink: 0;
+    width: calc(300px * 4 + 18px * 3);
+  }
+
+  /* 300px card - 18px gap */
+  @media (max-width: calc(300px * 4 + 18px * 3 + 60px * 2)) {
+    .carousel .item-wrapper {
+      width: calc(300px * 3 + 18px * 2);
+    }
+  }
+
+  @media (max-width: calc(300px * 3 + 18px * 2 + 60px * 2)) {
+    .carousel .item-wrapper {
+      width: calc(300px * 2 + 18px);
+    }
+  }
+
+  @media (max-width: calc(300px * 2 + 18px + 60px * 2)) {
+    .carousel .item-wrapper {
+      width: calc(300px);
+    }
+  }
+
+  .carousel .button-wrapper.left {}
+
+  .carousel .button-wrapper.right {}
+
+  .carousel .arrowbutton {
+    max-width: 20px;
+    max-height: 40px;
+  }
+
+  .carousel .button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  .dot-carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+  }
+
+  .dot-carousel {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #9C334733;
+    transition: all .6s linear;
+  }
+
+  .dot-carousel.active {
+    background-color: #9C3347;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    var currentIndex = 0;
+    const item_wrappers = document.querySelectorAll(".carousel");
+
+/*     const updateDots = (element) => {
+      element.dots[active_dot].classList.toggle("active");
+      element.dots[currentIndex].classList.toggle("active");
+    }; */
+
+    item_wrappers.forEach(element => {
+      /* element.dots = element.querySelectorAll(".dot-carousel-wrapper .dot-carousel");
+      element.dots[0].classList.toggle("active");
+      element.active_dot = 0; */
+
+      element.querySelector("#carouselRight").addEventListener("click", () => {
+        if (!element.currentIndex) element.currentIndex = 0;
+        element.currentIndex += 1;
+        updateCarousel(element);
+        /* updateDots(element); */
+      });
+      element.querySelector("#carouselLeft").addEventListener("click", () => {
+        if (!element.currentIndex) element.currentIndex = 0;
+        element.currentIndex -= 1;
+        if (element.currentIndex < 0) element.currentIndex = 0
+        updateCarousel(element);
+        /* updateDots(element); */
+      });
+    });
+
+
+    /* update position, update class  */
+    const updateCarousel = (element) => {
+      let item_wrapper = element.querySelector(".item-wrapper");
+      const carousel = item_wrapper.querySelector('.flex-wrapper')
+      let n_items = Math.floor(item_wrapper.clientWidth / 300);
+
+      //const itemHeight = carousel.querySelector('.banner-image').clientWidth;
+      const margin = 18;
+      //const offset = (itemHeight + margin) * currentIndex;
+
+      let offset = (300 * n_items + margin * n_items) * element.currentIndex;
+      if (offset > carousel.clientWidth) {
+        element.currentIndex = 0;
+        offset = 0;
+      };
+
+      carousel.style.transform = 'translateX(-' + String(offset) + 'px)';
+    };
+
+    /* 
+    Automatic update for carousel
+    setInterval(() => {
+          if (currentIndex >= 4) {
+            currentIndex = 0;
+          } else if (currentIndex < 0) {
+            currentIndex = 4
+          } else {
+            currentIndex++;
+          };
+          updateCarousel(currentIndex);
+        }, 10000); */
+  });
+</script>

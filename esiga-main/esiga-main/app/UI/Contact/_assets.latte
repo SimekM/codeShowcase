@@ -1,0 +1,511 @@
+<style>
+    .contact-section {
+        background-color: var(--white-color);
+        position: relative;
+    }
+
+
+    .page-wrapper {
+        margin-top: 20px;
+    }
+
+    .text-banner {
+        flex-direction: column;
+        display: flex;
+        text-align: center;
+        margin-bottom: 50px;
+        padding-top: 25px;
+    }
+
+    .text-banner h1 {
+        font-weight: 400;
+    }
+
+    .text-banner p {
+        color: var(--grey-text);
+        max-width: 600px;
+        margin: 0 auto;
+        margin-bottom: 150px;
+    }
+
+    .contact-wrapper-content {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        padding-left: var(--margin-sides);
+        padding-right: var(--margin-sides);
+        background-color: #D9D9D9;
+        position: relative;
+    }
+
+    .background-holder {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding-left: var(--margin-sides);
+        padding-right: var(--margin-sides);
+        width: 100%;
+        height: 525px;
+    }
+
+    .contact-wrapper {
+        flex: 1;
+        padding: 20px;
+        max-width: 600px;
+        width: 100%;
+        color: var(--primary-color);
+        margin-top: 150px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .contact-wrapper h3 {
+        text-wrap: nowrap;
+        margin-bottom: 25px;
+    }
+
+    .contact-wrapper>p {
+        margin-bottom: 30px;
+    }
+
+    .contact-details {
+        list-style: none;
+    }
+
+    .contact-details li {
+        margin-bottom: 10px;
+    }
+
+    .contact-form {
+        max-width: 666px;
+        width: 100%;
+        margin-top: 150px;
+        flex: 1;
+        background-color: var(--white-color);
+        border-radius: 25px;
+        padding: 25px;
+        position: relative;
+        opacity: 1;
+        color: var(--primary-color);
+    }
+
+    .contact-form label {
+        margin-bottom: 10px;
+    }
+
+    .contact-form .subtext {
+        color: var(--grey-text);
+        font-weight: 400;
+    }
+
+    .contact-form form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-family: 'AnekLatin';
+        font-size: 25px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border-radius: 25px;
+        border: 1px solid #aaa9a8;
+        background-color: var(--white-color);
+        color: var(--primary-color);
+        outline: none;
+    }
+
+    @media screen and (max-width: 500px) {
+        .contact-form input,
+        .contact-form textarea {
+            font-size: 20px;
+        }
+    }
+
+    
+    @media screen and (max-width: 400px) {
+        .contact-form {
+            max-width: min-content;
+        }
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+        color: #b8b8b7;
+        opacity: 0.9;
+    }
+
+    .contact-form textarea {
+        margin-bottom: 55px;
+    }
+
+    .contact-form input {
+        height: 48px;
+    }
+
+    .contact-form textarea {
+        resize: none;
+        height: 158px;
+    }
+
+    .contact-form p {
+        color: #aaa9a8;
+        margin-bottom: 20px;
+    }
+
+    .contact-form button {
+        padding: 12px 20px;
+        width: 100%;
+        border: none;
+        border-radius: 50px;
+        background-color: var(--secondary-color);
+        margin-right: 25px;
+        margin-bottom: 25px;
+    }
+
+    section.cards {
+        padding: 150px var(--margin-sides);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        flex-shrink: 0;
+        flex-wrap: wrap;
+    }
+
+    .flex-content-wrapper {
+        display: flex;
+        gap: 40px;
+        padding-bottom: 150px;
+    }
+
+
+    @media screen and (max-width: 1150px) {
+        .flex-content-wrapper {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+
+    section.cards {
+        padding-top: 0;
+    }
+
+    .text-wrapper {
+        margin-top: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 150px;
+        flex-direction: column;
+    }
+
+    /* DROPDOWN */
+    .dropdown-contact {
+        position: relative;
+        width: 100%;
+    }
+
+    .dropdown-contact-toggle {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+        justify-content: space-between;
+        padding-right: 25px;
+        border: 1px solid #aaa9a8;
+        border-radius: 25px;
+        background-color: var(--white-color);
+    }
+
+    .dropdown-contact-toggle input {
+        margin-bottom: 0;
+        border: none;
+    }
+
+    .dropdown-contact-menu {
+        background-color: var(--white-color);
+        color: var(--grey-text);
+
+        display: none;
+        position: absolute;
+        z-index: 3;
+        top: calc(100% - 15px + 10px);
+        border-radius: 25px;
+        flex-wrap: wrap;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        justify-content: center;
+    }
+
+    .dropdown-contact-item {
+        background-color: rgba(99, 98, 96, 0.2);
+        padding: 10px 15px;
+        margin: 10px;
+        border-radius: 25px;
+        text-align: center;
+        cursor: pointer;
+        width: 300px;
+    }
+
+    .dropdown-contact-item:hover {
+        background-color: var(--grey-text);
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .dropdown-contact-item:hover p {
+        color: var(--white-color);
+        transition: color 0.3s ease-in-out;
+    }
+
+    .dropdown-contact-item p {
+        width: 100%;
+        margin: 0;
+        color: var(--grey-text);
+    }
+
+    .dropdown-contact-toggle>img {
+        cursor: pointer;
+    }
+
+    .toggled {
+        outline: 2px solid var(--secondary-color);
+        filter: brightness(105%);
+    }
+
+
+
+    .contacts-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+  .contact-container {
+    background-color: #e8e8e8;
+    border-radius: 8px;
+    display:flex;
+    flex-direction: column;
+    text-align: left;
+    border-radius:10px;
+    padding: 35px;
+  
+  }
+
+  .contact-container h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+  }
+
+  .contact-container p {
+    margin: 8px 0;
+    line-height: 1.6;
+    display:flex;
+    text-align: left;
+  }
+
+  .contact-container strong {
+    color: #555;
+    min-width: 120px;
+    display: inline-block;
+  }
+
+  .long-text {
+    font-size: 0.9em;
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+</style>
+
+
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const dropdownContact = document.querySelector('#dropdown-contact-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-contact-menu');
+        const arrow = document.querySelector(".dropdown-contact-toggle > img");
+        const inputbar = document.querySelector(".dropdown-contact-toggle");
+
+        arrow.addEventListener('click', () => {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'flex' ? 'none' : 'flex';
+            arrow.classList.toggle("rotate")
+            inputbar.classList.toggle("toggled")
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!dropdownContact.contains(e.target)) {
+                dropdownMenu.style.display = 'none';
+                if (arrow.classList.contains("rotate")) arrow.classList.toggle("rotate")
+                if (inputbar.classList.contains("toggled")) inputbar.classList.toggle("toggled")
+            }
+        });
+
+        const dropdownItems = document.querySelectorAll('.dropdown-contact-item');
+        dropdownItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                const selectedItemText = item.querySelector('p').textContent;
+                if (!arrow.classList.contains("rotate")) arrow.classList.toggle("rotate")
+                if (!inputbar.classList.contains("toggled")) inputbar.classList.toggle("toggled")
+                inputbar.querySelector('input').value = selectedItemText;
+                dropdownMenu.style.display = 'none';
+            });
+        });
+
+
+        //form
+        var sendFormLink = {link sendForm!}
+
+
+        var contactForm = document.querySelector('form[name="contactForm"]');
+
+        var subjectInput = document.querySelector('input[name="subject"]');
+        var nameInput = document.querySelector('input[name="name"]');
+        var emailInput = document.querySelector('input[name="email"]');
+        var phoneInput = document.querySelector('input[name="phone"]');
+        var companyInput = document.querySelector('input[name="company"]');
+        var messageInput = document.querySelector('textarea[name="message"]');
+
+        subjectInput.addEventListener('input', function () {
+            this.setCustomValidity('');
+            if (!this.validity.valid) {
+                this.setCustomValidity('Prosím, zadejte přehled.');
+            }
+        });
+
+        subjectInput.addEventListener('invalid', function () {
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, zadejte přehled.');
+            } else {
+                this.setCustomValidity('Prosím, zadejte přehled.');
+            }
+        });
+
+
+        nameInput.addEventListener('invalid', function () {
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, zadejte své jméno.');
+            }
+        });
+
+        nameInput.addEventListener('input', function () {
+            this.setCustomValidity('');
+            if (!this.validity.valid) {
+                this.setCustomValidity('Prosím, zadejte své jméno.');
+            }
+        });
+
+
+        emailInput.addEventListener('input', function () {
+            this.setCustomValidity('');
+            if (!this.validity.valid) {
+                this.setCustomValidity('Prosím, zadejte platný e-mail.');
+            }
+        });
+
+        emailInput.addEventListener('invalid', function () {
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, zadejte platný e-mail.');
+            }
+        });
+
+
+        phoneInput.addEventListener('input', function () {
+            this.setCustomValidity('');
+            if (!this.validity.valid) {
+                this.setCustomValidity('Prosím, zadejte platné telefonní číslo.');
+            }
+        });
+
+        phoneInput.addEventListener('invalid', function () {
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, zadejte platné telefonní číslo.');
+            }
+        });
+
+        companyInput.addEventListener('input', function () {
+            this.setCustomValidity('');
+            if (!this.validity.valid) {
+                this.setCustomValidity('Prosím, zadejte platné telefonní číslo.');
+            }
+        });
+
+        companyInput.addEventListener('invalid', function () {
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, zadejte platné telefonní číslo.');
+            }
+        });
+
+
+        messageInput.addEventListener('input', function () {
+            this.setCustomValidity('');
+            if (!this.validity.valid) {
+                this.setCustomValidity('Prosím, zadejte platné telefonní číslo.');
+            }
+        });
+
+        messageInput.addEventListener('invalid', function () {
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, zadejte platné telefonní číslo.');
+            }
+        });
+
+
+        contactForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            if (!this.checkValidity()) {
+
+                const firstInvalidElement = this.querySelector(':invalid');
+
+                firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                setTimeout(function () {
+                    firstInvalidElement.focus({ preventScroll: true });
+                    window.scrollBy(0, -100);
+                    trainingForm.reportValidity();
+                }, 700);
+
+            } else {
+
+                event.preventDefault();
+
+                var formData = {
+                    subject: subjectInput.value,
+                    name: nameInput.value,
+                    email: emailInput.value,
+                    phone: phoneInput.value,
+                    company: companyInput.value,
+                    message: messageInput.value,
+                };
+
+                naja.makeRequest('POST', sendFormLink, formData, { history: false })
+                    .then(function (response) {
+                        console.log(response);
+                        showNotification(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        const response = {
+                            error: true,
+                            message: 'Nepodařilo se odeslat zprávu zkuste to prosím znovu.'
+                        };
+                        showNotification(response);
+                    });
+            }
+        });
+    });
+
+
+</script>

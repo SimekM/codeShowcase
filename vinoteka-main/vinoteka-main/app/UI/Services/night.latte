@@ -1,0 +1,39 @@
+{block content}
+{include _night_assets.latte}
+
+<div class="page-wrapper service-content">
+    <h2 style="margin-bottom: 50px;">Degustační večery</h2>
+    <div class="text-wrapper">
+        <p>Po předchozí dohodě můžeme pro Vás nebo Vaše přátele či obchodní partnery připravit řízenou ochutnávku vín
+            dle
+            výběru. Věříme, že s naší nabídkou kvalitních vín budete spokojeni.
+        </p>
+        <p>Součástí degustace je láhev vody Aqua Angels pH 8,8, sýrový talířek a pečivo. V případě zájmu můžeme
+            nabídnout
+            Menu spojené s párováním vína, připravili bychom speciální nabídku.
+        </p>
+        <p>Cena se odvíjí od skladby vína, nicméně začínáme na částce 500 Kč + DPH.</p>
+        <p>V případě zájmu o degustaci vín nás neváhejte kontaktovat!</p>
+        <p>Ing. Julius Šiška<br>předseda správní rady</p>
+    </div>
+
+    <div style="margin-top: 89px;">
+        {control core-uiSContact}
+    </div>
+</div>
+
+<section class="page-wrapper gallery" style="padding-bottom: 235px;">
+    <h3 style="margin-bottom: 30px;">Galerie</h3>
+    <div class="photo-grid">
+        {for $i = 1; $i <= 12; $i++} <div class="grid-item image-container">
+            <img src="{$baseUrl}/assets/images/gallery/image-{$i}.png">
+    </div>
+    {/for}
+    </div>
+</section>
+
+<div class="page-wrapper">
+    {control core-uiSInstagram}
+</div>
+
+{include _script.js}

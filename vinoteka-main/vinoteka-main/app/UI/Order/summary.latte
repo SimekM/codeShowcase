@@ -1,0 +1,203 @@
+{block content}
+{include _assets.latte}
+
+<div class="page-wrapper">
+    <div class="page-container">
+
+       <div class="top-banner">
+        <div class="icon-text">
+            <div class="number">
+                <h3>1</h3>
+            </div>
+            <p>Košík</p>
+        </div>
+ 
+        <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+        <div class="icon-text">
+            <div class="number">
+                <h3>2</h3>
+            </div>
+            <p>Osobní údaje a platba</p>
+        </div>
+        <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+        <div class="icon-text">
+            <div class="number">
+                <h3>3</h3>
+            </div>
+            <p>Shrnutí objednávky</p>
+        </div>
+    </div>
+
+
+    <!-- Holder wrapper -->
+    {* <div class="items-wrapper" style="margin-top: 110px;">
+       
+        <!-- Regular item -->
+        {foreach $cartItems as $cartItem}
+            <div class="item summary">
+            
+                <div class="flex-wrapper column title-wrapper">
+                    <p>{$cartItem->title_cs}</p>
+                    <p style="color: var(--grey-text);">Kód položky: {$cartItem->id} </p>
+                </div>
+                <div class="details">
+                    <p>{$cartItem->quantity} ks</p>
+                    <p>{$cartItem->price * $cartItem->quantity} Kč</p>
+                </div>
+            </div>
+    
+        {/foreach}
+
+        <!-- selection item -->
+        <div class="item summary">
+            <div class="flex-wrapper column title-wrapper">
+                <p style="color: var(--grey-text);">Doprava </p>
+                <p>Kartou online</p>
+            </div>
+            <div class="details">
+                <p>zdarma</p>
+            </div>
+        </div>
+        <!-- Another selection item -->
+        <div class="item summary">
+            <div class="flex-wrapper column title-wrapper">
+                <p style="color: var(--grey-text);">Platba</p>
+                <p>Zásilkovna</p>
+            </div>
+            <div class="details">
+                <p>69 Kč</p>
+            </div>
+        </div>
+
+        <!-- Total -->
+        <div class="cart-total">
+            <span>Cena celkem:</span>
+            <span id="full-price"></span>
+        </div>
+    </div> *}
+
+
+
+
+    <div class="summary-box">
+            <div class="summary-header">
+                <h2>Číslo objednávky: {$order->id}</h2>
+                {* <div class="order-number">Objednávka č.: 250026</div> *}
+            </div>
+            
+            <div class="customer-info">
+                <div class="info-box">
+                    <div class="info-box-title">Platební kontakt</div>
+                    <ul class="info-list">
+                        <li><span class="info-label">Jméno a příjmení:</span> <span>{$customerInfo->name}</span></li>
+                        <li><span class="info-label">Telefon:</span> <span>{$customerInfo->phone}</span></li>
+                        <li><span class="info-label">E-mail:</span> <span>{$customerInfo->email}</span></li>
+                        <li><span class="info-label">Město:</span> <span>{$customerInfo->city}</span></li>
+                        <li><span class="info-label">Ulice:</span> <span>{$customerInfo->street}</span></li>
+                        <li><span class="info-label">PSČ:</span> <span>{$customerInfo->postal_code}</span></li>
+
+                    </ul>
+                </div>
+                
+                {* <div class="info-box">
+                    <div class="info-box-title">Adresa pro dodání zboží</div>
+                    <ul class="info-list">
+                        <li><span class="info-label">Firma / Jméno:</span> <span>{$customerInfo->delivery_name}</span></li>
+                        <li><span class="info-label">Město:</span> <span>{$customerInfo->delivery_city}</span></li>
+                        <li><span class="info-label">Ulice:</span> <span>{$customerInfo->delivery_street}</span></li>
+                        <li><span class="info-label">PSČ:</span> <span>{$customerInfo->delivery_postal_code}</span></li>
+                    </ul>
+                </div> *}
+            </div>
+
+
+            <div class="note-box">
+                <div class="info-box-title">Poznámka:</div>
+                <p>{if isset($customerInfo->note) && $customerInfo->note != ""}{$customerInfo->note}{else}Bez poznámky{/if}</p>
+            </div>
+            
+            <div class="payment-shipping">
+                <div class="payment-box">
+                    <div class="info-box-title">Způsob platby</div>
+                    <p>{$deliveryMessage->paymentTitle}</p>
+                </div>
+                
+                <div class="shipping-box">
+                    <div class="info-box-title">Způsob dodání</div>
+                    <p>{$deliveryMessage->deliveryTitle}</p>
+                </div>
+            </div>
+            
+            <div class="highlighted-note">
+                {$deliveryMessage->message}
+            </div>
+            
+            <div class="summary-section">
+                <div class="section-title">Shrnutí objednávky</div>
+                
+                <div class="items-wrapper">
+
+                    {if $customerInfo->payment_method == "checkbox-platba-dobirka"}
+
+                        <div class="item summary">
+                            <img class="cart-product-img"src="{$baseUrl}/assets/icons/wallet.svg" />
+                            <div class="flex-wrapper column title-wrapper">
+                                <p>Dobírka</p>
+                            </div>
+                            <div class="details">
+                                <p>30 Kč</p>
+                            </div>
+                        </div>
+                    {/if}
+
+                    {if $customerInfo->shipping_method == "checkbox-doprava-ppl"}
+
+                        <div class="item summary">
+                            <img class="cart-product-img"src="{$baseUrl}/assets/icons/ppl-logo.png" />
+                            <div class="flex-wrapper column title-wrapper">
+                                <p>Doprava PPL</p>
+                            </div>
+                            <div class="details">
+                                <p>130 Kč</p>
+                            </div>
+                        </div>
+                    {/if}
+                    {foreach $orderItems as $item}
+
+                        <div class="item summary">
+                            <img class="cart-product-img"src="{$baseUrl}/assets/images/products/{$item->img_src}" />
+                            <div class="flex-wrapper column title-wrapper">
+                                <p>{$item->title}</p>
+                                <p style="color: var(--grey-text);">Kód položky: {$item->product_id}</p>
+                            </div>
+                            <div class="details">
+                                <p>{$item->quantity} ks</p>
+                                <p>{$item->price * $item->quantity} Kč</p>
+                            </div>
+                        </div>
+                    {/foreach}
+                    <!-- Regular item -->
+                 
+                    
+                    <!-- Total -->
+                    <div class="cart-total">
+                        <span>Cena celkem:</span>
+                        {dump $order}
+                        <span id="full-price">{$order->total_price + $doplatekZaDopravu} Kč</span>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            <a href="{plink Products:default}" class="cta-button summary-btn-leave">Zpět do obchodu -></a>
+
+        </div>
+
+
+
+    {* <div style="width: 100%; display: flex; justify-content: right; margin-bottom: 80px;">
+        <p style="color: var(--grey-text);">Přesměrování na platební bránu</p>
+    </div> *}
+    </div>
+</div>

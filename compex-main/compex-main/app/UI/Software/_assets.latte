@@ -1,0 +1,348 @@
+<style>
+    .header {
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        z-index: 2;
+        width: 100%;
+    }
+
+    /* MAIN BANNER */
+    .main-banner {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        text-align: center;
+        position: relative;
+        height: 900px;
+    }
+
+    .banner-wrapper {
+        height: 100%;
+        width: 100%;
+    }
+
+    .banner-wrapper>img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    .main-banner .banner-bottom {
+        width: 100%;
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        justify-content: space-between;
+        padding-left: var(--margin-sides);
+        padding-right: var(--margin-sides);
+    }
+
+    .main-banner .banner-bottom p {
+        max-width: 528px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .banner-wrapper .content {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        top: 50%;
+        padding: 0 var(--margin-sides);
+        transform: translate(0%, -50%);
+    }
+
+    .main-banner .fissbar {
+        cursor: pointer;
+        max-width: 500px;
+        width: 100%;
+        background-color: var(--white-color);
+        border-radius: 50px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding-left: 35px;
+        justify-content: space-between;
+    }
+
+    .main-banner .fissbar>img {
+        transition: 0.5s all;
+    }
+
+
+    .dropdown-software {
+        position: relative;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .toggled {
+        outline: 2px solid var(--secondary-color);
+        filter: brightness(105%);
+    }
+
+    .dropdown-software-menu {
+        background-color: var(--white-color);
+        color: var(--grey-text);
+
+        display: none;
+        position: absolute;
+        z-index: 10;
+        top: calc(100% - 15px + 10px);
+        border-radius: 25px;
+        flex-wrap: wrap;
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc((16vw + 20px) * 3);
+        justify-content: center;
+    }
+
+    .dropdown-software-item {
+        background-color: rgba(99, 98, 96, 0.2);
+        padding: 10px 15px;
+        margin: 10px;
+        border-radius: 25px;
+        text-align: center;
+        cursor: pointer;
+        width: 300px;
+    }
+
+    .dropdown-software-item:hover {
+        background-color: var(--grey-text);
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    .dropdown-software-item:hover p {
+        color: var(--white-color);
+        transition: color 0.3s ease-in-out;
+    }
+
+    .dropdown-software-item p {
+        width: 100%;
+        color: var(--grey-text);
+    }
+
+    .main-banner .fissbar p {
+        color: var(--grey-text);
+    }
+
+    .main-banner .bottom-note {
+        color: var(--grey-text);
+        text-decoration: underline;
+        font-size: 15px;
+    }
+
+    .main-banner .fissbar a {
+        background-color: var(--secondary-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+    }
+
+    .main-banner h1 {
+        font-size: 70px;
+        color: var(--white-color);
+    }
+
+    .secondary-highlight {
+        color: var(--secondary-color);
+    }
+
+    /* Pricing Section */
+    section.pricing {
+        background-color: var(--white-color);
+        color: var(--primary-color);
+        padding-top: 150px;
+        padding-bottom: 210px;
+    }
+
+    .flex-wrapper.pricing {
+        justify-content: space-between;
+        column-gap: var(--margin-sides);
+        row-gap: 30px;
+        margin-bottom: 150px;
+        align-items: unset;
+    }
+
+    @media screen and (max-width: 1500px) {
+        .flex-wrapper.pricing {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+
+    .flex-wrapper.pricing h1 {
+        text-wrap: nowrap;
+    }
+
+    .flex-wrapper.pricing p {
+        color: var(--grey-text);
+        max-width: 804px;
+        width: 100%;
+        font-size: 20px;
+    }
+
+    .price-box {
+        background-color: var(--white-color);
+        padding: 40px 50px;
+        max-width: 804px;
+        width: 100%;
+        border-radius: 20px;
+        box-shadow: 0px 0px 6.2px 2px #00000040;
+        align-items: unset;
+    }
+
+    .price-box .info {
+        border-right: 2px solid var(--grey-text);
+        width: fit-content;
+        padding-right: 25px;
+    }
+
+    .price-box .info h3 {
+        font-size: 70px;
+        text-wrap: nowrap;
+        margin-bottom: 5px;
+    }
+
+    .price-box .info p {
+        color: var(--grey-text);
+        margin-bottom: 15px;
+    }
+
+    .cta-button.card-top {
+        color: var(--secondary-color);
+        border: 1px solid var(--secondary-color);
+        margin-bottom: 15px;
+    }
+
+    .cta-button.card-bottom {
+        color: var(--grey-text);
+        border: 1px solid var(--grey-text);
+    }
+
+    .price-box .content {
+        color: var(--grey-text);
+        justify-content: left;
+        align-items: unset;
+    }
+
+    .price-box .content-item {
+        gap: 14px;
+        align-items: flex-start;
+    }
+
+    @media screen and (max-width: 680px) {
+        .price-box {
+            flex-direction: column;
+        }
+
+        .price-box .info {
+            border-right: none;
+            padding-right: 0;
+            border-bottom: 2px solid var(--grey-text);
+            padding-bottom: 25px;
+        }
+
+        .price-box .content {
+            padding-top: 25px;
+        }
+    }
+
+    /* Add animations on load */
+    .fade-in {
+        animation: fadeIn 1s;
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+
+    /* Add animations to elements */
+    .main-banner .content {
+        animation: fadeIn 1s;
+    }
+
+    .price-box {
+        animation: slideUp 1s;
+    }
+
+    .price-box .info {
+        animation: slideLeft 1s;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const dropdownSoftware = document.querySelector('#dropdown-software-toggle');
+        const dropdownSoftwareMenu = document.querySelector('.dropdown-software-menu');
+        const arrow = document.querySelector(".main-banner .fissbar> img");
+        const fissbar = document.querySelector(".main-banner .fissbar");
+
+        dropdownSoftware.addEventListener('click', () => {
+            dropdownSoftwareMenu.style.display = dropdownSoftwareMenu.style.display === 'flex' ? 'none' : 'flex';
+            arrow.classList.toggle("rotate")
+            fissbar.classList.toggle("toggled")
+        });
+
+        window.addEventListener('click', (e) => {
+            if (!dropdownSoftware.contains(e.target)) {
+                dropdownSoftwareMenu.style.display = 'none';
+                if (arrow.classList.contains("rotate")) arrow.classList.toggle("rotate")
+                if (fissbar.classList.contains("toggled")) fissbar.classList.toggle("toggled")
+            }
+
+            if (dropdownSoftware.querySelector('a').contains(e.target)) {
+                dropdownSoftwareMenu.style.display = 'none';
+                if (arrow.classList.contains("rotate")) arrow.classList.toggle("rotate")
+                if (fissbar.classList.contains("toggled")) fissbar.classList.toggle("toggled")
+            }
+        });
+
+        const dropdownSoftwareItems = document.querySelectorAll('.dropdown-software-item');
+        dropdownSoftwareItems.forEach((item) => {
+            item.addEventListener('click', () => {
+                const selectedItemText = item.querySelector('p').textContent;
+                if (!arrow.classList.contains("rotate")) arrow.classList.toggle("rotate")
+                if (!fissbar.classList.contains("toggled")) fissbar.classList.toggle("toggled")
+                dropdownSoftware.querySelector('p').textContent = selectedItemText;
+                dropdownSoftware.querySelector('a').href = "http://www.compex.cz/files/files/FIS_Install_" + String(item.id) + ".exe";
+                dropdownSoftwareMenu.style.display = 'none';
+            });
+        });
+    });
+
+    const showText = (index) => {
+        let texts = {
+            titles: ["Finanční účetnictví pod kontrolou - správa pokladen, bank a dokladů s FISS 3000", "Fakturace pod kontrolou - efektivní správa faktur s FISS 3000", "Majetek pod kontrolou - správa majetku s FISS 3000", "Sklad pod kontrolou - efektivní správa zásob s FISS 3000", "Objednávky pod kontrolou - efektivní správa objednávek s FISS 3000", "Manažer pod kontrolou - grafické přehledy a ukazatele s FISS 3000"],
+            texts: [
+                "<span class='secondary-highlight'>Modul Finanční</span> účetnictví v systému FISS 3000 vám umožňuje snadno a efektivně spravovat pokladny, bankovní transakce i interní doklady. Zjednodušte si finanční operace a mějte přehled o všech pohybech ve vašem účetnictví.",
+                "<span class='secondary-highlight'>Modul Fakturace</span> v systému FISS 3000 vám umožňuje snadno vystavovat a evidovat přijaté faktury, zápočty a příkazy k úhradě. Získejte přehled o veškerých fakturačních procesech a zjednodušte finanční operace vaší firmy.",
+                "<span class='secondary-highlight'>Modul Majetek</span> v systému FISS 3000 umožňuje přehlednou evidenci dlouhodobého i drobného majetku a operativní správu. Zajistěte efektivní řízení majetkových operací ve vaší společnosti.",
+                "<span class='secondary-highlight'>Modul Sklad</span> v našem systému FISS 3000 vám umožňuje efektivně spravovat veškeré operace spojené se skladovými zásobami.",
+                "<span class='secondary-highlight'>Modul Objednávky</span> v systému FISS 3000 vám umožňuje vystavovat a sledovat přijaté objednávky s možností propojení na skladové zásoby. Získejte úplný přehled nad vašimi objednávkovými procesy a zajistěte efektivní tok zboží.",
+                "<span class='secondary-highlight'>Modul Manažer</span> v systému FISS 3000 poskytuje grafické výstupy hodnot a klíčových ukazatelů, které vám pomohou rychle analyzovat finanční a provozní data. Získejte přehledné a vizuálně zpracované informace pro efektivní rozhodování."
+            ]
+        };
+
+        var title = document.querySelector(".module-info #title")
+        var text = document.querySelector(".module-info #text")
+
+        title.innerHTML = texts.titles[index - 1];
+        text.innerHTML = texts.texts[index - 1];
+    }
+</script>

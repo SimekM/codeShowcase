@@ -1,0 +1,147 @@
+<style>
+    .header {
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        z-index: 2;
+        width: 100%;
+    }
+
+    /* Main Banner */
+    .main-banner {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        text-align: center;
+        position: relative;
+        height: 450px;
+    }
+
+    .banner-wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .banner-wrapper>img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    .banner-wrapper .content {
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        top: 50%;
+        padding: 0 var(--margin-sides);
+        transform: translate(0%, -50%);
+    }
+
+    .banner-wrapper h1 {
+        font-weight: 400;
+    }
+
+    /* INFO SECTION */
+    section.info {
+        padding: 150px 0;
+    }
+
+    .info-section {
+        justify-content: space-between;
+        gap: var(--margin-sides);
+        align-items: unset;
+    }
+
+    .info-section h1 {
+        color: #161616;
+        text-wrap: nowrap;
+    }
+
+    .info-section p {
+        max-width: 666px;
+        font-size: 20px;
+        color: var(--grey-text);
+    }
+
+    @media screen and (max-width: 1500px) {
+        .info-section {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+
+    /* Software Info Section */
+    .software-info {
+        background-color: var(--secondary-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+        height: 550px;
+    }
+
+    .software-info .text-content {
+        padding-left: var(--margin-sides);
+        padding-right: var(--margin-sides);
+        width: 50%;
+    }
+
+    .software-info h1 {
+        text-wrap: nowrap;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 50px;
+        font-size: 4vw;
+    }
+
+    @media screen and (max-width: 1200px) {
+        .software-info .text-content {
+            padding: 30px;
+        }
+    }
+
+    @media screen and (max-width: 470px) {
+        .software-info h1  {
+            text-wrap: wrap;
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        .software-info .image {
+            display: none;
+        }
+
+        .software-info .text-content {
+            width: 100%;
+            padding-left: var(--margin-sides);
+            padding-right: var(--margin-sides);
+        }
+
+        .software-info h1 {
+            font-size: 45px;
+        }
+    }
+
+
+    .software-info p {
+        color: var(--white-color);
+        margin-bottom: 30px;
+    }
+
+    .software-info .image {
+        height: 100%;
+        width: 50%;
+    }
+
+    .software-info .image>img {
+        width: 100%;
+        object-fit: cover;
+        height: 100%;
+    }
+
+    .btn-group {
+        display: flex;
+        gap: 10px;
+    }
+</style>

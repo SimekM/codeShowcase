@@ -1,0 +1,183 @@
+{block content}
+{include _assets_default.latte}
+
+
+
+
+<div class="big-page-wrapper" style="margin-top: 90px; margin-bottom: 270px;">
+      <div class="product-grid-wrapper" style="margin-bottom: 90px; flex-wrap: wrap; justify-content: space-between;">
+
+
+          {var $isMainCategory = $currentCategory == "druhy-vina" || $currentCategory == "zeme-puvodu" || $currentCategory == null}
+
+          {foreach $categories as $categoryGroup => $categoryObject}
+
+              {if $categoryGroup == "categories" && ($currentCategory == "druhy-vina" || $currentCategory == null)}
+                  {foreach $categoryObject as $category}
+                      {control core-categoryItem $category}
+                  {/foreach}
+              
+              {elseif $categoryGroup == "countries" && $currentCategory == "zeme-puvodu"}
+                  {foreach $categoryObject as $country}
+                      {control core-categoryItem $country}
+                  {/foreach}
+              
+              
+              {elseif $categoryGroup == "categories" && !$isMainCategory}
+                  {foreach $categoryObject as $category}
+                      {if $category->slug == $currentCategory}
+                          {foreach $category->subcategories as $subcategory}
+                              {control core-categoryItem $subcategory}
+                          {/foreach}
+                      {/if}
+                  {/foreach}
+              
+              {elseif $categoryGroup == "countries" && !$isMainCategory}
+                  {foreach $categoryObject as $country}
+                      {if $country->slug == $currentCategory}
+                          {foreach $country->regions as $region}
+                              {control core-categoryItem $region}
+                          {/foreach}
+                      {/if}
+                  {/foreach}
+                  
+                  {foreach $categoryObject as $country}
+                      {foreach $country->regions as $region}
+                          {if $region->slug == $currentCategory}
+                              {foreach $region->wineries as $winery}
+                                  {control core-categoryItem $winery}
+                              {/foreach}
+                          {/if}
+                      {/foreach}
+                  {/foreach}
+              {/if}
+          {/foreach}
+
+
+      </div>
+
+
+      <div class="topbar-wrapper" style="margin-bottom: 50px;">
+        <p style="color: var(--grey-text);">200 produktů</p>
+
+        <div class="topbar-button-wrapper hidden">
+          <button class="cta-button small">Seřadit</button>
+          <button class="cta-button small">Filtrovat</button>
+        </div>
+
+        <div class="topbar-content-wrapper visible">
+          <p>Seřadit:</p>
+          <div class="topbar-button-wrapper">
+            <button class="cta-button small">Doporučujeme</button>
+            <button class="cta-button small white">Nejlevnější</button>
+            <button class="cta-button small white">Nejdražší</button>
+            <button class="cta-button small white">Abecedně</button>
+          </div>
+        </div>
+      </div>
+
+    <div class="flex-wrapper" style="align-items: flex-start; justify-content: left;">
+        <div class="filter-container" id="filterContainer">
+            <div class="filter-header">
+                <h3>Filtrovat</h3>
+            </div>
+            <div class="filter-section">
+                <h3 style="margin-bottom: 20px;">Cena</h3>
+                <div class="slider">
+                    <div class="progress"></div>
+                </div>
+                <div class="range-input">
+                    <input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
+                    <input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
+                </div>
+                <div class="flex-wrapper" style="justify-content: space-between;">
+                    <div id="minprice">2500</div>
+                    <div id="maxprice">8500</div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <div class="icon-text" style="gap: 18px;">
+                    <label class="toggle-button">
+                        <input type="checkbox" />
+                        <span class="button-body"></span>
+                        <svg class="check-icon" viewBox="0 0 16 16">
+                            <polyline points="3 8 6 11 13 4"></polyline>
+                        </svg>
+                    </label>
+                    <p>Na skladě</p>
+                </div>
+            </div>
+            <div class="filter-section expandable" id="foodPairing">
+                <div class="section-title">
+                    <h3>K čemu se hodí</h3>
+                    <span class="open-arrow down-arrow"></span>
+                </div>
+                <div class="expandable-content">
+                    <div class="icon-text" style="gap: 5px;">
+                        <label class="toggle-button">
+                            <input type="checkbox" />
+                            <span class="button-body"></span>
+                            <svg class="check-icon" viewBox="0 0 16 16">
+                                <polyline points="3 8 6 11 13 4"></polyline>
+                            </svg>
+                        </label>
+                        <img style="margin-left: 5px;" src="{$baseUrl}/assets/icons/shrimp.svg" class="filter-icon">
+                        Korýši
+                    </div>
+                    <div class="icon-text" style="gap: 5px;">
+                        <label class="toggle-button">
+                            <input type="checkbox" />
+                            <span class="button-body"></span>
+                            <svg class="check-icon" viewBox="0 0 16 16">
+                                <polyline points="3 8 6 11 13 4"></polyline>
+                            </svg>
+                        </label>
+                        <img style="margin-left: 5px;" src="{$baseUrl}/assets/icons/fish.svg" class="filter-icon">
+                        Ryby
+                    </div>
+                    <div class="icon-text" style="gap: 5px;">
+                        <label class="toggle-button">
+                            <input type="checkbox" />
+                            <span class="button-body"></span>
+                            <svg class="check-icon" viewBox="0 0 16 16">
+                                <polyline points="3 8 6 11 13 4"></polyline>
+                            </svg>
+                        </label>
+                        <img style="margin-left: 5px;" src="{$baseUrl}/assets/icons/cheese.svg" class="filter-icon">
+                        Sýry
+                    </div>
+                </div>
+            </div>
+            <div class="filter-section expandable">
+                <div class="section-title">
+                    <h3>Ročník</h3>
+                    <span class="open-arrow down-arrow"></span>
+                </div>
+                <div class="expandable-content">
+                </div>
+            </div>
+            <div class="filter-section expandable">
+                <div class="section-title">
+                    <h3>Objem</h3>
+                    <span class="open-arrow down-arrow"></span>
+                </div>
+                <div class="expandable-content">
+                </div>
+            </div>
+            <div class="filter-section expandable">
+                <div class="section-title">
+                    <h3>Značka</h3>
+                    <span class="open-arrow down-arrow"></span>
+                </div>
+                <div class="expandable-content">
+                </div>
+            </div>
+        </div>
+        <div class="product-grid-wrapper">
+    
+    
+            {control core-productTable}
+        </div>
+    </div>
+
+</div>

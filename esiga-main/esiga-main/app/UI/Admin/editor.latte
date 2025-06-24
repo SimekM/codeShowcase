@@ -1,0 +1,23 @@
+ {block content}
+ {include _assets/_editor_assets.latte}
+ 
+
+<div class="editor-wrapper">
+    <div id="left-panel">
+        <select id="page-selector" class="page-selector">
+            {foreach $editablePages as $page}
+            <option value="{$page->slug_en}">{$page->name_cs}</option>
+            {/foreach}
+        </select>
+        <h3>Editace textu</h3>
+        <form id="editor-form">
+            <button type="submit">Uložit</button>
+        </form>
+    </div>
+    <div id="splitter"></div>
+    <div id="right-panel">
+        <iframe id="page-frame" src="/"></iframe>
+    </div>
+</div>
+
+    

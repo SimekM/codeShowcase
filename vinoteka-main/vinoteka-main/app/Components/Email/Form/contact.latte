@@ -1,0 +1,70 @@
+{include _assets.latte}
+
+<!-- Contact Section -->
+<section class="contact-form">
+  <div class="flex-wrapper column contact-form-info">
+    <h2>Kontaktujte nás</h2>
+    <p>Neváhejte nás kontaktovat prostřednictvím telefonu, emailu či kontaktního formuláře </p>
+
+    <div class="flex-wrapper column" style="align-items: initial; gap: 15px;">
+      <p class="icon-text" style="font-size: 20px;">
+        <img src="{$baseUrl}/assets/icons/Email.svg" />atis@atis-interiery.cz
+      </p>
+      <p class="icon-text" style="font-size: 20px;">
+        <img src="{$baseUrl}/assets/icons/Phone.svg" />+420 603 803 478
+      </p>
+      <p class="icon-text" style="font-size: 20px;">
+        <img src="{$baseUrl}/assets/icons/Phone.svg" />+420 577 244 088
+      </p>
+      <p class="icon-text" style="font-size: 20px;">
+        <img style="width: 35px; height: 35px;" src="{$baseUrl}/assets/icons/instagram.svg" />@atis.em1
+      </p>
+
+      <p style="margin-top: 10px; font-size: 20px;">
+        IČO: 25517309
+      </p>
+      <p style="font-size: 20px;">
+        DIČ: CZ25517309
+      </p>
+    </div>
+  </div>
+
+  <div class="contact-container">
+    <div class="contact-wrapper">
+      <div class="text-wrapper">
+        <h2>Kontaktní formulář</h2>
+        <p>Máte-li zájem o bližší informace, vyplňte prosím následující formulář a naši pracovníci Vás budou
+          kontaktovat,
+          případně zodpoví Vaše dotazy</p>
+      </div>
+      <div class="form-wrapper">
+        <div class="flex-input-wrapper">
+          <label for="subject">Jméno</label>
+          <input onfocusout="handleFocusOut(event)" id="subject" name="subject" type="text" />
+        </div>
+
+        <div class="form-input-grid-wrapper">
+          <div class="form-grid-item">
+            <div class="flex-input-wrapper">
+              <label for="name">Telefon</label>
+              <input onfocusout="handleFocusOut(event)" id="name" name="name" type="text" />
+            </div>
+          </div>
+          <div class="form-grid-item">
+            <div class="flex-input-wrapper">
+              <label for="email">E-mail</label>
+              <input onfocusout="handleFocusOut(event)" id="email" name="email" type="email" />
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-input-wrapper">
+          <label for="message">Zpráva</label>
+          <textarea id="message" name="message"></textarea>
+        </div>
+        <button onclick="sendForm()" class="cta-button" type="submit">Odeslat zprávu</button>
+        <div id="messageOut" class="error-message"></div>
+      </div>
+    </div>
+  </div>
+</section>

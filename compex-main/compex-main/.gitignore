@@ -1,0 +1,31 @@
+### Nette ###
+# Nette - http://nette.org
+# Ignore /log and /temp directories content but commit .htaccess settings
+/log/*
+!/log/.htaccess
+/temp/*
+!/temp/.htaccess
+/vendor
+/www/user.ini
+# Ignore all .htaccess files by default
+*.htaccess
+# Explicitly include .htaccess files in specific directories
+!www/.htaccess
+
+composer.lock
+/config/local.neon
+
+.lh
+bin
+
+# ignore .exe files
+www/assets/files/software/*.exe
+
+config/local.neon
+
+www/csuis/*
+www/files/*
+www/podpora/*
+www/quickinfo/*
+
+

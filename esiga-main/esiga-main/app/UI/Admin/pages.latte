@@ -1,0 +1,166 @@
+{block content}
+{include _assets/products_assets.latte}
+
+
+
+<!-- Modal HTML -->
+<div id="productModal" class="edit-modal">
+
+      <div class="edit-modal-content">
+        <div class="edit-modal-scroll-wrapper">
+        <div class="modal-title-container">
+            <h2>Editace</h2>
+            <span class="edit-modal-close">&times;</span>
+        </div> 
+        <form id="editProductForm" class="edit-form data-save">
+
+                {foreach $configArray['main_tables'] as $tableName => $table}
+
+                    {if $table["properties"]["type"] == "main_table"}
+
+                            {foreach $table['variables'] as $configKey => $configValue}
+
+                                {if $configValue['type'] == 'id'}
+
+                                    <input agenda="{$tableName}" name="{$configKey}" hidden>
+                                
+                                {elseif $configValue['type'] == 'image'}
+
+                                        <div class="form-label-group image-upload-group" agenda="{$tableName}">
+                                            <label for="{$configKey}">{$configValue['title']}</label>
+                                            <div class="image-preview-container">
+                                                <img id="image-preview" src="" alt="Preview" style="max-width: 200px; max-height: 200px; display: none;">
+                                            </div>
+                                            <input type="file" name="{$configKey}_file" id="{$configKey}_file" class="form-control" accept="image/*">
+                                            <input type="hidden" name="{$configKey}" id="{$configKey}" class="form-control">
+                                        </div>
+
+                                {else}
+                                    
+
+                                    <div class="form-label-group" agenda="{$tableName}">
+                                        <input agenda="{$tableName}" type="{$configValue['type']}" name="{$configKey}" class="form-control" placeholder="{$configValue['title']}">
+                                        <label for="{$configKey}">{$configValue['title']}</label>
+                                    </div>
+
+                                {/if}
+
+
+                            {/foreach}
+
+                    {elseif $table["properties"]["type"] == "relationships_table"} 
+                                    
+                            <div class="form-checkbox-container" agenda="{$tableName}">
+                                <h3>{$table['properties']['title']}</h3>
+ 
+                                  
+                            </div>
+   
+                    {elseif $table["properties"]["type"] == "child_table"}    
+                        <div class="child-table-container" agenda="{$tableName}">
+                            <h3>{$table['properties']['title']}</h3>
+                           
+                            <button type="button" class="add-item-btn" data-target="{$configKey}">
+                                <i class="fa-solid fa-plus"></i> Přidat položku
+                            </button>
+
+                            <div class="child-table-list" id="{$tableName}-list-container">
+                                <!-- Dynamic content will be loaded with JavaScript -->
+                            </div>
+                            
+                        </div>
+                    {/if}
+
+                {/foreach}
+
+
+            <button class="table-add-btn hover-btn-raise" type="submit">Uložit</button>
+
+        </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="page-wrapper">
+
+    <div class="table-container">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    {foreach $configArray["main_tables"] as $table}
+                        {if !isset($table['properties']['visibility']) || $table['properties']['visibility'] == 'visible'}
+                            {foreach $table['variables'] as $productConfig}
+                            {if !isset($productConfig['visibility']) || $productConfig['visibility'] == 'visible'}
+                                    <th>
+                                        <div>
+                                            
+                                                <p>{$productConfig['title']}</p>
+                                            
+                                        </div>
+                                    </th>
+                                {/if}
+                            {/foreach}
+                        {/if}
+                    {/foreach}    
+                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="ajax" n:snippet="itemsList">
+               
+                {if $productsArray['mainTable']}
+                    {foreach $productsArray['mainTable'] as $product}
+
+                        <tr data-id="{$product->id}">
+
+                            {foreach $configArray["main_tables"] as $table}
+                                {if !isset($table['properties']['visibility']) || $table['properties']['visibility'] == 'visible'}
+                                    {foreach $table['variables'] as $configKey => $productConfig}
+                                        {if !isset($productConfig['visibility']) || $productConfig['visibility'] == 'visible'}
+                                            {if $productConfig['type'] == 'image'}
+                                                <td class="{$configKey}">{$product[$configKey]}</td>
+                                            {else}
+                                                <td class="{$configKey}">{$product[$configKey]}</td>
+                                            {/if}
+
+                                        {/if}
+                                    {/foreach}
+                                {/if}
+                            {/foreach}
+                        
+                            <td>
+                                <div class="table-action-container">
+                                    <button class="table-edit-btn icon-btn hover-btn-raise" onclick="openModal(this)"><i class="fa-regular fa-pen-to-square"></i></button>
+                                    <button class="table-delete-btn icon-btn hover-btn-raise" onclick="deleteItem(this)"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    {/foreach}
+                {else}
+                    {* <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Váš list je prázdný</td>
+                        <td></td>
+                        <td></td>
+                    </tr> *}
+                {/if}
+                
+            </tbody>
+        </table>
+
+        <button class="table-add-btn hover-btn-raise" onclick="openModal(this)"><i class="fa-solid fa-plus"></i> Vytvořit produkt</button>
+    </div>
+</div>
+
+
+
+
+

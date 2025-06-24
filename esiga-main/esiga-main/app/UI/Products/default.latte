@@ -1,0 +1,92 @@
+{block content} {include _assets.latte}
+
+<!-- Main Banner -->
+<section class="main-banner">
+  <div class="banner-wrapper">
+    <img style="position: relative;" src="{$baseUrl}/assets/images/product-banner.png" />
+    <img class="banner-absolute left" src="{$baseUrl}/assets/icons/shopping/banner-sec-corner-l.svg">
+    <img class="banner-absolute right" src="{$baseUrl}/assets/icons/shopping/banner-sec-corner-r.svg">
+
+    <div class="banner-text">
+      <h3>MONTÁŽNÍ PĚNY</h3>
+      <p>
+        rychlá aplikace, pevné těsnění, spolehlivý <br />
+        výsledek vždy.
+      </p>
+    </div>
+  </div>
+
+  {* <div class="banner-offer">
+    <div class="banner-wrapper sec">
+      <img src="{$baseUrl}/assets/images/product-sec-banner.png" />
+      <div class="banner-text sec">
+        <h3>AKCE</h3>
+        <h4>2+1 ZDARMA</h4>
+        <p style="margin-top: 35px">platí pouze do 30. 11</p>
+      </div>
+    </div>
+  </div> *}
+</section>
+
+<!-- Categories Section -->
+<section class="categories">
+  {control core-categoryItem}
+</section>
+
+<!-- Products/Filter section -->
+<section class="products">
+  {* <div class="filter-area">
+    <div class="filter-container">
+      <h3>Kategorie</h3>
+      <a href="#" class="back-link">← Zpět na domovskou stránku</a>
+      <ul class="category-list">
+        <li>
+          Stavební chemie
+          <ul class="subcategory-list">
+            <li>➔ Stavební chemie</li>
+            <li>➔ Nátěrové hmoty</li>
+            <li>➔ Ošetření obuvy</li>
+            <li>➔ Cukrářská aromata</li>
+            <li>➔ Bazénová chemie a příslušenství</li>
+            <li>➔ Doplňkový sortiment</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h3>Cena</h3>
+      <div class="price-filter">
+        <input type="range" id="priceMin" min="0" max="1000" value="0" />
+        <input type="range" id="priceMax" min="0" max="1000" value="1000" />
+        <div class="price-inputs">
+          <input
+            type="number"
+            id="priceMinInput"
+            min="0"
+            max="1000"
+            value="0"
+          />
+          až
+          <input
+            type="number"
+            id="priceMaxInput"
+            min="0"
+            max="1000"
+            value="1000"
+          />
+          Kč
+        </div>
+      </div>
+      <h3>Štítky</h3>
+      <div class="tags">
+        <label><input type="checkbox" /> Novinka <span>(34)</span></label>
+        <label><input type="checkbox" /> Sleva <span>(34)</span></label>
+      </div>
+    </div>
+  </div> *}
+
+  <div class="product-table-wrapper">
+      {control core-productTable}
+  </div>
+</section>
+
+{control core-uiKeyBottom}

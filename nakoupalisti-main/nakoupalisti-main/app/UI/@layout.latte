@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>{$meta_title}</title>
+    <meta content="{$meta_description}" name="description" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+
+    <link rel="icon" type="image/x-icon" href="{$baseUrl}/favicon.ico">
+
+    {* No cache params *}
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    {include '_assets/_libraries_css.latte'}
+    {include '_assets/_main_css.latte'}
+    {include '_assets/_libraries_js.latte'}
+
+</head>
+
+<body>
+    
+
+   <div id="notificationSystem" class="notification-backdrop">
+        <div class="notification-container">
+            <!-- Spinner Elements -->
+            <div class="spinner-wrapper">
+                <div class="spinner"></div>
+            </div>
+            
+            <!-- Status Icons -->
+            <div class="status-icon success-icon">
+                <svg viewBox="0 0 24 24" width="40" height="40">
+                    <path fill="none" stroke="#4CAF50" stroke-width="3" d="M5,12 L10,17 L19,8"></path>
+                </svg>
+            </div>
+            <div class="status-icon error-icon">
+                <svg viewBox="0 0 24 24" width="40" height="40">
+                    <path fill="none" stroke="#F44336" stroke-width="3" d="M6,6 L18,18 M6,18 L18,6"></path>
+                </svg>
+            </div>
+            
+            
+            <!-- Message Text -->
+            <div class="notification-text">Načítání...</div>
+        </div>
+    </div>
+
+    {control core-popupModal}
+    {control core-uiNavbar}
+
+
+    {include content}
+
+
+    {control core-uiFooter}
+
+    {* Popup component *}
+
+
+    {block scripts}
+
+    {include '_assets/_main_js.latte'}
+
+    {/block}
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+
+{block content}
+
+    {include _assets/account_assets.latte}
+
+
+
+<div class="page-wrapper">
+ 
+    <div class="table-container">
+
+          
+            <table class="table">
+                <thead>
+                      <tr>
+                        <th> Id </th>
+                        <th> Datum </th>
+                        <th> Ip adresa </th>
+                        <th> Akce </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr n:foreach="$userLogs as $userLog">
+                        <td> {$userLog->id} </td>
+                        <td> {$userLog->time} </td>
+                        <td> {$userLog->ip_adress} </td>
+                        <td><label class="badge {$userLog->action}">{=$userLog->action|status}</label></td>
+
+                    </tr>
+
+                    
+                </tbody>
+            </table>
+    </div>
+</div>

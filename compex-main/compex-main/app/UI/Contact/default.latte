@@ -1,0 +1,174 @@
+{block content}
+{include _assets.latte}
+
+<section class="contact-section">
+    <!--     <div class="page-wrapper">
+        <div class="main-banner">
+            <h1 class="scale-up">KONTAKTUJTE NÁS</h1>
+            <p class="slnamee-up">Máte dotazy ohledně našeho účetního systému, nebo potřebujete poradit s jeho nastavením?
+                Náš tým
+                odborníků je připraven vám pomoci s jakýmkoli dotazem či problémem.</p>
+        </div>
+    </div> -->
+
+    <div class="contact-wrapper-content">
+        <div class="background-holder">
+            <img src="{$baseUrl}/assets/images/background.png">
+        </div>
+        <div class="flex-content-wrapper">
+            <div class="slnamee-left contact-wrapper">
+                <h3>Ozvěte se nám, rádi vám <br> pomůžeme!</h3>
+                <p>Můžete nás kontaktovat prostřednictvím e-mailu, telefonu nebo využít kontaktní formulář. Jsme tu pro
+                    vás, abychom zajistili, že budete s naším systémem plně spokojeni a vaše účetnictví poběží hladce.
+                </p>
+                <ul class="contact-details">
+                    <li>
+                        <div class="icon-text">
+                            <img src="{$baseUrl}/assets/icons/address.svg">
+                            <div>
+                                <h4>Adresa</h4>
+                                <p>tř. Tomáše Bati 399, 763 02 Zlín Česká republika</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-text">
+                            <img src="{$baseUrl}/assets/icons/phone.svg">
+                            <div>
+                                <h4>Telefony</h4>
+                                <p>Software: 577 114 218, 577 114 215 <br>
+                                    Účetní služby: 577 114 217</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="icon-text">
+                            <img src="{$baseUrl}/assets/icons/email.svg">
+                            <div>
+                                <h4>Firemní email</h4>
+                                <p>info@compex.cz</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="contact-form">
+
+                <form name="contactForm" novalidate>
+                    <div class="dropdown-contact"></div>
+                    <label for="subject">
+                        <h4>Předmět</h4>
+                    </label>
+                    <div class="dropdown-contact">
+                        <div class="dropdown-contact-toggle" id="dropdown-contact-toggle">
+                            <input type="text" name="subject" placeholder="Chci vyzkoušet FISS3000">
+                            <img src="{$baseUrl}/assets/icons/arrow-light.svg">
+                        </div>
+                        <div class="dropdown-contact-menu">
+                            <div class="dropdown-contact-item">
+                                <p class="text">Chci vyzkoušet FISS3000!</p>
+                            </div>
+                            <div class="dropdown-contact-item">
+                                <p class="text">Technický problém</p>
+                            </div>
+                            <div class="dropdown-contact-item">
+                                <p class="text">Mám dotaz</p>
+                            </div>
+                            <div class="dropdown-contact-item">
+                                <p class="text">Nevím si rady</p>
+                            </div>
+                        </div>
+                    </div>
+                    <label for="name">
+                        <h4>Jméno</h4>
+                    </label>
+                    <input type="text" name="name" placeholder="Vaše jméno">
+                    <label for="email">
+                        <h4>E-mail</h4>
+                    </label>
+                    <input type="email" name="email" placeholder="E-mailová adresa">
+
+                    <label for="phone">
+                        <h4>Telefon <span class="subtext">(nepovinné)</span></h4>
+                    </label>
+                    <input type="tel" name="phone" placeholder="(+420) 345 679 444">
+                    <label for="company">
+                        <h4>Společnost <span class="subtext">(nepovinné)</span></h4>
+                    </label>
+                    <input type="text" name="company" placeholder="Vaše společnost">
+
+                    <label for="message">
+                        <h4>Zpráva</h4>
+                    </label>
+                    <textarea name="message" placeholder="Vaš dotaz"></textarea>
+
+                    <p>Prosím vyplňte všechna pole ve formuláři výše a odešlete <span style="text-wrap: nowrap;">svůj
+                            dotaz</span></p>
+
+                    <button class="cta-button" type="submit" >Odeslat</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-wrapper">
+    <div class="text-wrapper">
+        <h1 class="slnamee-up">NÁŠ TEAM</h1>
+        <p class="slnamee-up" style="max-wnameth: 800px; margin-top: 20px;">Jsme malý, ale velmi zkušený tým odborníků,
+            kteří jsou tu, aby vám poskytli
+            prvotřídní podporu a péči. Nejsme
+            největší, ale o to víc se snažíme! Každý člen našeho týmu se zaměřuje na to, aby vám naše služby co nejvíce
+            usnadnily práci a splnily všechna vaše očekávání.</p>
+    </div>
+</div>
+
+<section class="cards">
+    <div class="testimonial-card">
+        <div class="testimonial-top">
+            <img src="{$baseUrl}/assets/icons/testimonial-holder.png">
+            <div>
+                <p class="name">Ing. Vladimír Provalil</p>
+                <p class="company">Compex, spol. s.r.o.</p>
+                <p style="margin-top: 15px; color: var(--secondary-color);">provalil@compex.cz</p>
+            </div>
+        </div>
+        <img src="{$baseUrl}/assets/images/s-logo.png" class="logo">
+    </div>
+    <div class="testimonial-card">
+        <div class="testimonial-top">
+            <img src="{$baseUrl}/assets/icons/testimonial-holder.png">
+            <div>
+                <p class="name">Lenka Murková</p>
+                <p class="company">Compex, spol. s.r.o.</p>
+                <p style="margin-top: 15px; color: var(--secondary-color);">murkova@compex.cz</p>
+
+            </div>
+        </div>
+        <img src="{$baseUrl}/assets/images/s-logo.png" class="logo">
+    </div>
+    <div class="testimonial-card">
+        <div class="testimonial-top">
+            <img src="{$baseUrl}/assets/icons/testimonial-holder.png">
+            <div>
+                <p class="name">Iveta Chmelová</p>
+                <p class="company">Compex, spol. s.r.o.</p>
+                <p style="margin-top: 15px; color: var(--secondary-color);">chmelova@compex.cz</p>
+            </div>
+        </div>
+        <img src="{$baseUrl}/assets/images/s-logo.png" class="logo">
+    </div>
+    <div class="testimonial-card">
+        <div class="testimonial-top">
+            <img src="{$baseUrl}/assets/icons/testimonial-holder.png">
+            <div>
+                <p class="name">Mgr. Dana Horáčková</p>
+                <p class="company">Compex, spol. s.r.o.</p>
+                <p style="margin-top: 15px; color: var(--secondary-color);">horackova@compex.cz</p>
+            </div>
+        </div>
+        <img src="{$baseUrl}/assets/images/s-logo.png" class="logo">
+    </div>
+</section>

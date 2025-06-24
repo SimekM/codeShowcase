@@ -1,0 +1,33 @@
+{block content}
+{include _assets.latte}
+
+
+<div class="big-page-wrapper user-section" style="margin-top: 80px; margin-bottom: 220px;">
+    <h3>Váš účet</h3>
+    <div class="flex-wrapper user-wrapper" style="flex-wrap: wrap; gap: 9vw; align-items: baseline;">
+        <div class="flex-wrapper column" style="margin-top: 20px; align-items: baseline;">
+            <div class="left-bar flex-wrapper column">
+                <a class="highlight" href="#">Objednávky</a>
+                <a href="{plink User:favorite}">Oblíbené produkty</a>
+                <a href="{plink User:info}">Osobní údaje</a>
+            </div>
+        </div>
+        <div class="order-wrapper">
+        <!-- Item -->
+            <p style="width: 100%; padding-bottom: 10px; border-bottom: 1px solid var(--border-primary-color);">
+                <span class="highlight">Číslo objednávky:</span> 5093201488741
+            </p>
+            <div class="flex-wrapper" style="justify-content: left; margin-top: 5px; margin-bottom: 50px;">
+                <p><span class="highlight">Datum objednávky:</span> 5.12.2024</p>
+                <p><span class="highlight">Cena:</span> 2059 Kč</p>
+                <p><span class="highlight">Stav platby:</span> zaplaceno</p>
+            </div>
+
+            <div class="product-grid-wrapper">
+                {for $i = 0; $i < 5; $i++}
+                {control core-productItem}
+                {/for}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+{block content}
+{include _assets.latte}
+
+
+
+
+<div class="page-wrapper">
+    <section class="description">
+        <div style="max-width: 800px;">
+            <h3 style="margin-bottom: 10px; color: var(--primary-color);">Katalogy produktů</h3>
+            <p style="color: var(--grey-text);">Pro vaše pohodlí jsme připravili přehledné katalogy s naším sortimentem,
+                rozdělené podle hlavních kategorií produktů. Každý katalog nabízí detailní informace o jednotlivých
+                výrobcích, aby vám usnadnil výběr a pomohl najít ideální řešení pro vaše potřeby.</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0; margin-bottom: 50px;"><iframe
+                style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;"
+                src="{$baseUrl}/assets/pdf/katalog_siga.pdf" seamless="seamless" scrolling="no" frameborder="0"
+                allowtransparency="true" allowfullscreen="true"></iframe></div>
+        <div class="button-wrapper">
+            <a  target="_blank" href="{$baseUrl}/assets/pdf/katalog_siga.pdf" class="cta-button outline">
+                <div class="icon-text">Katalog siga<img src="{$baseUrl}/assets/icons/download.svg">
+                </div>
+            </a>
+        </div>
+    </section>
+
+
+
+     <section class="content">
+        <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0; margin-bottom: 50px;"><iframe
+                style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;"
+                src="{$baseUrl}/assets/pdf/katalog_chytra_barva.pdf" seamless="seamless" scrolling="no" frameborder="0"
+                allowtransparency="true" allowfullscreen="true"></iframe></div>
+        <div class="button-wrapper">
+            <a  target="_blank" href="{$baseUrl}/assets/pdf/katalog_chytra_barva.pdf" class="cta-button outline">
+                <div class="icon-text">Katalog chytrá barva<img src="{$baseUrl}/assets/icons/download.svg">
+                </div>
+            </a>
+        </div>
+    </section>
+
+
+
+     <section class="content">
+        <div style="position:relative;padding-top:max(60%,324px);width:100%;height:0; margin-bottom: 50px;"><iframe
+                style="position:absolute;border:none;width:100%;height:100%;left:0;top:0;"
+                src="{$baseUrl}/assets/pdf/katalog_sigal.pdf" seamless="seamless" scrolling="no" frameborder="0"
+                allowtransparency="true" allowfullscreen="true"></iframe></div>
+        <div class="button-wrapper">
+            <a  target="_blank" href="{$baseUrl}/assets/pdf/katalog_sigal.pdf" class="cta-button outline">
+                <div class="icon-text">Katalog sigal<img src="{$baseUrl}/assets/icons/download.svg">
+                </div>
+            </a>
+        </div>
+    </section>
+</div>
+
+{control core-uiKeyBottom}

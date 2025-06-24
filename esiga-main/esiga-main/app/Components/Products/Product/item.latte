@@ -1,0 +1,47 @@
+
+{var $slug = ""}
+  {if isset($categoryData->subcategory)}
+      {var $slug = $categoryData->subcategory->slug}
+  {else}
+        {var $slug = $categoryData->category->slug}
+  {/if}
+
+<div class="product-item">
+      
+  <a href="{plink Products:detail, 'category' => $slug, 'productCode' => $product->slug}" class="">
+    <img class="product-image" src="{$baseUrl}/assets/images/products/{$product->img_src}" />
+  </a>
+  
+  <div class="product-text flex-wrapper">
+    <a href="{plink Products:detail, 'category' => $slug, 'productCode' => $product->slug}" class="flex-wrapper column">
+      <p class="title">{$product->title_cs}</p>
+      <p class="subtitle">{$product->subtitle}</p>
+    </a>
+    <div class="flex-wrapper column">
+      <p class="price">{$product->price} Kč</p>
+      <p class="availability">skladem</p>
+    </div>
+  </div>
+
+  {* <div class="rating">
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star checked"></span>
+    <span class="fa fa-star"></span>
+  </div> *}
+
+  <div
+    class="button flex-wrapper"
+    style="width: 100%; justify-content: space-between"
+  >
+    <button class="cta-button add-to-cart-btn"  productId="{$product->id}">
+      <img src="{$baseUrl}/assets/icons/bag.svg" />
+      <span class="button-tex">Přidat do košíku</span>
+    </button>
+    {* <div class="flex-wrapper icons">
+      <img src="{$baseUrl}/assets/icons/heart.svg" />
+      <img src="{$baseUrl}/assets/icons/sidearrows.svg" />
+    </div> *}
+  </div>
+</div>

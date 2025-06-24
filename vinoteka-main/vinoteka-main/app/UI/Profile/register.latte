@@ -1,0 +1,104 @@
+{block content}
+{include _register_assets.latte}
+
+
+<div class="big-page-wrapper flex-wrapper" style="margin-top: 50px; margin-bottom: 220px;">
+    <div class="contact-container">
+        <div class="form-wrapper">
+            <h2>Registrace uživatele</h2>
+
+            <h3>Přihlašovací údaje</h3>
+            <div class="flex-input-wrapper">
+                <label for="email">Email*</label>
+                <input onfocusout="handleFocusOut(event)" id="email" name="email" type="email" />
+            </div>
+            <div class="flex-input-wrapper">
+                <label for="password">Heslo*</label>
+                <input onfocusout="handleFocusOut(event)" id="password" name="password" type="password" />
+            </div>
+            <div class="flex-input-wrapper" style="margin-bottom: 20px;">
+                <label for="repassword">Zopakování Heslo*</label>
+                <input onfocusout="handleFocusOut(event)" id="repassword" name="repassword" type="password" />
+            </div>
+
+            <h3>Osobní údaje</h3>
+            <div class="form-input-grid-wrapper">
+                <div class="form-grid-item">
+                    <div class="flex-input-wrapper">
+                        <label for="subject">Jméno*</label>
+                        <input onfocusout="handleFocusOut(event)" id="subject" name="subject" type="text" />
+                    </div>
+                </div>
+                <div class="form-grid-item">
+                    <div class="flex-input-wrapper">
+                        <label for="surname">Přijmení*</label>
+                        <input onfocusout="handleFocusOut(event)" id="surname" name="surname" type="text" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-input-wrapper">
+                <label for="name">Telefon*</label>
+                <input onfocusout="handleFocusOut(event)" id="name" name="name" type="text" />
+            </div>
+
+            <div class="form-input-grid-wrapper">
+                <div class="form-grid-item" style="grid-column: span 3;">
+                    <div class="flex-input-wrapper">
+                        <label for="address">Ulice*</label>
+                        <input onfocusout="handleFocusOut(event)" id="address" name="address" type="text" />
+                    </div>
+                </div>
+                <div class="form-grid-item" style="grid-column: span 1;">
+                    <div class="flex-input-wrapper">
+                        <label for="address2">Číslo popisné*</label>
+                        <input onfocusout="handleFocusOut(event)" id="address2" name="address2" type="email" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-input-grid-wrapper">
+                <div class="form-grid-item" style="grid-column: span 3;">
+                    <div class="flex-input-wrapper">
+                        <label for="city">Město*</label>
+                        <input onfocusout="handleFocusOut(event)" id="city" name="city" type="text" />
+                    </div>
+                </div>
+                <div class="form-grid-item" style="grid-column: span 1;">
+                    <div class="flex-input-wrapper">
+                        <label for="psc">PSČ*</label>
+                        <input onfocusout="handleFocusOut(event)" id="psc" name="psc" type="email" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="margin-top: 20px;">
+                <h3 style="margin-bottom: 40px;">Volitelné souhlasy</h3>
+                <div class="icon-text" style="margin-bottom: 20px; gap: 30px;">
+                    <label class="toggle-button">
+                        <input type="checkbox" />
+                        <span class="button-body"></span>
+                        <svg class="check-icon" viewBox="0 0 16 16">
+                            <polyline points="3 8 6 11 13 4"></polyline>
+                        </svg>
+                    </label>
+                    <p>Souhlasím se zasíláním propagačních a informačních materiálů</p>
+                </div>
+            </div>
+
+
+            <div class="bonus-info" style="margin-top: 0;">
+                <p>Registrací souhlasíte se <a href="{plink Privacy:default}">zpracováním osobních údajů.</a></p>
+            </div>
+
+            <!-- <div id="messageOut" class="error-message"></div> -->
+        </div>
+        <div style="width: 100%; display: flex; justify-content: right;">
+            <button class="cta-button" style="width: fit-content;">
+                Dokončit registraci ->
+            </button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,26 @@
+{block content} {include _profile.latte}
+
+<div class="page-wrapper">
+    <div>
+        <div class="flex-wrapper" style="margin-bottom: 50px;">
+            <img src="{$baseUrl}/assets/icons/user/logo.svg">
+        </div>
+        <div class="login-container">
+            <h4>Zapomenuté heslo</h4>
+            <p style="margin-bottom: 40px;">Zadejte prosím Váš přihlašovací e-mail. Následně na tuto adresu pošleme
+                odkaz pro obnovu hesla.</p>
+
+            <div>
+                <p>E-Mail</p>
+            </div>
+            <input id="email" type="email">
+
+            <div class="flex-wrapper">
+                <button style="background-color: #E9E9E9; color: var(--grey-text);">
+                    Zpět
+                </button>
+                <button>Přihlásit se</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+{block content} {include _assets.latte}
+
+<!-- Main Banner Section -->
+<section class="main-banner">
+  <div class="banner-wrapper">
+    <div class="content flex-wrapper">
+      <div class="text-wrapper flex-wrapper column">
+        <h1 class="scale-up">Nabízíme <span style="text-wrap: nowrap;">prémiová vína</span></h1>
+        <p>
+          Účast na Vašich pořádajících prezentacích Účast na Vašich pořádajících prezentacích Účast na Vašich
+          pořádajících
+          prezentacích
+        </p>
+        <div id="wine_wrapper" class="flex-wrapper" style="flex-wrap: wrap;">
+          {for $i = 1; $i <= 4; $i++} <div class="wine-holder">
+            <img src="{$baseUrl}/assets/images/banner/wine{$i}.png">
+            <div class="circle"></div>
+            <div style="display: flex; justify-content: center;">
+              <div id="activeindicator" class="circle" style="background-color: var(--secondary-color); position: static; width: 10px; height: 10px;"></div>
+            </div>
+        </div>
+        {/for}
+      </div>
+    </div>
+    <div class="big-wine-holder">
+      <img id="big_wine" src="{$baseUrl}/assets/images/banner/wine1.png">
+    </div>
+  </div>
+
+
+
+  <img class="banner-image" src="{$baseUrl}/assets/images/banner.png" />
+
+  <div class="banner-bottom">
+    <img src="{$baseUrl}/assets/images/banner-bottom.png">
+  </div>
+  </div>
+</section>
+
+<div class="big-page-wrapper" style="margin-top: 220px;">
+  <!-- Cards -->
+  <div class="cards-wrapper flex-wrapper">
+    <div class="card-item big">
+      <h3>Speciální akce 2 + 1 zdarma</h3>
+      <div class="flex-wrapper" style="justify-content: left;">
+        <div class="flex-wrapper">
+          <div style="position: relative; width: 277px; height: 400px;">
+            <img style="width: 161px; transform: translate(calc(-50% + 60px), -50%);" class="wine"
+              src="{$baseUrl}/assets/images/banner/wine1.png">
+            <img style="width: 161px; transform: translate(-50%, calc(-50% + 10px));" class="wine"
+              src="{$baseUrl}/assets/images/banner/wine1.png">
+            <img style="position: absolute; top: 0; width: 100%; height: 100%;"
+              src="{$baseUrl}/assets/images/banner/grapes.png">
+          </div>
+          <span style="color: var(--white-color); font-weight: bolder; font-size: 30px;">+</span>
+          <img style="width: 169px; height: 364px;" src="{$baseUrl}/assets/images/banner/wine1.png">
+        </div>
+        <div class="flex-wrapper column">
+          <div>
+            <h4 style="text-decoration: line-through; color: var(--black-color);">2900 Kč</h4>
+            <h3 style="color: var(--white-color);">2500 Kč</h3>
+          </div>
+          <a href="{plink Products:default}" class="cta-button white">Nakupovat</a>
+        </div>
+      </div>
+      <div class="flex-wrapper">
+        <div class="circle active"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+    </div>
+    <div class="flex-wrapper column cards-small-wrapper">
+      <a href="{plink Products:default , 'category' => 'zeme-puvodu'}" class="card-item small">
+        <h3>Výběr vín podle země původu</h3>
+        <div class="flex-wrapper">
+          <div style="position: relative; width: 106px; height: 203px;">
+            <img style="width: 106px; transform: translate(calc(-50% + 20px), -50%);" class="wine"
+              src="{$baseUrl}/assets/images/banner/wine1.png">
+            <img style="width: 106px; transform: translate(-50%, calc(-50% + 10px));" class="wine"
+              src="{$baseUrl}/assets/images/banner/wine1.png">
+            <img style="position: absolute; top: 0; width: 100%; height: 100%;"
+              src="{$baseUrl}/assets/images/banner/grapes.png">
+          </div>
+          <img style="position: absolute; right: -16px;" src="{$baseUrl}/assets/images/mapaEvropy.png">
+        </div>
+      </a>
+      <a href="{plink Services:night}" class="card-item small" style="padding-right: 0;">
+        <h3 style="margin-bottom: 0;">Degustace vín</h3>
+        <div style="position: relative;">
+          <img src="{$baseUrl}/assets/images/card-wine.png">
+          <img style="position: absolute; right: 0; top: 0;" src="{$baseUrl}/assets/images/card-wine2.png">
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- adv -->
+  <div class="flex-wrapper whysection" style="margin-top: 130px;">
+    <div class="flex-wrapper column">
+      <img src="{$baseUrl}/assets/icons/home/map.svg">
+      <p>Doprava po celé ČR</p>
+    </div>
+    <div class="flex-wrapper column">
+      <img src="{$baseUrl}/assets/icons/home/diamond.svg">
+      <p>Ideální dárek</p>
+    </div>
+    <div class="flex-wrapper column">
+      <img src="{$baseUrl}/assets/icons/home/delivery.svg">
+      <div style="text-align: center;">
+        <p>Doprava zdarma</p>
+        <p style="font-weight: 400;">při objednávce nad 3000 Kč</p>
+      </div>
+    </div>
+    <div class="flex-wrapper column">
+      <img src="{$baseUrl}/assets/icons/home/wine.svg">
+      <p>Široký výběr vín</p>
+    </div>
+    <div class="flex-wrapper column">
+      <img src="{$baseUrl}/assets/icons/home/store.svg">
+      <p>Vlastní prodejna</p>
+    </div>
+    <div class="flex-wrapper column">
+      <img src="{$baseUrl}/assets/icons/home/pricetag.svg">
+      <p>Speciální akce</p>
+    </div>
+  </div>
+
+  <h2 style="text-align: center; margin-top: 115px; margin-bottom: 80px;">Novinky</h2>
+  {control core-productCarousel}
+
+  <h2 style="text-align: center; margin-top: 115px; margin-bottom: 80px;">Akce</h2>
+  {control core-productCarousel True}
+
+
+      <!-- Prodejna -->
+      <h2 style="text-align: center; margin-top: 215px; margin-bottom: 80px;">Naše prodejna</h2>
+      <div class="flex-wrapper prodejna" style="gap: 0; margin-bottom: 280px;">
+        <img class="main-img" src="{$baseUrl}/assets/images/prodejna.png">
+        <div class="content flex-wrapper column">
+          <div class="icon-text">
+            <img src="{$baseUrl}/assets/icons/mark.svg">
+            Čepkovská 1792, 760 01 Zlín 1
+          </div>
+
+          <div class="flex-wrapper">
+            <div>
+              <p style="font-weight: bold;">Otevírací doba</p>
+              <div>
+                <p>Po - Út: zavřeno nebo dle objednávek</p>
+                <p>St - Čt: 14 - 19 h</p>
+                <p>Pá - So: 14 - 22 h</p>
+                <p>Ne: 14 - 19 h</p>
+              </div>
+            </div>
+            <div>
+              <p style="font-weight: bold;">Kontakt</p>
+              <div class="icon-text"><img src="{$baseUrl}/assets/icons/home/phone-white.svg">
+                <p>+420 608 866 399</p>
+              </div>
+              <div class="icon-text"><img src="{$baseUrl}/assets/icons/home/phone-white.svg">
+                <p>+420 774 199 650</p>
+              </div>
+              <div class="icon-text"><img src="{$baseUrl}/assets/icons/home/mail-white.svg">
+                <p>mille@mille.cz</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

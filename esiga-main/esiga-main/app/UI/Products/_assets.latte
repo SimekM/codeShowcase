@@ -1,0 +1,256 @@
+<style>
+  .banner-wrapper {
+    height: 250px;
+  }
+
+  .banner-text {
+    top: 0;
+    left: 0;
+    transform: none;
+    padding-top: 40px;
+    padding-left: var(--margin-sides);
+  }
+
+  .banner-text.sec {
+    padding-top: 25px;
+    padding-left: 25px;
+    align-items: unset;
+    justify-content: unset;
+    text-align: left;
+    background-color: unset;
+  }
+
+
+  img.banner-absolute {
+    position: absolute;
+    width: unset;
+    height: unset;
+  }
+
+  img.banner-absolute.left {
+    left: 25px;
+    top: 25px;
+  }
+
+  img.banner-absolute.right {
+    right: 25px;
+    bottom: 25px;
+  }
+  @media (max-width: 780px) {
+    .main-banner {
+      padding-top: unset;
+      margin: unset;
+      object-fit: fill;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .banner-offer {
+      display: none;
+    }
+  }
+
+  /*  Products */
+  .categories {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin: 0 var(--margin-sides);
+    padding-top: 50px;
+    padding-bottom: 85px;
+    background-color: var(--white-color);
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+
+  @media (max-width: 1220px) {
+    section.categories {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    section.categories .category-item {
+      max-width: calc(50% - 12.5px);
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 800px) {
+    section.categories .category-item {
+      max-width: unset;
+    }
+
+    section.categories .category-item p {
+      font-size: 18px !important;
+    }
+
+  }
+
+  section.products {
+    display: flex;
+    margin: 0 var(--margin-sides);
+    gap: 25px;
+  }
+
+  /* Recommend section */
+  .recommended-list {
+    align-items: baseline;
+    padding: 40px 0;
+  }
+
+  /* Filter */
+
+  .filter-container {
+    position: sticky;
+    top: 0;
+    max-width: 362px;
+    width: 100%;
+    max-height: 665px;
+    height: 100%;
+    background-color: #e9e9e9;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    overflow: visible;
+  }
+
+  .filter-area {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    height: 100vh;
+  }
+
+  .back-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    display: block;
+    margin: 10px 0;
+  }
+
+  .category-list,
+  .subcategory-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .category-list>li {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .subcategory-list>li {
+    font-size: 0.9em;
+    color: var(--grey-text);
+    padding-left: 10px;
+    margin: 4px 0;
+  }
+
+  .price-filter {
+    margin: 15px 0;
+  }
+
+  .price-filter input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .price-inputs input {
+    width: 40px;
+    padding: 5px;
+    font-size: 0.9em;
+    text-align: center;
+  }
+
+  .tags label {
+    display: block;
+    color: #333;
+    margin: 5px 0;
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .page-arrow,
+  .page-number,
+  .page-ellipsis {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+  .page-arrow {
+    color: var(--primary-color);
+  }
+
+  .page-number {
+    background-color: #e9e9e9;
+    color: var(--primary-color);
+  }
+
+  .page-number.active {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+  }
+
+  .product-table-wrapper {
+    width: 100%; 
+    margin-bottom: 50px;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const priceMin = document.getElementById("priceMin");
+    const priceMax = document.getElementById("priceMax");
+    const priceMinInput = document.getElementById("priceMinInput");
+    const priceMaxInput = document.getElementById("priceMaxInput");
+
+    priceMin.addEventListener("input", updatePriceInputs);
+    priceMax.addEventListener("input", updatePriceInputs);
+    priceMinInput.addEventListener("input", updateSliders);
+    priceMaxInput.addEventListener("input", updateSliders);
+
+    function updatePriceInputs() {
+      priceMinInput.value = priceMin.value;
+      priceMaxInput.value = priceMax.value;
+
+      if (parseInt(priceMin.value) > parseInt(priceMax.value)) {
+        priceMin.value = priceMax.value;
+        priceMinInput.value = priceMax.value;
+      }
+    }
+
+    function updateSliders() {
+      priceMin.value = priceMinInput.value;
+      priceMax.value = priceMaxInput.value;
+
+      if (parseInt(priceMinInput.value) > parseInt(priceMaxInput.value)) {
+        priceMinInput.value = priceMaxInput.value;
+        priceMin.value = priceMax.value;
+      }
+    }
+  });
+
+
+
+ 
+</script>

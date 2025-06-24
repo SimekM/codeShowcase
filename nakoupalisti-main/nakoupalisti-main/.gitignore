@@ -1,0 +1,16 @@
+/vendor
+
+/www/.user.ini
+/www/user.ini
+
+*.htaccess
+!www/.htaccess
+
+composer.lock
+/config/local.neon
+
+.lh
+bin
+
+.well-known
+

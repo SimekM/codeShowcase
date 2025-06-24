@@ -1,0 +1,526 @@
+<style>
+    /* CSS variables for translucent backgrounds */
+    :root {
+        --secondary-color-rgb: 34, 40, 49; /* This should match the secondary-color in your main CSS */
+        --navbar-transition-speed: 0.5s;
+        --sidebar-transition-speed: 0.4s;
+    }
+    
+    .header {
+        position: fixed;
+        top: 20px;
+        width: 100%;
+        z-index: 500;
+        color: var(--primary-variant);
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        transition: all var(--navbar-transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+        pointer-events: none; /* Allow clicks to pass through to underlying elements */
+    }
+    
+  
+    .navbar {
+        width: 90%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        min-height: 70px;
+        padding: 5px 30px;
+        justify-content: space-between;
+        background-color: transparent;
+        border-radius: 15px;
+        transition: all var(--navbar-transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+        white-space: nowrap;
+        pointer-events: auto; /* Re-enable pointer events for the navbar */
+        transform-origin: center top;
+        transform: perspective(800px) rotateX(0deg);
+    }
+    
+    .header.scrolled .navbar {
+        background-color: var(--secondary-color, #222831);
+        width: 95%;
+        max-width: 1300px;
+        min-height: 60px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        transform: perspective(800px) rotateX(0deg);
+    }
+    
+    /* Create a subtle animation effect for the navbar */
+    @keyframes navbarAppear {
+        0% {
+            opacity: 0;
+            transform: perspective(800px) rotateX(-10deg) translateY(-10px);
+        }
+        100% {
+            opacity: 1;
+            transform: perspective(800px) rotateX(0deg) translateY(0);
+        }
+    }
+    
+    .header:not(.scrolled) .navbar {
+        animation: navbarAppear 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    .logo-wrapper{
+        padding: 10px;
+        flex: 0;
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+     .logo-wrapper img {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        object-fit: contain;
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+    
+    .header.scrolled .logo-wrapper img {
+        height: 35px; /* Smaller logo when scrolled */
+    }
+
+    .navbar .link-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        min-height: 50px;
+        flex: 0;
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+
+    .navbar .link-container a{
+        color: var(--primary-variant);
+        font-weight: 500;
+        font-size: 17px;
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    
+    .navbar .link-container a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: var(--secondary-variant, #3a4a00);
+        transition: width 0.3s ease;
+    }
+    
+    .navbar .link-container a:hover::after {
+        width: 100%;
+    }
+    
+    .navbar .link-container a:hover {
+        color: var(--primary-variant);
+    }
+
+    /* Selected state should match hover state */
+    .navbar .link-container a.selected,
+    .sidebar ul li a.selected {
+        color: var(--primary-variant);
+    }
+
+    .navbar .link-container a.selected::after {
+        width: 100%;
+        background-color: var(--secondary-variant, #3a4a00);
+    }
+
+    .header.scrolled .navbar .link-container a {
+        font-size: 16px; /* Smaller text when scrolled */
+    }
+    
+    .navbar p{
+        font-weight: 600;
+        font-size: 17px;
+        padding: 10px 20px;
+        background-color: var(--secondary-variant);
+        border-radius: 10px;
+        text-align: right;
+        white-space: nowrap;
+        transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        transform-origin: center;
+    }
+    
+    .header.scrolled .navbar p {
+        font-size: 15px;
+        padding: 8px 15px;
+    }
+ 
+    .navbar p i{
+        font-size: 15px;
+        margin-right: 7px;
+    }
+  
+
+    /* Hamburger */
+    .hamburger {
+        cursor: pointer;
+        width: 30px;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        z-index: 30;
+        pointer-events: auto;
+    }
+
+    .hamburger span {
+        display: block;
+        height: 3px;
+        width: 100%;
+        background-color: var(--primary-variant, #fff);
+        border-radius: 3px;
+        transition: transform 0.4s ease-in-out, opacity 0.3s ease;
+    }
+
+    #ham-nav {
+        display: none;
+        align-items: center;
+        background-color: transparent;
+        width: 100%;
+        pointer-events: auto;
+    }
+
+    /* Mobile menu styling */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 300px;
+        height: 100%;
+        background-color: var(--secondary-color, #222831);
+        transition: all var(--sidebar-transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+        padding-top: 80px;
+        padding-left: 30px;
+        z-index: 20;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    .overlay {
+        position: fixed;
+        z-index: 10;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        display: none;
+        opacity: 0;
+        transition: opacity var(--sidebar-transition-speed) ease;
+    }
+
+    .sidebar.active {
+        left: 0;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .overlay.active {
+        display: block;
+        opacity: 1;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    /* Create a slide-in effect for sidebar items */
+    @keyframes slideIn {
+        from { 
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+        to { 
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 13px;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        gap: 20px;
+    }
+
+    .sidebar.active ul li {
+        animation: slideIn 0.4s forwards;
+        opacity: 0;
+    }
+
+    .sidebar.active ul li:nth-child(1) { animation-delay: 0.1s; }
+    .sidebar.active ul li:nth-child(2) { animation-delay: 0.15s; }
+    .sidebar.active ul li:nth-child(3) { animation-delay: 0.2s; }
+    .sidebar.active ul li:nth-child(4) { animation-delay: 0.25s; }
+    .sidebar.active ul li:nth-child(5) { animation-delay: 0.3s; }
+    .sidebar.active ul li:nth-child(6) { animation-delay: 0.35s; }
+    .sidebar.active ul li:nth-child(7) { animation-delay: 0.4s; }
+
+    .sidebar-link:hover {
+        cursor: pointer;
+        color: var(--secondary-variant);
+    }
+
+    .sidebar-link.selected {
+        color: var(--secondary-variant);
+    }
+
+
+    .sidebar ul li a {
+        font-size: 20px;
+        text-decoration: none;
+        transition: 0.3s;
+        color: var(--primary-variant, #fff);
+        text-decoration: none;
+        position: relative;
+    }
+
+    .sidebar ul li a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: var(--secondary-variant, #3a4a00);
+        transition: width 0.3s ease;
+    }
+
+    .sidebar ul li a:hover::after {
+        width: 100%;
+    }
+
+    .sidebar ul li a:hover {
+        color: var(--primary-variant, #fff);
+    }
+
+    .sidebar ul li a.selected::after {
+        width: 100%;
+        background-color: var(--secondary-variant, #3a4a00);
+    }
+
+    .sidebar ul li.phone-item {
+        margin-top: 20px;
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--primary-variant, #fff);
+        background-color: var(--secondary-variant, #00ADB5);
+        padding: 10px 15px;
+        border-radius: 10px;
+        width: fit-content;
+    }
+    
+    .sidebar ul li.phone-item i {
+        margin-right: 8px;
+    }
+
+    /* Responsive styles */
+    @media only screen and (max-width: 1000px) {
+        .header {
+            top: 10px;
+        }
+        
+        .header.scrolled {
+            top: 0;
+        }
+        
+        .navbar {
+            width: 95%;
+            padding: 5px 20px;
+        }
+        
+        #ham-nav {
+            display: flex !important;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            background-color: rgba(34, 40, 49, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 15px;
+            margin: 0 auto;
+            width: 95%;
+            max-width: 1200px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all var(--navbar-transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+            transform-origin: center top;
+            transform: perspective(800px) rotateX(0deg);
+        }
+        
+        .header.scrolled #ham-nav {
+            width: 100%;
+            border-radius: 0 0 15px 15px;
+            background-color: var(--secondary-color, #222831);
+            transform: perspective(800px) rotateX(0deg);
+        }
+
+        .navbar.main {
+            display: none;
+        }
+        
+        /* Add logo to mobile view */
+        #ham-nav:before {
+            content: '';
+            background-image: url('{$baseUrl}/assets/images/logo.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 40px;
+            height: 40px;
+            display: block;
+            transition: all var(--navbar-transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .header.scrolled #ham-nav:before {
+            transform: scale(0.9);
+        }
+     
+    }
+
+    @media only screen and (max-width: 580px) {
+        .header {
+            top: 5px;
+        }
+        
+        .header.scrolled {
+            top: 0;
+        }
+        
+        .navbar {
+            width: 98%;
+            padding: 5px 15px;
+        }
+        
+        #ham-nav {
+            width: 98%;
+            padding: 5px 15px;
+        }
+        
+        .logo-wrapper img {
+            max-width: 150px;
+        }
+    }
+
+
+    @media only screen and (max-width: 500px) {
+        #ham-nav {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+    }
+
+    .not-visible {
+        display: none !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Scroll event for navbar with smooth transitions
+        const header = document.querySelector('.header');
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+        
+        function updateNavbarClass() {
+            const scrollY = window.scrollY;
+            
+            // Determine transition speed based on scroll speed
+            const scrollSpeed = Math.abs(scrollY - lastScrollY);
+            const transitionDuration = scrollSpeed > 50 ? '0.2s' : '0.5s';
+            
+            // Apply custom transition speed
+            document.documentElement.style.setProperty('--navbar-transition-speed', transitionDuration);
+            
+            // Update navbar class based on scroll position
+            if (scrollY > 100) {
+                if (!header.classList.contains('scrolled')) {
+                    header.classList.add('scrolled');
+                }
+            } else {
+                if (header.classList.contains('scrolled')) {
+                    header.classList.remove('scrolled');
+                }
+            }
+            
+            lastScrollY = scrollY;
+            ticking = false;
+        }
+        
+        // Throttle scroll events for better performance
+        function onScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateNavbarClass();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        
+        // Initial check
+        updateNavbarClass();
+        
+        // Add event listener with improved performance
+        window.addEventListener('scroll', onScroll, { passive: true });
+        
+        // Mobile menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        // Check if elements exist before adding event listeners
+        if (hamburger && sidebar && overlay) {
+            hamburger.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                
+                // Prevent scrolling when sidebar is open
+                if (sidebar.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+                hamburger.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            // Close sidebar when clicking on a menu item
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                    hamburger.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+    });
+</script>

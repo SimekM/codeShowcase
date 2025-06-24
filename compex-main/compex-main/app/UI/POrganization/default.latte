@@ -1,0 +1,239 @@
+{block content}
+{include _assets.latte}
+
+
+<section class="main-banner">
+    <div class="banner-wrapper">
+        <div class="content">
+            <h1 class="scale-up">příspěvkové organizace</h1>
+        </div>
+        <img src="{$baseUrl}/assets/images/document-banner.png">
+    </div>
+</section>
+
+<!-- INFO SECTION -->
+<section class="info" id="info">
+    <div class="page-wrapper">
+        <div class="flex-wrapper info-section">
+            <h1>Návody k účtování ve <br> FIS3000</h1>
+            <p>Upozorňujeme, že všechny zde uvedené návody jsou pouze naše doporučení na možné způsoby účtování a
+                rozhodně je neberte jako závazné předpisy. V případě nejasností kontaktujte nás nebo svého daňového
+                poradce či auditora.</p>
+        </div>
+    </div>
+</section>
+
+{control core-fileTable $presenter->getName()}
+
+<section class="features">
+    <div class="page-wrapper">
+        <div class="flex-wrapper column">
+            <h1>ODKAZY NA WEBY A <br> ROZCESTNÍKY</h1>
+            <p class="info-text">V této sekci naleznete užitečné odkazy na stránky a rozcestníky, které vám pomohou lépe
+                porozumět účetním
+                předpisům, postupům a legislativním změnám. Vybrali jsme pro vás ověřené zdroje, které jsou relevantní
+                pro
+                správu financí a vedení účetnictví. Ať už hledáte inspiraci pro efektivnější účetní procesy, aktuální
+                daňové
+                informace, nebo software pro účetnictví, najdete zde vše potřebné.</p>
+        </div>
+        <div class="features-list">
+            {foreach $links as $link}
+            <a style="color: var(--white-color); text-decoration: none;" href="{$link->url}">
+
+                <div class="feature">
+                    <div class="content">
+                        <div class="flex-wrapper" style="gap: 50px;">
+                            <div class="image-wrapper">
+                                <img src="{$baseUrl}/assets/icons/globe.svg">
+                            </div>
+                            <div>
+                                <h3>{$link->title}</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="svg-wrapper">
+                        <img src="{$baseUrl}/assets/icons/arrow-digital-right.svg">
+                    </div>
+                </div>
+            </a>
+            {/foreach}
+
+        </div>
+    </div>
+</section>
+
+<section class="main-section">
+    <div class="page-wrapper">
+        <div style="max-width: 850px; width: 100%;">
+            <div id="sendOpener" class="title">
+                <div class="icon-text">
+                    <h3 class="selected">Jak odeslat výkazy do CSUIS od 1. 7. 2024?</h3>
+
+                    <svg class="arrow-text rotate" width="49" height="49" viewBox="0 0 49 49" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M10.7678 44.8065C10.4245 44.6327 10.2082 44.2806 10.2082 43.8959L10.2082 32.9333C10.2082 32.6182 10.3537 32.3208 10.6024 32.1274L20.5392 24.402L10.6135 16.9011C10.3582 16.7081 10.2082 16.4066 10.2082 16.0866L10.2082 5.10419C10.2082 4.72019 10.4237 4.36868 10.7659 4.19446C11.1081 4.02025 11.5191 4.0528 11.8296 4.27871L38.3712 23.5891C38.6347 23.7808 38.7908 24.0867 38.7915 24.4125C38.7922 24.7382 38.6373 25.0448 38.3747 25.2376L11.833 44.7188C11.5229 44.9465 11.111 44.9804 10.7678 44.8065ZM36.0405 24.4182L12.2498 7.10932L12.2498 15.5785L22.8326 23.5761C23.086 23.7676 23.2358 24.066 23.238 24.3836C23.2402 24.7011 23.0944 25.0016 22.8437 25.1965L12.2498 33.4327L12.2498 41.8803L36.0405 24.4182Z"
+                            fill="#4AB333" />
+                    </svg>
+                </div>
+
+            </div>
+
+            <div class="sendcontent" style="display: block;" id="SendContent">
+                <ol>
+                    <li>
+                        <p>Připravte XML soubory jako obvykle.</p>
+                    </li>
+                    <li>
+                        <p>Aktualizujte aplikaci Klient CSUIS, ale myslím, že to není zatím nutné. Tu novou verzi budete
+                            potřebovat určitě až při odesílání v únoru 2025 za období prosinec 2024</p>
+                    </li>
+                    <li>
+                        <p style="margin-bottom: 15px;">Webová aplikace (stránka), kterou jste doposud kontrolovali
+                            stavy
+                            odeslaných výkazů, je již
+                            NEFUNKČNÍ, nedá se tam přihlásit.Existuje už jen tzv. PORTÁL CSUIS! Použijte výše uvedený
+                            odkaz.
+                            Dostanete se na úplně novou stánku, která platí jako hlavní místo pro vše důležité, co se
+                            týká
+                            odesílání výkazů. Protože určitě nemáte nastavené a připravené přihlašování klientským
+                            certifikátem,
+                            použijte modré tlačítko vlevo "PŘIHLÁŠENÍ JMÉNEM A HESLEM" anebo klikněte na tento odkaz,
+                            jde
+                            přímo
+                            na přihlašovací stánku pro jméno a heslo:</p>
+                        <a class="link" href="#">Přihlášení na Portál CSUIS jménem a heslem</a>
+                        <p style="margin-top: 15px;">
+                            Až se tedy přihlásíte na novém portálu tím bývalým, resp. stávajícím jménem a heslem (to je
+                            to
+                            číslo
+                            20000XXXXX a k němu heslo), tak uvidíte stránku, která sice vypadá jinak, ale pořád tam
+                            najdete
+                            INBOX (může se to jmenovat Doručená pošta), Monitoring výkazů atd. (vč. možnosti odeslání,
+                            pokud
+                            byste používali šifrovací utilitu). Takže zde pak budete kontrolovat stavové zprávy a
+                            výsledky
+                            PROCOK.</p>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="splitter"></div>
+
+            <div id="appOpener" class="sub-section">
+                <div class="icon-text sub-title">
+                    <h3>Aplikace KLIENT CSUIS</h3>
+                    <svg class="arrow-text" width="49" height="49" viewBox="0 0 49 49" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M10.7678 44.8065C10.4245 44.6327 10.2082 44.2806 10.2082 43.8959L10.2082 32.9333C10.2082 32.6182 10.3537 32.3208 10.6024 32.1274L20.5392 24.402L10.6135 16.9011C10.3582 16.7081 10.2082 16.4066 10.2082 16.0866L10.2082 5.10419C10.2082 4.72019 10.4237 4.36868 10.7659 4.19446C11.1081 4.02025 11.5191 4.0528 11.8296 4.27871L38.3712 23.5891C38.6347 23.7808 38.7908 24.0867 38.7915 24.4125C38.7922 24.7382 38.6373 25.0448 38.3747 25.2376L11.833 44.7188C11.5229 44.9465 11.111 44.9804 10.7678 44.8065ZM36.0405 24.4182L12.2498 7.10932L12.2498 15.5785L22.8326 23.5761C23.086 23.7676 23.2358 24.066 23.238 24.3836C23.2402 24.7011 23.0944 25.0016 22.8437 25.1965L12.2498 33.4327L12.2498 41.8803L36.0405 24.4182Z"
+                            fill="#4AB333" />
+                    </svg>
+                </div>
+            </div>
+
+            <div style="display: none;" id="AppContent">
+                <div class="sub-section">
+                    <div class="icon-text file">
+                        <img src="{$baseUrl}/assets/icons/file.svg">
+                        <p>Info, popis a kompletní návod k instalaci zde</p>
+                    </div>
+                </div>
+                <div class="text-content">
+                    <p>Aplikace Klient CSÚIS je bohužel aktuálně už jediná MF podporovaná cesta k odeslání výkazů ve
+                        formátu
+                        XML
+                        na Státní pokladnu. Podobně jako bývalá aplikace DAVY umí vygenerované XML zkontrolovat na
+                        validní
+                        schema, zašifrovat a odeslat. Jde sice o novější program a zahrnuje v sobě i dekódování nových
+                        klíčů,
+                        ale jak už bývá zvykem, přináší i komplikace. Tou hlavní je nemožnost instalovat aplikaci na
+                        počítače s
+                        32 bitovou verzí Windows. Řešením je pak pouze pořízení jiného (nového) počítače s Windows ve
+                        verzi
+                        64
+                        bit anebo tuto aplikaci instalovat a spouštět na jiném pracovišti, kde je takový počítač k
+                        dispozici.
+                    </p>
+                    <h4 class="subsubtitle">Klient CSUIS - 2 cesty k instalaci:</h4>
+                    <ol>
+                        <li style="margin-bottom: 15px">
+                            <div class="icon-text">
+                                <p class="main-highlight">A)</p>
+                                <p>V programu FIS3000 v menu pro 'Příspěvkové ozganizace', 'CSUIS
+                                    ...', zvolte 'Klient CSÚIS - instalace'. Dojde ke stažení instalačního baličku a
+                                    následně se
+                                    spustí.
+                                    Pak pokračujte podle pokynů. Totéž je i zde: <a class="icon-text"
+                                        style="gap: 10px; color: var(--secondary-color);">Klient CÚIS - instalacční
+                                        balíček
+                                        (2 v
+                                        1)
+                                        <img src="{$baseUrl}/assets/icons/download_arrow.svg"></a></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="icon-text" style="border-bottom: 2px solid #D9D9D9; padding-bottom: 25px;">
+                                <p class="main-highlight">B)</p>
+                                <p>Nebo použijte tento postup:
+                                    ověřte, zda je váš OS Windows ve verzi 64 bit a pokud ano, pokračujte...</p>
+                            </div>
+                            <ul>
+                                <li>1. Nejdříve je třeba stáhnout a spustit instalaci JDK (potřebná část, bez které
+                                    nelze
+                                    pokračovat).
+                                    <a class="icon-text" style="gap: 10px; color: var(--secondary-color);">Java JDK
+                                        v.19<img src="{$baseUrl}/assets/icons/download_arrow.svg"></a>
+                                </li>
+                                <li>2. Stáhnout a spustit instalační soubor aplikace.
+                                    <a class="icon-text" style="gap: 10px; color: var(--secondary-color);">Aplikace
+                                        Klient
+                                        CSÚIS<img src="{$baseUrl}/assets/icons/download_arrow.svg"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ol>
+                    <div style="padding-left: 20px; padding-top: 50px;">
+                        <p>
+                            V všech případech jsou vyžadována administrátorská oprávnění! Jinak stačí jen vše
+                            odsouhlasit,
+                            povolit, pokračovat atd. Není třeba nic složitě hledat nebo upravovat. <br> Upozornění:
+                            Aplikace
+                            neumí ve vašem počitači XML soubory po odeslání 'schovat' do jiné složky (archivní). Je
+                            potřeba
+                            všechny odeslané XML přesunout jinam (stačí do vytvořit podsložku s názvem např. '2024_3Q' a
+                            dát
+                            je
+                            sem). V krajním případě je můžete i smazat. Hlavně by něměly zůstat na stejném místě, kam
+                            přidáte
+                            nové XML v dalším období. Pak by aplikace odeslala s těmi novými i ty již odeslané z
+                            minulého
+                            období. Ale asi by se nic závažného nestalo, ty staré by měly být odmítnuty.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="splitter"></div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="green-bar">
+    <h4>Odesílání souborů z přispěvkových organizací <span style="text-wrap: nowrap;">pro MMZ</span> <br>(Magistrát města Zlín)</h4>
+        <form class="flex-wrapper fissbar" name="uploadForm" enctype="multipart/form-data">
+
+            <input placeholder="Vložit" id="file" type="file" name="file" accept=".txt" required>
+            <label for="file" class="custom-file-upload">Vložte kliknutím</label>
+
+            <button type="submit" class="cta-button">Nahrát</button>
+        </form>
+    <p class="bottom-note">v připadě potřeby získání starších verzí nás kontaktujte</p>
+</section>
+
+

@@ -1,0 +1,73 @@
+{block content}
+{include _assets_detail.latte}
+<div class="page-wrapper">
+    <a href="javascript:history.back()" class="return-button">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        <p>Zpět</p>
+    </a>
+    
+    <div class="detail-wrapper">
+        <div class="image-wrapper">
+            <img src="{$baseUrl}/assets/images/products/{$product->img_src}">
+        </div>
+        
+        <div class="content-wrapper">
+            <div>
+                <h2>{$product->title_cs}</h2>
+                <p class="subtitle">{$product->subtitle}</p>
+            </div>
+            <div class="text-wrapper">
+                <div class="product-variations">
+                    {if $variations && count($variations) > 1}
+                        <div class="variation-selector">
+                            <label>Vyberte variantu:</label>
+                            <select id="product-variation">
+                                {foreach $variations as $variation}
+                                    
+                                    <option value="{$variation['attribute_value']}" 
+                                            data-detail="{$variation['attribute_detail']}" 
+                                            data-price-adjustment="{$variation['price_adjustment']}">
+                                        {$variation['attribute_value']} 
+                                        {if $variation['attribute_detail']}(Kód: {$variation['attribute_detail']}){/if}
+                                    </option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    {/if}
+                    
+                </div>
+
+                <div class="price-container">
+                    <p class="price">
+                        <span id="base-price">{$product->price|number:2}</span> Kč s DPH
+                    </p>
+                </div>
+
+                 <div>
+                    <p class="availability">Skladem > {$product->stockCount} ks</p>
+                </div>
+
+                <div class="flex-wrapper" style="margin-top: 10px; justify-content: left;">
+                
+                <button class="cta-button cart-product-detail-btn add-to-cart-btn"  productId="{$product->id}">
+                    <img src="{$baseUrl}/assets/icons/bag.svg" />
+                    
+                    <p style="align-self: center;">Do košíku</p>
+                </button>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="flex-wrapper column" style="width: 100%; gap: 0; margin-top: 100px;">
+            <div class="title" style="width: 100%; max-width: 800px; margin-bottom: 10px;">
+                <h4>Specifikace</h4>
+            </div>
+            <div class="description-container">
+                {foreach explode("\n\n", $product->description_cs) as $paragraph}
+                    <p class="description">{$paragraph|noescape}</p>
+                {/foreach}
+            </div>
+        </div>
+</div>

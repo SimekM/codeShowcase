@@ -1,0 +1,234 @@
+{block content}
+{include _assets.latte}
+
+
+<section class="main-banner">
+    <div class="banner-wrapper">
+        <div class="content">
+            <h3>Jak vám můžeme pomoct?</h3>
+            <div class="flex-wrapper fissbar">
+                <img src="{$baseUrl}/assets/icons/search.svg">
+                <p>Hledej odpověď</p>
+            </div>
+            <p class="bottom-note">v případě že jste nenalezli odpověď na svou otázku, kontaktujte nás</p>
+        </div>
+        <img src="{$baseUrl}/assets/images/banner.png">
+
+    </div>
+</section>
+
+<!-- FAQ CARDS -->
+<section class="versions">
+    <div class="page-wrapper">
+        <div class="version-cards">
+            <div class="version-card">
+                <img src="{$baseUrl}/assets/icons/business.svg">
+                <h3>Pro podnikatele</h3>
+                <p>Efektivní a přehledné účetnictví pro právnické i fyzické osoby.</p>
+            </div>
+            <div class="version-card">
+                <img src="{$baseUrl}/assets/icons/handshake.svg">
+                <h3>Pro příspěvkové organizace</h3>
+                <p>Optimalizovaná verze pro veřejné organizace.</p>
+            </div>
+        </div>
+
+        <div class="version-cards" style="margin-top: 25px;">
+            <div class="version-card">
+                <img src="{$baseUrl}/assets/icons/country.svg">
+                <h3>Pro státní příspěvkové organizace</h3>
+                <p>Řízení rozpočtu a dodržování státních předpisů.</p>
+            </div>
+            <div class="version-card">
+                <img src="{$baseUrl}/assets/icons/boat.svg">
+                <h3>Neziskové organizace</h3>
+                <p>Efektivní správa neziskových projektů.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ QUESTIONS -->
+<section class="features">
+    <div class="page-wrapper">
+        <div class="flex-wrapper column">
+            <h1>NEJČASTĚJI KLADENÉ <br> DOTAZY</h1>
+        </div>
+        <div class="features-list">
+
+            {foreach $textArray as $text}
+            <div class="feature">
+                <div class="content">
+                    <div class="flex-wrapper" style="gap: 50px;">
+                        <div class="image-wrapper">
+                            <img src="{$baseUrl}/assets/icons/info.svg">
+                        </div>
+                        <div>
+                            <h3>{$text->title}</h3>
+                            <p class="text-wrapper">{$text->text}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-wrapper">
+                    <img src="{$baseUrl}/assets/icons/arrow-digital-right.svg">
+                </div>
+            </div>
+            {/foreach}
+            <div class="feature">
+                <div class="content">
+                    <div class="flex-wrapper" style="gap: 50px;">
+                        <div class="image-wrapper">
+                            <img src="{$baseUrl}/assets/icons/info.svg">
+                        </div>
+                        <div>
+                            <h3>Odstranění chyby OLE</h3>
+                            <p class="text-wrapper"><a style="color: var(--secondary-color); text-decoration: none;"
+                                    href="http://www.compex.cz/faq_dokumenty/FIS3000_Chyba_OLE.pdf">Odstranění chyby OLE
+                                    - popis v PDF zde</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-wrapper">
+                    <img src="{$baseUrl}/assets/icons/arrow-digital-right.svg">
+                </div>
+            </div>
+            <div class="feature">
+                <div class="content">
+                    <div class="flex-wrapper" style="gap: 50px;">
+                        <div class="image-wrapper">
+                            <img src="{$baseUrl}/assets/icons/info.svg">
+                        </div>
+                        <div>
+                            <h3>FOXFIX - Nelze zavést 32bitovou knihovnu (Windows Server2016...)</h3>
+                            <p class="text-wrapper"><a style="color: var(--secondary-color); text-decoration: none;"
+                                    href="http://www.compex.cz/faq_dokumenty/FIS3000_Foxfix_Server_navod.pdf">FOXFIX -
+                                    Nelze zavést 32bitovou knihovnu (Windows Server2016...) - popis v PDF zde</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-wrapper">
+                    <img src="{$baseUrl}/assets/icons/arrow-digital-right.svg">
+                </div>
+            </div>
+            <div class="feature">
+                <div class="content">
+                    <div class="flex-wrapper" style="gap: 50px;">
+                        <div class="image-wrapper">
+                            <img src="{$baseUrl}/assets/icons/info.svg">
+                        </div>
+                        <div>
+                            <h3>Chyba při aktualizaci - zadaný adresář nebyl nalezen (obvykle síťový disk)</h3>
+                            <p class="text-wrapper"><a style="color: var(--secondary-color); text-decoration: none;"
+                                    href="http://www.compex.cz/faq_dokumenty/Nedostupny_mapovany_disk.pdf">Aktualizace -
+                                    zadaný adresář nebyl nalezen - popis v PDF zde</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-wrapper">
+                    <img src="{$baseUrl}/assets/icons/arrow-digital-right.svg">
+                </div>
+            </div>
+            <div class="feature">
+                <div class="content">
+                    <div class="flex-wrapper" style="gap: 50px;">
+                        <div class="image-wrapper">
+                            <img src="{$baseUrl}/assets/icons/info.svg">
+                        </div>
+                        <div>
+                            <h3>Menu a podmenu se rozbaluje vlevo</h3>
+                            <p class="text-wrapper">Menu a podmenu se rozbaluje vlevo - <a
+                                    style="display: inline; color: var(--secondary-color); text-decoration: none;"
+                                    href="http://www.compex.cz/faq_dokumenty/FIS3000_menu_vlevo.pdf">popis v PDF zde</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-wrapper">
+                    <img src="{$baseUrl}/assets/icons/arrow-digital-right.svg">
+                </div>
+            </div>
+            <div class="feature">
+                <div class="content">
+                    <div class="flex-wrapper" style="gap: 50px;">
+                        <div class="image-wrapper">
+                            <img src="{$baseUrl}/assets/icons/info.svg">
+                        </div>
+                        <div>
+                            <h3>Čeština (diakritika) se nezobrazuje správně</h3>
+                            <p class="text-wrapper">Detailní popis možností a nastavení najdete v <a
+                                    style="display: inline; color: var(--secondary-color); text-decoration: none;"
+                                    href="http://www.compex.cz/faq_dokumenty/FIS3000_cestina_navod.pdf">tomto návodu</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="svg-wrapper">
+                    <img src="{$baseUrl}/assets/icons/arrow-digital-right.svg">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- SUPPORT CARDS -->
+<section class="modules">
+    <div class="page-wrapper modules">
+        <div class="module-info">
+            <p>Pokud budete potřebovat naši pomoc, můžete využít aplikaci 'Compex VIP podpora' pro dálkovou správu dat.
+                Jedná se o námi upravenou variantu známého teamvieweru. Nejjednodušší cestou je spuštění přímo z
+                programu FIS3000 pomocí menu Nápověda. Tam vyberte 'Stáhnout VIP podporu'. Po stažení balíčku, resp.
+                jeho spuštění povolte požadované akce, případně odsouhlaste pravidla používání. Instalovaná aplikace se
+                poté otevře a u nás se aktivuje požadavek na podporu.
+                <br> <br>
+                Součástí procesu připojování je povolení, které musíte na svém počítači potvrdit, jinak se pokus o
+                spojení po chvíli přeruší. Takže se nemusíte ničeho obávat, bez vašeho vědomí se přístup nedá vytvořit.
+                Veškerá komunikace mezi námi je šifrovaná, nehrozí žádný únik dat. Pokud aplikaci Compex VIP podpora
+                ukončíte, spojení se uzavře a případný další nový přístup si musíme opět společně potvrdit.
+
+            </p>
+        </div>
+        <div class="module-card green">
+            <button class="cta-button" style="cursor: default;">Opravné balíčky a doplňky k systému FIS3000</button>
+            <ul>
+                <li><a href="http://www.compex.cz/files/doplnky/Registry/FIS3000_Instalace_OCX.exe">
+                        <div class="text-icon">Instalace systémových doplňků a oprav (chyba OLE, chybí CAB, ...)<svg
+                                width="28" height="20" viewBox="0 0 28 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+                <li><a href="http://www.compex.cz/files/doplnky/Registry/FIS3000_Instalace_FoxFix.exe">
+                        <div class="text-icon">Instalace FoxFix5.dll pro OS WinServer XX (chyba při kontrole
+                            integrity)<svg width="28" height="20" viewBox="0 0 28 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+                <li><a href="http://www.compex.cz/files/doplnky/Registry/2091_server_oplocks.reg">
+                        <div class="text-icon">2091_server_oplocks.reg<svg width="28" height="20" viewBox="0 0 28 20"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+                <li><a href="http://www.compex.cz/files/doplnky/Registry/2091_ws_oplocks.reg">
+                        <div class="text-icon">2091_ws_oplocks.reg<svg width="28" height="20" viewBox="0 0 28 20"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+    <div style="margin-top: 100px;" class="flex-wrapper">
+        <a class="cta-button" href="http://www.compex.cz/podpora/Compex_VIP_podpora.exe"
+            style="box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset; padding: 10px 40px; background-color: var(--secondary-color); border: none; align-self: center;">
+            compex podpora
+        </a>
+    </div>
+</section>

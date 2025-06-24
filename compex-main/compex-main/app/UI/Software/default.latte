@@ -1,0 +1,179 @@
+{block content}
+{include _assets.latte}
+
+<section class="main-banner">
+    <div class="banner-wrapper">
+        <div class="flex-wrapper banner-bottom">
+            <p class="slide-left">Vzhledem k tomu, že vývoj systému FIS3000 neustále pokračuje a průběžně do něj
+                implementujeme různé
+                úpravy (legislativa, vylepšení, a bohužel někdy i opravy případných chyb), doporučujeme provádět
+                pravidelné aktualizace programu a udržovat jej aktuální.</p>
+            <img style="cursor: pointer;" src="{$baseUrl}/assets/icons/arrow-digital-bottom.svg">
+        </div>
+        <div class="content">
+            <h1 class="scale-up">FISS<span class="secondary-highlight">3000</span></h1>
+            <div class="dropdown-software">
+                <div id="dropdown-software-toggle" class="flex-wrapper fissbar">
+                    <img src="{$baseUrl}/assets/icons/arrow-light.svg">
+                    <p>Aktuální verze pro rok 2024</p>
+                    <a href="http://www.compex.cz/files/files/FIS_Install_2024.exe">
+                        <img src="{$baseUrl}/assets/icons/download.svg">
+                    </a>
+                </div>
+                <div class="dropdown-software-menu">
+                    {for $i = 24; $i >= 10; $i--}
+                    <div id="20{$i}" class="dropdown-software-item">
+                        <p class="text">Verze pro rok 20{$i}</p>
+                    </div>
+                    {/for}
+
+                </div>
+            </div>
+            <p class="bottom-note">v připadě potřeby získání starších verzí nás kontaktujte</p>
+            <p class="bottom-note">Před tím než zvednete telefon, prosím zkontrolujte <a
+                    style="display: inline; color: var(--secondary-color);"
+                    href="http://www.compex.cz/files/files/FIS_Info_2024.txt">Informační protokol.</a></p>
+        </div>
+        <img src="{$baseUrl}/assets/images/banner.png">
+
+
+    </div>
+</section>
+<!-- Modules Section -->
+<section class="modules">
+    <div class="page-wrapper modules">
+        <div class="module-card green">
+            <button class="cta-button">Základní uživatelské moduly</button>
+            <ul>
+                <li><a onclick="showText(1)">
+                        <div class="text-icon">Finanční účetnictví<svg width="28" height="20" viewBox="0 0 28 20"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+                <li><a onclick="showText(2)">
+                        <div class="text-icon">Fakturace<svg width="28" height="20" viewBox="0 0 28 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+                <li><a onclick="showText(3)">
+                        <div class="text-icon">Majetek<svg width="28" height="20" viewBox="0 0 28 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+                <li><a onclick="showText(4)">
+                        <div class="text-icon">Sklad<svg width="28" height="20" viewBox="0 0 28 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+                <li><a onclick="showText(5)">
+                        <div class="text-icon">Objednávky<svg width="28" height="20" viewBox="0 0 28 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+                <li><a onclick="showText(6)">
+                        <div class="text-icon">Manažer<svg width="28" height="20" viewBox="0 0 28 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1L26 10L17 19" stroke-width="2" stroke-linecap="round" />
+                                <path d="M25 10L0.999999 10" stroke-width="2" stroke-linecap="round" />
+                            </svg></div>
+                    </a></li>
+            </ul>
+        </div>
+        <div class="module-info">
+            <h2 id="title">Sklad pod kontrolou - efektivní správa zásob s FISS 3000</h2>
+            <p id="text"><span class="secondary-highlight">Modul Sklad</span> v našem systému FISS 3000 vám umožňuje efektivně
+                spravovat veškeré operace spojené se skladovými zásobami.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Program Versions Section -->
+<section class="versions">
+    <div class="page-wrapper">
+        <div class="flex-wrapper column">
+            <h1>VERZE PROGRAMU</h1>
+            <p>Program je dostupný v různých verzích, které jsou přizpůsobené potřebám podnikatelů i organizací. Díky
+                tomu
+                poskytuje flexibilitu a efektivní správu účetnictví pro různé typy uživatelů</p>
+        </div>
+        <div class="version-cards">
+            <div class="version-card">
+                <img src="{$baseUrl}/assets/icons/business.svg">
+                <h3>Pro podnikatele</h3>
+                <p>Verze pro podnikatele je navržena tak, aby poskytovala efektivní a přehledné účetnictví pro právnické
+                    i fyzické osoby.</p>
+            </div>
+            <div class="version-card">
+                <img src="{$baseUrl}/assets/icons/handshake.svg">
+                <h3>Pro příspěvkové organizace</h3>
+                <p>Verze pro příspěvkové organizace včetně PAP je optimalizovaná pro snadnou správu veřejných financí a
+                    dodržování specifických legislativních požadavků.</p>
+            </div>
+        </div>
+
+        <div class="version-cards" style="margin-top: 25px;">
+            <div class="version-card">
+                <img src="{$baseUrl}/assets/icons/country.svg">
+                <h3>Pro státní příspěvkové organizace</h3>
+                <p>Verze pro státní příspěvkové organizace včetně PAP je navržena pro efektivní řízení rozpočtu a
+                    dodržování státních předpisů a standardů.</p>
+            </div>
+            <div class="version-card">
+                <img src="{$baseUrl}/assets/icons/boat.svg">
+                <h3>Občanská sdružení a neziskové organizace</h3>
+                <p>Verze pro státní příspěvkové organizace včetně PAP je navržena pro efektivní řízení rozpočtu a
+                    dodržování státních předpisů a standardů.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="pricing">
+    <div class="page-wrapper">
+        <div class="flex-wrapper pricing">
+            <h1 class="slide-up">KOLIK MĚ TO VLASTNĚ <br> BUDE STÁT?</h1>
+            <p class="slide-up">Omlouváme se, ale klasický ceník zde nenajdete. Důvodem je to, že ke každému zákazníkovi
+                přistupujeme
+                individuálně, neprodáváme housky na krámě. Musíme znát vaše potřeby, rozsah licence, počet aktivních
+                uživatelů apod. Proto vám ceny sdělíme telefonicky na kontaktních číslech nebo i mailem, kde samozřejmě
+                odpovíme i na všechny vaše dotazy a společně vyřídíme vše potřebné.
+            </p>
+        </div>
+
+        <div class="flex-wrapper">
+            <div class="price-box flex-wrapper">
+                <div class="info">
+                    <button style="cursor: default;" class="cta-button card-top">2 měsíce zdarma</button>
+                    <h3>0.00 KČ</h3>
+                    <p>Zkušební plán pro vás</p>
+                    <a href="{plink Contact:default}" class="cta-button card-bottom">vyzkoušet zdarma</a>
+                </div>
+                <div class="content flex-wrapper column">
+                    <div class="flex-wrapper left content-item">
+                        <img src="{$baseUrl}/assets/icons/marker.svg">
+                        <p>celé 2 měsíce zdarma</p>
+                    </div>
+                    <div class="flex-wrapper left">
+                        <img src="{$baseUrl}/assets/icons/marker.svg">
+                        <p>Možnost plného testování softwaru bez nutnosti podpisu smlouvy nebo platby zálohy.</p>
+                    </div>
+                    <div class="flex-wrapper left">
+                        <img src="{$baseUrl}/assets/icons/marker.svg">
+                        <p>Kompletní podpora během zkušební doby pro snadný start a efektivní využití programu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

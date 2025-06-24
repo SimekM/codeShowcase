@@ -1,0 +1,922 @@
+<style>
+
+
+body, html{
+    height: 100%;
+}
+    
+    h3{
+        color: black;
+    }
+   .editor-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+#left-panel {
+    width: 30%;
+    min-width: 100px;
+    max-width: 80%;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    height: 100%;
+}
+
+#splitter {
+    width: 8px;
+    background-color: #ddd;
+    cursor: col-resize;
+    height: 100%;
+}
+
+#splitter:hover {
+    background-color: #ccc;
+}
+
+#right-panel {
+    flex: 1;
+    height: 100%;
+    position: relative;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+    .highlight {
+        outline: 2px dashed red;
+    }
+
+    #editor-form{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    
+
+    #editor-form button{
+        width:100%;
+        font-weight: 600;
+        color: white;
+        background:linear-gradient(to left, rgba(61, 141, 221, 1) 50%, rgba(153, 206, 255, 1) 100%);
+        text-align: center;
+        vertical-align: middle;
+        cursor: pointer;
+        border: none;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
+        transition: all 0.2s ease-in-out;
+    }
+
+    /* Image input styles */
+    .image-input-container {
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        position: relative;
+    }
+    
+    .image-input-container.modified {
+        border-color: #4caf50;
+        background-color: rgba(76, 175, 80, 0.05);
+    }
+    
+    .modified-badge {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        background-color: #4caf50;
+        color: white;
+        font-size: 12px;
+        padding: 3px 6px;
+        border-radius: 3px;
+        display: none;
+    }
+    
+    .image-input-container.modified .modified-badge {
+        display: block;
+    }
+    
+    .image-preview {
+        text-align: center;
+        margin-bottom: 15px;
+        background-color: #eee;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    .image-preview img {
+        max-width: 100%;
+        max-height: 150px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .image-input-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .browse-button {
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        padding: 5px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+    
+    .browse-button:hover {
+        background-color: #3a80d2;
+    }
+        
+.form-label-group {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control {
+  font-size: 15px;
+}
+
+.form-label-group > input,
+.form-label-group > label {
+  padding: 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-label-group > input {
+  height: 3.125rem;
+}
+
+.form-label-group > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  margin-bottom: 0;
+  line-height: 1.5;
+  color: #495057;
+  pointer-events: none;
+  cursor: text;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: all 0.1s ease-in-out;
+}
+
+.form-label-group input::-webkit-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input:-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-ms-input-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::-moz-placeholder {
+  color: transparent;
+}
+
+.form-label-group input::placeholder {
+  color: transparent;
+}
+
+.form-label-group input:not(:placeholder-shown) {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.form-label-group input:not(:placeholder-shown) ~ label {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  font-size: 12px;
+  color: #777;
+}
+
+
+
+    .form-checkbox-group{
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .form-checkbox{
+         height: 20px;
+        width: 20px;
+    }
+
+    
+    </style>
+
+
+<script>
+
+     document.addEventListener('DOMContentLoaded', () => {
+     
+        const splitter = document.getElementById('splitter');
+    const leftPanel = document.getElementById('left-panel');
+    const wrapper = document.querySelector('.editor-wrapper');
+    let isResizing = false;
+    let startX, startWidth;
+
+    // Mouse events for desktop
+    splitter.addEventListener('mousedown', startResizing);
+    document.addEventListener('mousemove', resize);
+    document.addEventListener('mouseup', stopResizing);
+
+    // Touch events for mobile
+    splitter.addEventListener('touchstart', startResizing);
+    document.addEventListener('touchmove', resize);
+    document.addEventListener('touchend', stopResizing);
+
+    function startResizing(e) {
+        isResizing = true;
+        startX = e.type === 'mousedown' ? e.pageX : e.touches[0].pageX;
+        startWidth = leftPanel.offsetWidth;
+
+        // Add a class to prevent text selection while resizing
+        document.body.classList.add('resizing');
+    }
+
+    function resize(e) {
+        if (!isResizing) return;
+
+        e.preventDefault();
+        
+        const currentX = e.type === 'mousemove' ? e.pageX : e.touches[0].pageX;
+        const diff = currentX - startX;
+        const newWidth = Math.min(Math.max(100, startWidth + diff), wrapper.offsetWidth * 0.8);
+        
+        leftPanel.style.width = `${ newWidth}px`;
+    }
+
+    function stopResizing() {
+        isResizing = false;
+        document.body.classList.remove('resizing');
+    }
+
+
+
+
+
+
+        //Editor logic
+
+        const iframe = document.getElementById('page-frame');
+        const form = document.getElementById('editor-form');
+        const pageSelector = document.getElementById('page-selector');
+        let currentHighlight = null;
+
+        // Function to clear all existing inputs but keep the submit button
+        function clearFormInputs() {
+            const submitButton = form.querySelector('button[type="submit"]');
+            form.innerHTML = '';
+            if (submitButton) {
+                form.appendChild(submitButton);
+            }
+        }
+
+        pageSelector.addEventListener('change', function () {
+            const selectedOption = pageSelector.options[pageSelector.selectedIndex];
+            let path = {$baseUrl} + selectedOption.value;
+            if (selectedOption.value != "") {
+                path = {$baseUrl} + "/" + selectedOption.value;
+            }
+            clearFormInputs(); // Clear form before loading new page
+            iframe.src = path;
+        });
+
+        // Function to create the popup toggle checkbox
+        function createPopupToggle(enabled) {
+            const popupToggleContainer = document.createElement('div');
+            popupToggleContainer.className = 'form-checkbox-group popup-toggle-container';
+            popupToggleContainer.style.marginBottom = '20px';
+            popupToggleContainer.style.padding = '15px';
+            popupToggleContainer.style.backgroundColor = '#f8f9fa';
+            popupToggleContainer.style.borderRadius = '8px';
+            popupToggleContainer.style.border = '1px solid #dee2e6';
+            
+            const label = document.createElement('label');
+            label.textContent = 'Povolit vyskakovací okno:';
+            label.style.fontWeight = 'bold';
+            label.style.fontSize = '16px';
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'form-checkbox';
+            checkbox.checked = enabled === true || enabled === 'true';
+            checkbox.id = 'popup-toggle';
+            
+            // Create hidden input to store the actual value
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = '613';
+            hiddenInput.value = checkbox.checked ? 'true' : 'false';
+            
+            // Update hidden input value when checkbox changes
+            checkbox.addEventListener('change', function() {
+                hiddenInput.value = this.checked ? 'true' : 'false';
+                
+                // Update iframe content if possible
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                const popupValueElement = iframeDoc.querySelector('[data-key="613"]');
+                if (popupValueElement) {
+                    popupValueElement.textContent = hiddenInput.value;
+                }
+            });
+            
+            popupToggleContainer.appendChild(label);
+            popupToggleContainer.appendChild(checkbox);
+            popupToggleContainer.appendChild(hiddenInput);
+            
+            return popupToggleContainer;
+        }
+
+        iframe.onload = function () {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // Clear existing form inputs first
+            clearFormInputs();
+            
+            // Check if the popup value element exists in the iframe
+            const popupValueElement = iframeDoc.querySelector('[data-key="613"]');
+            let popupEnabled = false;
+            
+            if (popupValueElement) {
+                popupEnabled = popupValueElement.textContent.trim() === 'true';
+                
+                // Add the popup toggle at the top of the form
+                const popupToggle = createPopupToggle(popupEnabled);
+                form.appendChild(popupToggle);
+            }
+
+            // Prevent link clicks in iframe
+            iframeDoc.addEventListener('click', function(e) {
+                const closest = e.target.closest('a');
+                if (closest) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            }, true);
+
+            // Add styles to iframe document for highlighting
+            const style = iframeDoc.createElement('style');
+            style.textContent = `
+                .highlight-element {
+                    outline: 2px solid #007bff !important;
+                    background-color: rgba(0, 123, 255, 0.1) !important;
+                    cursor: pointer !important;
+                }
+                /* Make links look clickable but prevent navigation */
+                a {
+                    pointer-events: none;
+                    cursor: default;
+                }
+            `;
+            iframeDoc.head.appendChild(style);
+
+            const editableElements = iframeDoc.querySelectorAll('[data-key]');
+
+            // Create form inputs
+            editableElements.forEach((element) => {
+                const key = element.getAttribute('data-key');
+                
+                // Skip the popup-value element (ID 613) as we already handled it
+                if (key === '613') {
+                    return;
+                }
+                
+                const isImage = element.tagName.toLowerCase() === 'img';
+                const value = isImage ? element.getAttribute('src').split('/').pop() : element.textContent.trim();
+
+                const div = document.createElement('div');
+                div.className = 'form-label-group';
+
+                if (isImage) {
+                    // Get the base URL for images
+                    const baseUrl = {$baseUrl}; // This will be the base URL from PHP
+                    const imagePath = value;
+                    const fullImageUrl = element.src;
+                    
+                    // Create container for image input
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'image-input-container';
+                    imageContainer.setAttribute('data-key', key);
+                    if (isModified(key)) {
+                        imageContainer.classList.add('modified');
+                    }
+                    div.appendChild(imageContainer);
+                    
+                    // Add modified badge
+                    const modifiedBadge = document.createElement('div');
+                    modifiedBadge.className = 'modified-badge';
+                    modifiedBadge.textContent = 'Modified';
+                    imageContainer.appendChild(modifiedBadge);
+                    
+                    // Create image preview
+                    const imagePreview = document.createElement('div');
+                    imagePreview.className = 'image-preview';
+                    imagePreview.innerHTML = `<img src="${ element.src}" alt="Preview">`;
+                    imageContainer.appendChild(imagePreview);
+                    
+                    // Create controls container
+                    const controlsContainer = document.createElement('div');
+                    controlsContainer.className = 'image-input-controls';
+                    imageContainer.appendChild(controlsContainer);
+                    
+                    // Create file input
+                    const fileInput = document.createElement('input');
+                    fileInput.type = 'file';
+                    fileInput.id = `file-${ key}`;
+                    fileInput.accept = 'image/*';
+                    fileInput.style.display = 'none';
+                    imageContainer.appendChild(fileInput);
+                    
+                    // Create text input for image name (hidden but functional)
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.id = `input-${ key}`;
+                    input.name = key;
+                    input.value = value;
+                    input.style.display = 'none'; // Hide the input
+                    input.className = "form-control";
+                    input.readOnly = true;
+                    controlsContainer.appendChild(input);
+                    
+                    // Create browse button
+                    const browseButton = document.createElement('button');
+                    browseButton.type = 'button';
+                    browseButton.textContent = 'Změnit...';
+                    browseButton.className = 'browse-button';
+                    browseButton.style.width = '100%'; // Make the button full width
+                    browseButton.onclick = () => fileInput.click();
+                    controlsContainer.appendChild(browseButton);
+                    
+                    // Update preview and input when file selected
+                    fileInput.onchange = (e) => {
+                        if (e.target.files && e.target.files[0]) {
+                            const file = e.target.files[0];
+                            // Mark this input as modified
+                            markAsModified(key);
+                            
+                            const reader = new FileReader();
+                            reader.onload = (e) => {
+                                imagePreview.querySelector('img').src = e.target.result;
+                                // Update iframe image - we need to preserve the Nette format while changing the preview
+                                const iframeElement = iframe.contentDocument.querySelector(`[data-key="${ key}"]`);
+                                if (iframeElement) {
+                                    // Store the original src format for later server-side processing
+                                    iframeElement.dataset.originalSrc = iframeElement.src;
+                                    // Update the visual preview only
+                                    iframeElement.src = e.target.result;
+                                }
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    };
+                } else {
+                    // Regular text input (existing code)
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = `input-${ key}`;
+                input.name = key;
+                input.placeholder = key;
+                input.value = value;
+                input.className = "form-control";
+
+                // Function to update iframe content
+                const updateIframeContent = () => {
+                    const iframeElement = iframe.contentDocument.querySelector(`[data-key="${ key}"]`);
+                    if (iframeElement) {
+                        iframeElement.textContent = input.value;
+                    }
+                };
+
+                    input.addEventListener('input', updateIframeContent);
+                    div.appendChild(input);
+                }
+
+                // Common event handlers for both image and text inputs
+                const input = div.querySelector(`#input-${ key}`);
+
+                input.addEventListener('focus', () => {
+                    const iframeElement = iframe.contentDocument.querySelector(`[data-key="${ key}"]`);
+                    if (iframeElement) {
+                        highlightIframeElement(iframeElement);
+                        scrollIframeToElement(iframeElement);
+                    }
+                });
+
+                input.addEventListener('blur', () => {
+                    const iframeElement = iframe.contentDocument.querySelector(`[data-key="${ key}"]`);
+                    if (iframeElement) {
+                        removeHighlight(iframeElement);
+                    }
+                });
+
+                form.appendChild(div);
+
+                element.addEventListener('mouseenter', () => {
+                    element.classList.add('highlight-element');
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    if (currentHighlight !== element) {
+                        element.classList.remove('highlight-element');
+                    }
+                });
+
+                element.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const input = document.getElementById(`input-${ key}`);
+                    if (input) {
+                        highlightIframeElement(element);
+                        scrollToInput(input);
+                        input.focus();
+                    }
+                });
+            });
+        };
+
+        // Helper functions
+        function highlightIframeElement(element) {
+            if (currentHighlight) {
+                currentHighlight.classList.remove('highlight-element');
+            }
+            element.classList.add('highlight-element');
+            currentHighlight = element;
+        }
+
+        function removeHighlight(element) {
+            element.classList.remove('highlight-element');
+            if (currentHighlight === element) {
+                currentHighlight = null;
+            }
+        }
+
+        function scrollToInput(input) {
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function scrollIframeToElement(element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+
+        // SAVING INPUTS
+
+        const editorSaveLink = {link saveEditorTexts!}
+        
+        // Track which inputs have been modified
+        const modifiedInputs = new Set();
+        
+        // Function to mark an input as modified
+        function markAsModified(key) {
+            modifiedInputs.add(key);
+            
+            // Update UI to show this input is modified
+            const container = document.querySelector(`.image-input-container[data-key="${ key}"]`);
+            if (container) {
+                container.classList.add('modified');
+            }
+        }
+        
+        // Function to check if an input is modified
+        function isModified(key) {
+            return modifiedInputs.has(key);
+        }
+
+        form.addEventListener('submit', function(event) {
+       
+            event.preventDefault();
+            var formData = new FormData(); // Use FormData to handle file uploads
+            var inputs = form.querySelectorAll('input[type="text"], input[type="hidden"], textarea, select');
+
+            // First gather text input values - but only send modified text inputs or those that don't have image counterparts
+            inputs.forEach(function(input) {
+                const key = input.name;
+                const isImageInput = form.querySelector(`#file-${ key}`) !== null;
+                
+                // For image inputs, only send if modified
+                if (isImageInput) {
+                    if (modifiedInputs.has(key)) {
+                        formData.append(key, input.value);
+                    }
+                } else {
+                    // Always send text inputs
+                    formData.append(key, input.value);
+                }
+            });
+            
+            // Look for any file inputs with files selected
+            const fileInputs = form.querySelectorAll('input[type="file"]');
+            fileInputs.forEach(function(fileInput) {
+                if (fileInput.files && fileInput.files[0]) {
+                    // Get the associated data-key from the input ID (file-123 -> 123)
+                    const key = fileInput.id.split('-')[1];
+                    // Add the file to FormData with appropriate name
+                    formData.append('file_' + key, fileInput.files[0]);
+                    // Flag this as a file upload
+                    formData.append('has_file_' + key, 'true');
+                    // Mark this input as modified
+                    markAsModified(key);
+                }
+            });
+            
+            // Send form data to server using XMLHttpRequest to handle FormData
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', editorSaveLink, true);
+            
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    try {
+                        const response = JSON.parse(xhr.responseText);
+                        const currentSrc = iframe.src;
+                        
+                        // Reset modified inputs tracking after successful save
+                        modifiedInputs.clear();
+                        
+                        // Store the original onload function
+                        const originalOnload = iframe.onload;
+                        
+                        // Force a full reload of the iframe to ensure all images are refreshed
+                        // This is needed to show the newly uploaded images with their proper paths
+                        iframe.onload = function() {
+                            // After the iframe reloads, recreate the form inputs
+                    clearFormInputs();
+                            
+                            // Get the iframe document after reload
+                            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                            
+                            // Prevent link clicks in iframe
+                            iframeDoc.addEventListener('click', function(e) {
+                                const closest = e.target.closest('a');
+                                if (closest) {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                }
+                            }, true);
+
+                            // Add styles to iframe document for highlighting
+                            const style = iframeDoc.createElement('style');
+                            style.textContent = `
+                                .highlight-element {
+                                    outline: 2px solid #007bff !important;
+                                    background-color: rgba(0, 123, 255, 0.1) !important;
+                                    cursor: pointer !important;
+                                }
+                                /* Make links look clickable but prevent navigation */
+                                a {
+                                    pointer-events: none;
+                                    cursor: default;
+                                }
+                            `;
+                            iframeDoc.head.appendChild(style);
+
+                            // Check if the popup value element exists in the iframe
+                            const popupValueElement = iframeDoc.querySelector('[data-key="613"]');
+                            let popupEnabled = false;
+                            
+                            if (popupValueElement) {
+                                popupEnabled = popupValueElement.textContent.trim() === 'true';
+                                
+                                // Add the popup toggle at the top of the form
+                                const popupToggle = createPopupToggle(popupEnabled);
+                                form.appendChild(popupToggle);
+                            }
+
+                            // Find all editable elements
+                            const editableElements = iframeDoc.querySelectorAll('[data-key]');
+                            
+                            // Recreate form inputs for each editable element
+                            editableElements.forEach((element) => {
+                                const key = element.getAttribute('data-key');
+                                
+                                // Skip the popup-value element (ID 613) as we already handled it
+                                if (key === '613') {
+                                    return;
+                                }
+                                
+                                const isImage = element.tagName.toLowerCase() === 'img';
+                                const value = isImage ? element.getAttribute('src').split('/').pop() : element.textContent.trim();
+
+                                const div = document.createElement('div');
+                                div.className = 'form-label-group';
+
+                                if (isImage) {
+                                    // Get the base URL for images
+                                    const baseUrl = {$baseUrl}; // This will be the base URL from PHP
+                                    const imagePath = value;
+                                    const fullImageUrl = element.src;
+                                    
+                                    // Create container for image input
+                                    const imageContainer = document.createElement('div');
+                                    imageContainer.className = 'image-input-container';
+                                    imageContainer.setAttribute('data-key', key);
+                                    if (isModified(key)) {
+                                        imageContainer.classList.add('modified');
+                                    }
+                                    div.appendChild(imageContainer);
+                                    
+                                    // Add modified badge
+                                    const modifiedBadge = document.createElement('div');
+                                    modifiedBadge.className = 'modified-badge';
+                                    modifiedBadge.textContent = 'Modified';
+                                    imageContainer.appendChild(modifiedBadge);
+                                    
+                                    // Create image preview
+                                    const imagePreview = document.createElement('div');
+                                    imagePreview.className = 'image-preview';
+                                    imagePreview.innerHTML = `<img src="${ element.src}" alt="Preview">`;
+                                    imageContainer.appendChild(imagePreview);
+                                    
+                                    // Create controls container
+                                    const controlsContainer = document.createElement('div');
+                                    controlsContainer.className = 'image-input-controls';
+                                    imageContainer.appendChild(controlsContainer);
+                                    
+                                    // Create file input
+                                    const fileInput = document.createElement('input');
+                                    fileInput.type = 'file';
+                                    fileInput.id = `file-${ key}`;
+                                    fileInput.accept = 'image/*';
+                                    fileInput.style.display = 'none';
+                                    imageContainer.appendChild(fileInput);
+                                    
+                                    // Create text input for image name (hidden but functional)
+                                    const input = document.createElement('input');
+                                    input.type = 'text';
+                                    input.id = `input-${ key}`;
+                                    input.name = key;
+                                    input.value = value;
+                                    input.style.display = 'none'; // Hide the input
+                                    input.className = "form-control";
+                                    input.readOnly = true;
+                                    controlsContainer.appendChild(input);
+                                    
+                                    // Create browse button
+                                    const browseButton = document.createElement('button');
+                                    browseButton.type = 'button';
+                                    browseButton.textContent = 'Změnit';
+                                    browseButton.className = 'browse-button';
+                                    browseButton.style.width = '100%'; // Make the button full width
+                                    browseButton.onclick = () => fileInput.click();
+                                    controlsContainer.appendChild(browseButton);
+                                    
+                                    // Update preview and input when file selected
+                                    fileInput.onchange = (e) => {
+                                        if (e.target.files && e.target.files[0]) {
+                                            const file = e.target.files[0];
+                                            // Mark this input as modified
+                                            markAsModified(key);
+                                            
+                                            const reader = new FileReader();
+                                            reader.onload = (e) => {
+                                                imagePreview.querySelector('img').src = e.target.result;
+                                                // Update iframe image - we need to preserve the Nette format while changing the preview
+                                                const iframeElement = iframe.contentDocument.querySelector(`[data-key="${ key}"]`);
+                                                if (iframeElement) {
+                                                    // Store the original src format for later server-side processing
+                                                    iframeElement.dataset.originalSrc = iframeElement.src;
+                                                    // Update the visual preview only
+                                                    iframeElement.src = e.target.result;
+                                                }
+                                            };
+                                            reader.readAsDataURL(file);
+                                        }
+                                    };
+                                } else {
+                                    // Regular text input (existing code)
+                                    const input = document.createElement('input');
+                                    input.type = 'text';
+                                    input.id = `input-${ key}`;
+                                    input.name = key;
+                                    input.placeholder = key;
+                                    input.value = value;
+                                    input.className = "form-control";
+
+                                    // Function to update iframe content
+                                    const updateIframeContent = () => {
+                                        const iframeElement = iframe.contentDocument.querySelector(`[data-key="${ key}"]`);
+                                        if (iframeElement) {
+                                            iframeElement.textContent = input.value;
+                                        }
+                                    };
+
+                                    input.addEventListener('input', updateIframeContent);
+                                    div.appendChild(input);
+                                }
+
+                                // Common event handlers for both image and text inputs
+                                const input = div.querySelector(`#input-${ key}`);
+                                
+                                input.addEventListener('focus', () => {
+                                    const iframeElement = iframe.contentDocument.querySelector(`[data-key="${ key}"]`);
+                                    if (iframeElement) {
+                                        highlightIframeElement(iframeElement);
+                                        scrollIframeToElement(iframeElement);
+                                    }
+                                });
+
+                                input.addEventListener('blur', () => {
+                                    const iframeElement = iframe.contentDocument.querySelector(`[data-key="${ key}"]`);
+                                    if (iframeElement) {
+                                        removeHighlight(iframeElement);
+                                    }
+                                });
+
+                                form.appendChild(div);
+
+                                element.addEventListener('mouseenter', () => {
+                                    element.classList.add('highlight-element');
+                                });
+
+                                element.addEventListener('mouseleave', () => {
+                                    if (currentHighlight !== element) {
+                                        element.classList.remove('highlight-element');
+                                    }
+                                });
+
+                                element.addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    const input = document.getElementById(`input-${ key}`);
+                                    if (input) {
+                                        highlightIframeElement(element);
+                                        scrollToInput(input);
+                                        input.focus();
+                                    }
+                                });
+                            });
+                            
+                            // Create submit button if it doesn't exist
+                            let submitButton = form.querySelector('button[type="submit"]');
+                            if (!submitButton) {
+                                submitButton = document.createElement('button');
+                                submitButton.type = 'submit';
+                                submitButton.textContent = 'Save All';
+                                form.appendChild(submitButton);
+                            }
+                            
+                    showNotification(response);
+                        };
+                        
+                        // Add cache-busting parameter to force a real reload
+                        iframe.src = currentSrc + (currentSrc.includes('?') ? '&' : '?') + 'refresh=' + new Date().getTime();
+                    } catch (e) {
+                        console.error('Error parsing response:', e);
+                        showNotification({
+                            error: true,
+                            message: 'Nepodařilo se zpracovat odpověď serveru'
+                        });
+                    }
+                } else {
+                    showNotification({
+                        error: true,
+                        message: 'Nepodařilo se uložit: ' + xhr.status
+                    });
+                }
+            };
+            
+            xhr.onerror = function() {
+                showNotification({
+                    error: true,
+                    message: 'Nepodařilo se uložit - síťová chyba'
+                });
+            };
+            
+            xhr.send(formData);
+    });
+
+
+
+    });
+
+
+
+
+    </script>

@@ -1,0 +1,362 @@
+<style>
+    .header {
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        z-index: 2;
+        width: 100%;
+    }
+
+    /* Main Banner */
+    .main-banner {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+        text-align: center;
+        position: relative;
+        height: 450px;
+    }
+
+    .banner-wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .banner-wrapper>img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -2;
+    }
+
+    .banner-wrapper .content {
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        top: 50%;
+        padding: 0 var(--margin-sides);
+        transform: translate(0%, -50%);
+    }
+
+    .banner-wrapper h1 {
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+
+    /* INFO SECTION */
+    section.info {
+        padding: 150px 0;
+    }
+
+    .info-section {
+        justify-content: space-between;
+        gap: var(--margin-sides);
+        align-items: unset;
+    }
+
+    .info-section h1 {
+        color: #161616;
+        text-wrap: nowrap;
+    }
+
+    .info-section p {
+        max-width: 666px;
+        font-size: 20px;
+        color: var(--grey-text);
+    }
+
+    @media screen and (max-width: 1500px) {
+        .info-section {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+
+    .green-bar p {
+        margin: 0;
+    }
+
+    .green-bar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-left: var(--margin-sides);
+        padding-right: var(--margin-sides);
+    }
+
+    .green-bar .fissbar {
+        max-width: 400px;
+        width: 100%;
+        background-color: transparent;
+        border-radius: 50px;
+        border: 1px solid var(--white-color);
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding-left: 30px;
+        gap: 5px;
+        justify-content: space-between;
+    }
+
+    .green-bar .fissbar input {
+        background-color: transparent;
+        border: none;
+        color: var(--white-color);
+        outline: none;
+        flex-wrap: wrap;
+        display: flex;
+        opacity: 0;
+        width: 5px;
+}
+
+
+/* Style the label as a button */
+.green-bar .fissbar label {
+    width: 100%;
+    text-align: left;
+}
+
+.green-bar .fissbar input label:hover {
+    background-color: #f0f0f0; /* Light background on hover */
+}
+    
+
+    .green-bar .fissbar p {
+        color: var(--white-color);
+    }
+
+    .green-bar .cta-button {
+        background-color: var(--white-color);
+        color: var(--secondary-color);
+        border: none;
+    }
+
+    .green-bar .bottom-note {
+        color: var(--white-color);
+        text-decoration: underline;
+        font-size: 15px;
+    }
+
+    @media screen and (max-width: 400px) {
+        .flex-wrapper.fissbar .cta-button {
+            padding: 0 25px;
+        }
+    }
+
+    /* MAIN SECTION */
+    .main-section {
+        padding: 150px 0;
+        background-color: var(--white-color);
+        color: var(--primary-color);
+    }
+
+    .icon-text.title {}
+
+    .sub-section {
+        margin-top: 40px;
+    }
+
+    .sub-title.icon-text {
+        justify-content: space-between;
+    }
+
+    h4.subsubtitle {
+        margin: 35px 0;
+    }
+
+    .icon-text.file {
+        padding-left: 25px;
+        border-bottom: 2px solid #D9D9D9;
+        align-items: center;
+        padding-bottom: 15px;
+        max-width: 780px;
+    }
+
+    .selected {
+        color: var(--secondary-color);
+    }
+
+    .text-content {
+        margin-top: 30px;
+        line-height: 1.6;
+    }
+
+    .text-content h3 {
+        margin-top: 20px;
+    }
+
+    .text-content ol {
+        list-style: none;
+        margin-left: 20px;
+    }
+
+
+    .text-content ul {
+        padding-top: 20px;
+        list-style-type: none;
+        padding-left: 70px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .text-content ul li {
+        padding-bottom: 20px;
+        border-bottom: 2px solid #D9D9D9;
+    }
+
+    .icon-text .arrow-text {
+        transition: 1.2s all;
+    }
+
+    .rotate {
+        transform: rotate(90deg);
+    }
+
+    .splitter {
+        margin-top: 30px;
+        width: 90%;
+        border-top: 3px #161616 solid;
+    }
+
+    .sendcontent {
+        margin-top: 40px;
+    }
+
+    .sendcontent ol {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .sendcontent li {
+        border-bottom: 2px solid #D9D9D9;
+        padding-bottom: 20px;
+        margin-left: 20px;
+    }
+
+    .sendcontent li:last-child {
+        border: none;
+    }
+
+    .sendcontent .link {
+        color: var(--secondary-color);
+    }
+
+    .main-highlight {
+        color: #636260;
+        font-family: "NotoSans";
+        font-size: 50px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
+
+    #appOpener, #sendOpener {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    //document.getElementById("appOpener");
+    //document.getElementById("sendOpener");
+    //document.getElementById("sendcontent")
+    //document.getElementById("AppContent")
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        var uploadFileLink = {link uploadFile!}
+
+
+        var fileForm = document.querySelector('form[name="uploadForm"]');
+
+        var fileInput = document.querySelector('input[name="file"]');
+
+
+        fileInput.addEventListener('input', function () {
+            this.setCustomValidity('');
+            if (!this.validity.valid) {
+                this.setCustomValidity('Prosím, nahrajte soubor.');
+            }
+        });
+
+        fileInput.addEventListener('invalid', function () {
+
+            if (this.value === '') {
+                this.setCustomValidity('Prosím, nahrajte soubor.');
+            } else {
+                this.setCustomValidity('Prosím, nahrajte soubor.');
+            }
+    
+        });
+
+        fileForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            if (!this.checkValidity()) {
+
+                const firstInvalidElement = this.querySelector(':invalid');
+
+                firstInvalidElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                setTimeout(function () {
+                    firstInvalidElement.focus({ preventScroll: true });
+                    window.scrollBy(0, -100);
+                    trainingForm.reportValidity();
+                }, 700);
+
+            } else {
+
+                event.preventDefault();
+
+                var formData = new FormData(fileForm);
+                console.log(formData);
+
+                naja.makeRequest('POST', uploadFileLink, formData, { history: false })
+                    .then(function (response) {
+                        console.log(response);
+                        showNotification(response);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        const response = {
+                            error: true,
+                            message: 'Nepodařilo se soubor odeslat zkuste to prosím znovu.'
+                        };
+                        showNotification(response);
+                    });
+            }
+        });
+
+
+
+
+
+
+
+        var appOpener = document.getElementById("appOpener");
+        appOpener.addEventListener("click", function () {
+            var main_div = appOpener.getElementsByTagName("div")[0];
+            main_div.getElementsByTagName("h3")[0].classList.toggle("selected");
+            main_div.getElementsByTagName("svg")[0].classList.toggle("rotate");
+
+            var appContent = document.getElementById("AppContent");
+            if (appContent.style.display === "none") {
+                appContent.style.display = "block";
+            } else {
+                appContent.style.display = "none";
+            }
+        });
+
+        var sendOpener = document.getElementById("sendOpener");
+        sendOpener.addEventListener("click", function () {
+            var main_div = sendOpener.getElementsByTagName("div")[0];
+            main_div.getElementsByTagName("h3")[0].classList.toggle("selected");
+            main_div.getElementsByTagName("svg")[0].classList.toggle("rotate");
+            var sendContent = document.getElementById("SendContent");
+            if (sendContent.style.display === "none") {
+                sendContent.style.display = "block";
+            } else {
+                sendContent.style.display = "none";
+            }
+        });
+    });
+</script>

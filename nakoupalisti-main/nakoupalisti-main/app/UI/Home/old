@@ -1,0 +1,468 @@
+{block content}
+{include _assets.latte}
+
+
+    <div class="page-wrapper" save-text>
+
+        <section class="landing-wrapper striped-wrapper">
+            <div class="padding-wrapper landing-container">
+
+            <div class="carousel-container">
+               
+
+                <div class="carousel-track">
+                 
+                    <div class="carousel-slide active">
+                 <img src="{$baseUrl}/assets/images/interier3.jpg"/> 
+                </div>  
+
+                
+                    <div class="carousel-slide">
+                        <img src="{$baseUrl}/assets/images/interier4.jpg"/>
+                    </div>
+                    
+                   
+                    <div class="carousel-slide">
+                        <img src="{$baseUrl}/assets/images/exterier.jpg"/>
+                    </div>
+                </div>
+                
+                <div class="menu-button-container" data-aos="fade-up" data-aos-duration="800">
+                    <a href="{plink Menu:default}" class="menu-button">Naše menu</a>
+                </div>
+                
+                <div class="carousel-indicators"></div>
+            </div>  
+
+
+        </div>
+        </section>
+
+
+
+        <section class="daily-menu-section striped-wrapper">
+            <div class="container">
+                <div class="menu-header" data-aos="fade-up">
+                    <span class="section-tag">Denní nabídka</span>
+                    <h2>Polední menu</h2>
+                    <div class="divider-small"></div>
+                    <p class="menu-intro">Každý všední den pro vás připravujeme čerstvé polední menu zahrnující polévku a výběr z několika hlavních chodů. Přijďte si pochutnat na sezónních specialitách vytvořených našimi kuchaři.</p>
+                </div>
+                
+                <div class="day-menu-container">
+                    <!-- Monday Menu -->
+                    <div class="day-menu" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="day-heading">Pondělí</h3>
+                        <div class="daily-menu-grid">
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Polévka</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Mrkvový krém</p>
+                                            <p class="item-desc">Jemný krém z čerstvé mrkve s trochou zázvoru</p>
+                                        </div>
+                                        <p class="item-price">170,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Hlavní jídla</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Cizrnové kari s rajčaty a zeleninovým bulgurem</p>
+                                            <p class="item-desc">Lehké vegetariánské jídlo plné chuti a živin</p>
+                                        </div>
+                                        <p class="item-price">180,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Vepřové ražniči se šťouchaným bramborem</p>
+                                            <p class="item-desc">Podáváme s domácí tatarskou omáčkou</p>
+                                        </div>
+                                        <p class="item-price">320,-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Speciality</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Teľcí Gordon Bleu s bramborovou kaší</p>
+                                            <p class="item-desc">Podáváme s rajčatovým salátem</p>
+                                        </div>
+                                        <p class="item-price">230,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Sýrová Quesadilla</p>
+                                            <p class="item-desc">Podáváme se salsou pico de gallo</p>
+                                        </div>
+                                        <p class="item-price">225,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Dezert</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Dle denní nabídky</p>
+                                            <p class="item-desc">Zeptejte se našeho personálu na dnešní sladkou tečku</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tuesday Menu -->
+                    <div class="day-menu" data-aos="fade-up" data-aos-delay="150">
+                        <h3 class="day-heading">Úterý</h3>
+                        <div class="daily-menu-grid">
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Polévka</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Bramboračka</p>
+                                            <p class="item-desc">Tradiční česká bramborová polévka s lesními houbami</p>
+                                        </div>
+                                        <p class="item-price">170,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Hlavní jídla</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Strapačky s kysaným zelím a uzeným masem</p>
+                                            <p class="item-desc">Slovenská klasika s haluškami z bramborového těsta</p>
+                                        </div>
+                                        <p class="item-price">180,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Lasagne s boloňským ragú</p>
+                                            <p class="item-desc">Zapečené s bešamelem a parmezánem</p>
+                                        </div>
+                                        <p class="item-price">180,-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Speciality</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Teľcí Gordon Bleu s bramborovou kaší</p>
+                                            <p class="item-desc">Podáváme s rajčatovým salátem</p>
+                                        </div>
+                                        <p class="item-price">230,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Sýrová Quesadilla</p>
+                                            <p class="item-desc">Podáváme se salsou pico de gallo</p>
+                                        </div>
+                                        <p class="item-price">225,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Dezert</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Dle denní nabídky</p>
+                                            <p class="item-desc">Zeptejte se našeho personálu na dnešní sladkou tečku</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wednesday Menu -->
+                    <div class="day-menu" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="day-heading">Středa</h3>
+                        <div class="daily-menu-grid">
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Polévka</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Minestrone</p>
+                                            <p class="item-desc">Italská zeleninová polévka s těstovinami a bazalkovým pestem</p>
+                                        </div>
+                                        <p class="item-price">170,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Hlavní jídla</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Svíčková na smetaně s houskovým knedlíkem</p>
+                                            <p class="item-desc">Tradiční české jídlo s brusinkami a šlehačkou</p>
+                                        </div>
+                                        <p class="item-price">190,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Špagety Aglio e Olio</p>
+                                            <p class="item-desc">Italské těstoviny s česnekem, chilli a petrželkou</p>
+                                        </div>
+                                        <p class="item-price">175,-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Speciality</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Teľcí Gordon Bleu s bramborovou kaší</p>
+                                            <p class="item-desc">Podáváme s rajčatovým salátem</p>
+                                        </div>
+                                        <p class="item-price">230,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Sýrová Quesadilla</p>
+                                            <p class="item-desc">Podáváme se salsou pico de gallo</p>
+                                        </div>
+                                        <p class="item-price">225,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Dezert</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Dle denní nabídky</p>
+                                            <p class="item-desc">Zeptejte se našeho personálu na dnešní sladkou tečku</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thursday Menu -->
+                    <div class="day-menu" data-aos="fade-up" data-aos-delay="250">
+                        <h3 class="day-heading">Čtvrtek</h3>
+                        <div class="daily-menu-grid">
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Polévka</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Hovězí vývar s játrovými knedlíčky</p>
+                                            <p class="item-desc">Silný vývar s kořenovou zeleninou a domácími knedlíčky</p>
+                                        </div>
+                                        <p class="item-price">170,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Hlavní jídla</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Kuřecí řízek s bramborovou kaší</p>
+                                            <p class="item-desc">Křupavý řízek podávaný s domácí kaší a okurkou</p>
+                                        </div>
+                                        <p class="item-price">185,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Grilovaný losos s bylinkovou rýží</p>
+                                            <p class="item-desc">Podávaný s citronovou omáčkou a grilovanou zeleninou</p>
+                                        </div>
+                                        <p class="item-price">210,-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Speciality</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Teľcí Gordon Bleu s bramborovou kaší</p>
+                                            <p class="item-desc">Podáváme s rajčatovým salátem</p>
+                                        </div>
+                                        <p class="item-price">230,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Sýrová Quesadilla</p>
+                                            <p class="item-desc">Podáváme se salsou pico de gallo</p>
+                                        </div>
+                                        <p class="item-price">225,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Dezert</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Dle denní nabídky</p>
+                                            <p class="item-desc">Zeptejte se našeho personálu na dnešní sladkou tečku</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Friday Menu -->
+                    <div class="day-menu" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="day-heading">Pátek</h3>
+                        <div class="daily-menu-grid">
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Polévka</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Česnečka s krutony</p>
+                                            <p class="item-desc">Česneková polévka se sýrem a opečenými krutony</p>
+                                        </div>
+                                        <p class="item-price">170,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Hlavní jídla</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Smažený sýr s hranolkami</p>
+                                            <p class="item-desc">Smažený eidam s domácí tatarskou omáčkou</p>
+                                        </div>
+                                        <p class="item-price">175,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Vepřová panenka na hříbkách s bramborovými noky</p>
+                                            <p class="item-desc">Šťavnatá panenka podávaná s domácími noky</p>
+                                        </div>
+                                        <p class="item-price">195,-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="daily-menu-col">
+                                <div class="menu-category">
+                                    <h4>Speciality</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Teľcí Gordon Bleu s bramborovou kaší</p>
+                                            <p class="item-desc">Podáváme s rajčatovým salátem</p>
+                                        </div>
+                                        <p class="item-price">230,-</p>
+                                    </div>
+                                    
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Sýrová Quesadilla</p>
+                                            <p class="item-desc">Podáváme se salsou pico de gallo</p>
+                                        </div>
+                                        <p class="item-price">225,-</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="menu-category">
+                                    <h4>Dezert</h4>
+                                    <div class="menu-item">
+                                        <div class="menu-item-content">
+                                            <p class="item-name">Dle denní nabídky</p>
+                                            <p class="item-desc">Zeptejte se našeho personálu na dnešní sladkou tečku</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-footer" data-aos="fade-up" data-aos-delay="300">
+                    <p>Polední menu podáváme každý všední den od 11:30 do 14:00</p>
+                    <a href="{plink Menu:default}" class="view-full-menu">Zobrazit stálý jídelní lístek</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Salónek Section -->
+        <section class="salonek-section striped-wrapper">
+            <div class="container">
+                <div class="salonek-wrapper">
+                    <div class="salonek-content" data-aos="fade-up" data-aos-duration="800">
+                        <span class="section-tag">Exkluzivní prostor</span>
+                        <h2>Náš salónek</h2>
+                        <div class="divider-small"></div>
+                        <p>Náš stylově zařízený privátní salonek je ideálním místem pro firemní schůzky, rodinné oslavy, ale i další soukromé akce, kde oceníte klidné prostředí, profesionální servis a výbornou kuchyni.</p>
+                        <p>Salonek nabízí kapacitu až 30 osob a je plně oddělený od hlavní části restaurace, takže si můžete svou akci užít v naprostém soukromí.</p>
+                        
+                        <div class="salonek-features">
+                            <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="feature-icon">
+                                    <i class="fa-solid fa-users"></i>
+                                </div>
+                                <div class="feature-text">Kapacita až 30 míst</div>
+                            </div>
+                            <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="feature-icon">
+                                    <i class="fa-solid fa-wifi"></i>
+                                </div>
+                                <div class="feature-text">Bezplatné Wi-Fi</div>
+                            </div>
+                            <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="feature-icon">
+                                    <i class="fa-solid fa-utensils"></i>
+                                </div>
+                                <div class="feature-text">Vlastní menu</div>
+                            </div>
+                    </div>
+
+                        <a href="{plink Contact:default}" class="salonek-cta" data-aos="fade-up" data-aos-delay="400">Rezervovat salónek</a>
+                    </div>
+                    
+                    <div class="salonek-gallery">
+                        <div class="image-item large" data-aos="fade-left" data-aos-duration="1000">
+                            <img src="{$baseUrl}/assets/images/salonek3.jpg" alt="Salónek - hlavní pohled" />
+                            <div class="image-overlay">
+                            </div>
+            </div>  
+
+                        <div class="right-column">
+                            <div class="image-item small" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                                <img src="{$baseUrl}/assets/images/salonek2.jpg" alt="Salónek - detail" />
+                                <div class="image-overlay">
+                                </div>
+                            </div>
+                            
+                            <div class="image-item small" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="400">
+                                <img src="{$baseUrl}/assets/images/svatba1.jpg" alt="Svatební hostina" />
+                                <div class="image-overlay">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</div>
+
+
+

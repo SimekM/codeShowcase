@@ -1,0 +1,28 @@
+<tr>
+
+        <td>
+            <a href="{$baseUrl}/assets/files/{$table}/{$file->url}" class="file-link" target="_blank">
+                <div class="file-icon">
+                    <img src="{$baseUrl}/assets/icons/file.svg" alt="File Icon">
+                    <p>{$file->name}</p>
+                </div>
+            </a>
+
+        </td>
+
+        <td>{$file->lastModified}</td>
+
+        <td>
+            <div class="type-container">
+                <span class="label">Návod k účtování</span>
+                <span class="label">Fis.3000</span>
+            </div>
+        </td>
+
+        <td>
+            <div>
+                <span class="label">{$file->fileSize} KB</span>
+            </div>
+        </td>
+
+</tr>

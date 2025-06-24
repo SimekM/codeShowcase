@@ -1,0 +1,25 @@
+{include _assets.latte}
+
+
+<!-- TABLE SECTION -->
+<section class="document-table">
+    <table id="filesTable">
+        <thead>
+            <tr>
+                <th>NÁZEV</th>
+                <th>AKTUALIZOVÁNO</th>
+                <th>TÉMA</th>
+                <th>VELIKOST</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {foreach $filesArray as $file}
+            {control $presenter->getComponent(core)->getComponent(fileItem) $table ,$file}
+        {/foreach}
+           
+
+        </tbody>
+        <tfoot></tfoot>
+    </table>
+</section>

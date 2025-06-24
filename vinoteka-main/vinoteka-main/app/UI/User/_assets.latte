@@ -1,0 +1,133 @@
+<style>
+    .user-section .user-wrapper {
+        justify-content: left;
+    }
+
+    .left-bar a {
+        padding-bottom: 10px;
+        padding-left: 2vw;
+        border-bottom: 1px solid var(--border-primary-color);
+        max-width: 300px;
+        width: 100%;
+        text-wrap: nowrap;
+        color: var(--black-color);
+    }
+
+    .highlight {
+        font-weight: bold;
+    }
+
+    /* Order-wrapper */
+    .order-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    /* Product-wrapper */
+    .product-grid-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2vw;
+    }
+
+    @media (max-width: 950px) {
+        .product-grid-wrapper {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 450px) {
+        .product-grid-wrapper {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .product-grid-wrapper .product-item {
+            max-width: unset;
+        }
+
+        .category-item {
+            max-width: unset !important;
+        }
+    }
+
+    .product-grid-wrapper .product-item {
+        grid-column: span 1;
+    }
+
+    /* INFO */
+    .description {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .info-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .info-section:not(:last-of-type) {
+      border-bottom: 1px solid #ccc;
+    }
+
+    /* (Name, Preference, Phone, Birthday) */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem 2rem;
+      width: 100%;
+      margin-right: 1rem;
+    }
+
+    /* (email, password) */
+    .info-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      margin-right: 1rem;
+    }
+
+    .label {
+      font-weight: bold;
+      font-size: 0.95rem;
+      color: #333;
+    }
+    .value {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* Edit Button */
+    .edit-button {
+      min-width: 100px;
+      padding: 0.5rem 1rem;
+      background: #fff;
+      border: 1px solid #000;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      font-size: 0.9rem;
+    }
+    .edit-button:hover {
+      background-color: #f0f0f0;
+    }
+
+    @media (max-width: 768px) {
+      .info-section {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+      .info-row {
+        margin-bottom: 1rem;
+      }
+      .edit-button {
+        margin-top: 0.5rem;
+      }
+    }
+</style>

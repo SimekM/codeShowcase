@@ -1,0 +1,50 @@
+<script>
+
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+        naja.initialize();
+
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', () => {
+               
+                event.preventDefault();   // Cancel the default link behavior
+                event.stopPropagation(); // Stop the click from bubbling to <a>
+
+                const productId = button.getAttribute('productId');
+                
+                 var linkAddToCart = {link addToCart!};
+
+                let data = { 
+                    "productId": productId,
+                    "quantity": 1,
+                };
+
+                naja.makeRequest('POST', linkAddToCart, data, { history:false } )
+                .then((response) => {
+                    const cartTotal = response.cartTotal;
+                    document.querySelectorAll('.navbar-total-price').forEach(element => {
+                        console.log(element)
+                        element.textContent = cartTotal + ' Kč';
+                    });
+                    toastSystem.showNotification(response);
+
+                })
+                .catch((error) => {
+                    response = {"error" : true, "message" : "Produkt nebyl přidán do košíku zkuste to znovu"}
+                    toastSystem.showNotification(response);
+
+                });
+                    
+        
+            });
+        });
+
+        
+    }); 
+
+
+
+
+</script>

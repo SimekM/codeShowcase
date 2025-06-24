@@ -1,0 +1,164 @@
+{include _assets.latte}
+
+<div class="header-top">
+  <div class="flex-wrapper left">
+    {* <img src="{$baseUrl}/assets/icons/delivery-truck.svg" />
+    <p>
+      Doprava na všechny objednávky zdarma. Neváhejte a využijte našich služeb!
+    </p> *}
+  </div>
+
+  <div class="header-links right">
+    <a href="{plink Shopping:default}">
+      <div class="icon-text-navbar">
+        <div>Vše o nákupu</div>
+        <img src="{$baseUrl}/assets/icons/info-circle.svg" />
+      </div>
+    </a>
+    {* <a href="{plink Profile:login}">
+      <div class="icon-text-navbar">
+        <div>Můj účet</div>
+        <img src="{$baseUrl}/assets/icons/arrow-down.svg" />
+      </div>
+    </a> *}
+    {* <div class="icon-text-navbar">
+      <div>Měna</div>
+      <img src="{$baseUrl}/assets/icons/arrow-down.svg" />
+    </div> *}
+    {* <div class="icon-text-navbar">
+      <div>Jazyk: Čeština</div>
+      <img src="{$baseUrl}/assets/icons/arrow-down.svg" />
+    </div> *}
+  </div>
+</div>
+
+<header class="header">
+  <div class="header-container">
+    <div class="header-main">
+      <a href="{plink Home:default}">
+        <div class="logo-wrapper">
+          <img src="{$baseUrl}/assets/images/logo.png" alt="SIGA" />
+        </div>
+      </a>
+
+      <div class="search-bar">
+        <input type="text" placeholder="Hledáš něco konkrétního?" />
+        <button><img src="{$baseUrl}/assets/icons/search.svg" /></button>
+      </div>
+
+      <!-- ICONS -->
+      {* <div class="icon-text">
+        <a href="">
+          <img src="{$baseUrl}/assets/icons/heart.svg" />
+        </a>
+        <a href="">
+          <img src="{$baseUrl}/assets/icons/sidearrows.svg" />
+        </a>
+      </div> *}
+
+      <a href="{plink Profile:login}" id="user">
+        <div class="icon-text navbar-holder">
+          <div class="nav-icon-holder">
+            <img src="{$baseUrl}/assets/icons/user/user.svg" />
+          </div>
+          <div>
+            <h5>Můj účet</h5>
+            <p>přihlásit se</p>
+          </div>
+        </div>
+      </a>
+
+      <a class="basket" id="basket" href="{plink Order:default}" >
+        <div class="icon-text navbar-holder">
+          <div class="nav-icon-holder">
+            <img src="{$baseUrl}/assets/icons/user/basket.svg" />
+          </div>
+          <div>
+            <h5>Košík</h5>
+            <p class="navbar-total-price">{$cartTotal} Kč</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <nav class="navbar main">
+      <ul>
+        <li><a href="{plink Products:default}" class="{if $presenterName == 'Products'}selected{/if}">Produkty</a></li>
+        <li><a href="{plink SellingSupport:default}"
+            class="{if $presenterName == 'SellingSupport'}selected{/if}">Podpora prodeje</a></li>
+        <li><a href="{plink Catalog:default}" class="{if $presenterName == 'Catalog'}selected{/if}">Katalogy</a></li>
+        <li>
+          <a href="{plink Contact:default}" class="{if $presenterName == 'Contact'}selected{/if}">Kontakt</a>
+        </li>
+        {* <li><a href="{plink About:default}">O nás</a></li> *}
+      </ul>
+    </nav>
+
+    <nav id="ham-nav" style="min-height: 50px">
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+  </div>
+</header>
+<div class="overlay" id="overlay"></div>
+<div class="sidebar" id="sidebar">
+  <ul>
+    <li>
+      <a href="{plink Profile:login}">
+        <div class="icon-text navbar-holder">
+          <div class="nav-icon-holder">
+            <img src="{$baseUrl}/assets/icons/user/user.svg" />
+          </div>
+          <div>
+            <h5 style="color: var(--white-color);">Můj účet</h5>
+            <p>přihlásit se</p>
+          </div>
+        </div>
+      </a>
+    </li>
+
+    <li>
+      <a class="basket" href="{plink Order:default}">
+        <div class="icon-text navbar-holder">
+          <div class="nav-icon-holder">
+            <img src="{$baseUrl}/assets/icons/user/basket.svg" />
+          </div>
+          <div>
+            <h5 style="color: var(--white-color);">Košík</h5>
+            <p class="navbar-total-price">{$cartTotal} Kč</p>
+          </div>
+        </div>
+      </a>
+    </li>
+    <li><a href="{plink Products:default}" class="{if $presenterName == 'Products'}selected{/if}">Produkty</a></li>
+    <li><a href="{plink SellingSupport:default}" class="{if $presenterName == 'SellingSupport'}selected{/if}">Podpora
+        prodeje</a></li>
+    <li><a href="{plink Catalog:default}" class="{if $presenterName == 'Catalog'}selected{/if}">Katalogy</a></li>
+    <li>
+      <a href="{plink Contact:default}" class="{if $presenterName == 'Contact'}selected{/if}">Kontakt</a>
+    </li>
+
+    <li class="header-links-bonus">
+      <a href="{plink Shopping:default}">
+        <div class="icon-text-navbar">
+          <div>Vše o nákupu</div>
+          <img src="{$baseUrl}/assets/icons/info-circle.svg" />
+        </div>
+      </a>
+    </li>
+    <li class="header-links-bonus">
+      <a href="{plink Profile:login}">
+        <div class="icon-text-navbar">
+          <div>Můj účet</div>
+          <img src="{$baseUrl}/assets/icons/arrow-down.svg" />
+        </div>
+      </a>
+    </li>
+
+    <div class="contact-info insidebar"></div>
+  </ul>
+</div>
+

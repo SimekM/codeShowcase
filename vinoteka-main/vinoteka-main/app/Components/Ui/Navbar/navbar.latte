@@ -1,0 +1,164 @@
+{include _assets.latte}
+
+<header class="header">
+    <div class="header-container">
+        <a href="{plink Home:default}">
+            <div id="navlogo" class="logo-wrapper">
+                <img src="{$baseUrl}/assets/images/nav-logo-white.png" />
+            </div>
+        </a>
+        <nav class="navbar main">
+            <ul>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="{plink Products:default, 'category' => 'druhy-vina'}">Druhy vína<span class="navbar-arrow">
+                            <i class="fa-solid fa-angle-right"></i></span></a>
+                    <ul class="dropdown-menu">
+                        {foreach $categories->categories as $categoryData}
+                            <li>
+                                <a class=""
+                                    href="{plink 'Products:default', 'category' => $categoryData->slug}">{$categoryData->title}
+                                </a>
+                            </li>
+                        {/foreach}
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="{plink Products:default , 'category' => 'zeme-puvodu'}">Země původu<span class="navbar-arrow">
+                            <i class="fa-solid fa-angle-right"></i></span></a>
+                    <ul class="dropdown-menu">
+                        {foreach $categories->countries as $categoryData}
+                            <li>
+                                <a class=""
+                                    href="{plink 'Products:default', 'category' => $categoryData->slug}">{$categoryData->title}
+                                </a>
+                            </li>
+                        {/foreach}
+                    </ul>
+                </li>
+
+       
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="{plink Services:default}">Služby<span class="navbar-arrow">
+                            <i class="fa-solid fa-angle-right"></i></span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="{if $presenterAction == 'night' && $presenterName == 'Services'}selected{/if}"
+                                href="{plink Services:night}">Degustační večery
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="nav-right-wrapper">
+                <div class="flex-wrapper searchbar">
+                    <img src="{$baseUrl}/assets/icons/search.svg">
+                    <p>Vyhledat...</p>
+                </div>
+                <a href="{plink User:favorite}">
+                    <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16.0006 27.2475L3.21708 13.9147C2.09357 12.792 1.35203 11.3442 1.09764 9.77643C0.843251 8.20867 1.08892 6.60062 1.7998 5.18034V5.18034C2.33586 4.10854 3.11891 3.17945 4.08444 2.46962C5.04997 1.7598 6.17035 1.28955 7.35326 1.09763C8.53617 0.905708 9.74775 0.997605 10.8882 1.36575C12.0286 1.73389 13.0652 2.36774 13.9127 3.21508L16.0006 5.30167L18.0885 3.21508C18.9359 2.36774 19.9726 1.73389 21.113 1.36575C22.2534 0.997605 23.465 0.905708 24.6479 1.09763C25.8308 1.28955 26.9512 1.7598 27.9167 2.46962C28.8823 3.17945 29.6653 4.10854 30.2014 5.18034C30.9113 6.60007 31.1566 8.20717 30.9024 9.77403C30.6483 11.3409 29.9077 12.7881 28.7854 13.9107L16.0006 27.2475Z"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                </a>
+                <a href="{plink User:default}">
+                    <svg width="33" height="38" viewBox="0 0 33 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M1 36.0632V33.8745C1 31.8625 1.39607 29.8702 2.16559 28.0113C2.93512 26.1525 4.06303 24.4635 5.48493 23.0408C6.90682 21.6181 8.59486 20.4896 10.4527 19.7196C12.3105 18.9496 14.3016 18.5533 16.3125 18.5533C18.3234 18.5533 20.3145 18.9496 22.1723 19.7196C24.0301 20.4896 25.7182 21.6181 27.1401 23.0408C28.562 24.4635 29.6899 26.1525 30.4594 28.0113C31.2289 29.8702 31.625 31.8625 31.625 33.8745V36.0632"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M16.3125 18.5533C18.6331 18.5533 20.8587 17.6309 22.4997 15.9891C24.1406 14.3472 25.0625 12.1203 25.0625 9.79839C25.0625 7.47644 24.1406 5.24959 22.4997 3.60772C20.8587 1.96585 18.6331 1.04346 16.3125 1.04346C13.9919 1.04346 11.7663 1.96585 10.1253 3.60772C8.48437 5.24959 7.5625 7.47644 7.5625 9.79839C7.5625 12.1203 8.48437 14.3472 10.1253 15.9891C11.7663 17.6309 13.9919 18.5533 16.3125 18.5533V18.5533Z"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                </a>
+                <a href="{plink Order:default}">
+                    <svg width="43" height="38" viewBox="0 0 43 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M38.6923 9.12488H3.69231C2.20539 9.12488 1 10.3309 1 11.8187V33.3693C1 34.8571 2.20539 36.0631 3.69231 36.0631H38.6923C40.1792 36.0631 41.3846 34.8571 41.3846 33.3693V11.8187C41.3846 10.3309 40.1792 9.12488 38.6923 9.12488Z"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                            d="M29.2691 9.12493C29.2691 6.98159 28.4181 4.92604 26.9034 3.41047C25.3887 1.8949 23.3343 1.04346 21.1922 1.04346C19.05 1.04346 16.9956 1.8949 15.4809 3.41047C13.9662 4.92604 13.1152 6.98159 13.1152 9.12493"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                </a>
+            </div>
+        </nav>
+
+        <nav id="ham-nav" style="min-height: 50px">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+<div class="sidebar" id="sidebar">
+    <ul>
+        <li class="dropdown-mobile" id="dropmobile">
+            <a id="dropmobile_toggle" class="dropdown-toggle">Druhy vína<span class="navbar-arrow">
+                    <i class="fa-solid fa-angle-right"></i></span></a>
+            <ul class="dropdown-menu">
+                {foreach $categories->categories as $categoryData}
+                    <li>
+                        <a class=""
+                            href="{plink 'Products:default', 'category' => $categoryData->slug}">{$categoryData->title}
+                        </a>
+                    </li>
+                {/foreach}
+            </ul>
+        </li>
+        <li class="dropdown-mobile" id="dropmobile">
+            <a id="dropmobile_toggle" class="dropdown-toggle">Země původu<span class="navbar-arrow">
+                    <i class="fa-solid fa-angle-right"></i></span></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="{plink Products:default , 'category' => 'zeme-puvodu'}">Země původu</a>
+                </li>
+                {foreach $categories->countries as $categoryData}
+                            <li>
+                                <a class=""
+                                    href="{plink 'Products:default', 'category' => $categoryData->slug}">{$categoryData->title}
+                                </a>
+                            </li>
+                {/foreach}
+            </ul>
+        </li>
+        <li class="dropdown-mobile" id="dropmobile">
+            <a id="dropmobile_toggle" class="dropdown-toggle">Služby<span class="navbar-arrow">
+                            <i class="fa-solid fa-angle-right"></i></span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="{if $presenterAction == 'default' && $presenterName == 'Services'}selected{/if}"
+                                href="{plink Services:default}">Služby
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{if $presenterAction == 'night' && $presenterName == 'Services'}selected{/if}"
+                                href="{plink Services:night}">Degustační večery
+                            </a>
+                        
+                </li>
+            </ul>
+        </li>
+
+        <!-- <li>
+                    <a href="{}" class="{if $presenterName == 'Contact'}selected{/if}">
+                        Prémiová vína
+                    </a>
+                </li>
+                <li>
+                    <a href="{}" class="{if $presenterName == 'Contact'}selected{/if}">
+                        Akce 2 + 1 zdrama
+                    </a>
+                </li> -->
+        <div class="contact-info insidebar"></div>
+    </ul>
+</div>

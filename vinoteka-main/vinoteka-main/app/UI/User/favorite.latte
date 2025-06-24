@@ -1,0 +1,19 @@
+{block content}
+{include _assets.latte}
+
+
+<div class="big-page-wrapper user-section" style="margin-top: 80px; margin-bottom: 220px;">
+    <h3>Váš účet</h3>
+    <div class="flex-wrapper user-wrapper" style="flex-wrap: wrap; gap: 9vw; align-items: start;">
+        <div class="flex-wrapper column" style="margin-top: 20px; align-items: baseline;">
+            <div class="left-bar flex-wrapper column">
+                <a href="{plink User:orders}">Objednávky</a>
+                <a class="highlight" href="#">Oblíbené produkty</a>
+                <a href="{plink User:info}">Osobní údaje</a>
+            </div>
+        </div>
+        <div class="product-grid-wrapper">
+            {for $i = 0; $i < 5; $i++} {control core-productItem} {/for} 
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{block content}
+{include _assets.latte}
+
+
+
+
+<div class="form-wrapper">
+
+
+<form name="logInForm" class="form-login">
+
+
+	<h1 class="form-heading">Přihlásit se</h1>
+	
+	<div class="form-label-group">
+		<input type="email" name="loginEmail" class="form-control" placeholder="Emailová adresa" required autofocus>
+		<label name="loginEmail">Emailová adresa</label>
+	</div>
+
+	<div class="form-label-group">
+		<input type="password" name="password" class="form-control" placeholder="Heslo" required>
+		<label name="password">Heslo</label>
+	</div>
+
+	<button name="login-btn" class="general-button login-btn hover-slide-up-variant">Přihlásit se</button>
+
+</form>
+
+</div>

@@ -1,0 +1,7 @@
+[
+    {"key": "en", "title": "English", "filterTable": null},
+    {"key": "cs", "title": "Czech", "filterTable": {"prodejci": "Sellers", "kontakt": "Contact", "o-nas": "About", "produkty": "Products", "jak-nakoupit": "Howtobuy"}}
+]
+
+
+

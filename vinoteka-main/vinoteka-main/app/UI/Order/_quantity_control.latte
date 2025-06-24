@@ -1,0 +1,91 @@
+<style>
+    .quantity-controls input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .quantity-controls input::-webkit-outer-spin-button,
+    .quantity-controls input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .quantity-controls span {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .quantity-controls input {
+        border: none;
+        background-color: transparent;
+        text-align: center;
+        width: 50px;
+    }
+
+    .quantity-controls input:focus {
+        outline: none;
+    }
+
+    .quantity-controls>div {
+        border: 1px solid var(--border-primary-color);
+        padding: 10px;
+        border-radius: 40px;
+    }
+</style>
+<script>
+       document.addEventListener('DOMContentLoaded', setupQuantityControls);
+
+        function setupQuantityControls() {
+            const items = document.querySelectorAll(".cart-container .cart-item");
+            calculateWholePrice(); // Calculate total on each setup
+
+            items.forEach(item => {
+                const result = item.querySelector(".quantity-controls #result");
+                const total_price = item.querySelector(".price-remove #total_price");
+                const unitPrice = Number(item.getAttribute('data-unit-price'));
+
+                // Function to update item price
+                function updateItemPrice() {
+                    const quantity = Number(result.value) || 0;
+                    const newTotalPrice = unitPrice * quantity;
+                    total_price.innerText = formatItemPrice(newTotalPrice);
+                    calculateWholePrice();
+                }
+
+                item.querySelector("#minus-product-quantity").addEventListener("click", () => {
+                    if (result.value <= 1) return;
+                    result.value = Number(result.value) - 1;
+                    changeCartQuantity(result.getAttribute('cart_item_id'), result.value);
+                    updateItemPrice();
+                });
+
+                item.querySelector("#plus-product-quantity").addEventListener("click", () => {
+                    result.value = Number(result.value) + 1;
+                    changeCartQuantity(result.getAttribute('cart_item_id'), result.value);
+                    updateItemPrice();
+                });
+
+                // Handle manual input
+                result.addEventListener("input", () => {
+                    if (result.value < 0) result.value = 0;
+                    changeCartQuantity(result.getAttribute('cart_item_id'), result.value);
+                    updateItemPrice();
+                });
+            });
+        }
+
+
+        function formatItemPrice(price) {
+            if (price % 1 === 0) {
+                return price;  // Whole number, no decimals
+            } else {
+                return price.toFixed(2);  // Decimal, always 2 places
+            }
+        }
+
+        // Format for whole cart price - always show 2 decimal places
+        function formatWholePrice(price) {
+            return price.toFixed(2) + " Kč";  // Always show 2 decimal places
+        }
+
+
+</script>

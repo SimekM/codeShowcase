@@ -1,0 +1,24 @@
+{block content} {include _profile.latte}
+
+<div class="page-wrapper">
+    <div>
+        <div class="flex-wrapper" style="margin-bottom: 50px;">
+            <img src="{$baseUrl}/assets/icons/user/logo.svg">
+        </div>
+        <div class="login-container">
+            <h4>Změna hesla</h4>
+            <p style="margin-bottom: 40px;">Pro změnu zapomenutého hesla zvolte heslo nové a  potvrďte ho opětovným zadáním. </p>
+
+            <div class="flex-wrapper" style="justify-content: space-between;">
+                <p>Nové heslo</p>
+                <p>Minimálně 8 znaků</p>
+            </div>
+            <input id="password" type="password">
+            <div><p>Potvrzení nového hesla</p></div>
+            <input id="reppassword" type="password" >
+
+            <button>Přihlásit se</button>
+            <a href="{plink Profile:register}"  class="register-link">Změnit</a>
+        </div>
+    </div>
+</div>

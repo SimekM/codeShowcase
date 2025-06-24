@@ -1,0 +1,60 @@
+{block content} {include _profile.latte}
+
+<div class="page-wrapper">
+    <div style="margin: 10vh 0;">
+        <div class="flex-wrapper" style="margin-bottom: 50px;">
+            <img src="{$baseUrl}/assets/icons/user/logo.svg">
+        </div>
+        <div class="login-container">
+            <h4>Registrace</h4>
+            <p style="margin-bottom: 40px;">Pro přihlášení ke svému účtu vyplňte údaje, které jste použili při
+                registraci</p>
+
+            <div class="flex-wrapper" style="justify-content: space-between;">
+                <p>E-Mail</p>
+                <p>Slouží jako přihlášení</p>
+            </div>
+            <input id="email" type="email">
+            <div class="flex-wrapper" style="justify-content: space-between;">
+                <p>Heslo</p>
+                <p>Minimálně 8 znaků</p>
+            </div>
+            <input id="password" type="password">
+
+            <div class="flex-wrapper" style="justify-content: space-between;">
+                <p>Telefon</p>
+            </div>
+            <input id="tel" type="text" style="margin-bottom: 40px;">
+
+            <!--  -->
+            <div class="flex-wrapper" style="justify-content: space-between; margin-bottom: 30px;">
+                <h4>Fakturační údaje</h4>
+                <div style="width: 30px; height: 2px; background-color: var(--primary-color);"></div>
+            </div>
+            <div><p>Jméno a příjmení (název firmy)</p></div>
+            <input id="name" type="text">
+
+            <div><p>Ulice</p></div>
+            <input id="adress1" type="text">
+            <div><p>Město</p></div>
+            <input id="address2" type="text">
+            <div><p>PSČ</p></div>
+            <input id="address3" type="text" style="margin-bottom: 40px;">
+
+            <!--  -->
+            <div class="flex-wrapper" style="justify-content: space-between; margin-bottom: 30px;">
+                <h4>Fakturační údaje</h4>
+                <div style="width: 30px; height: 2px; background-color: var(--primary-color);"></div>
+            </div>
+            <div><p>IČO</p></div>
+            <input id="" type="text">
+            <div><p>DIČ</p></div>
+            <input id="" type="text">
+            <div><p>Bankovní účet</p></div>
+            <input id="" type="text">
+            <div><p>Specifický účet</p></div>
+            <input id="" type="text">
+            <button>Uložit</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+{include _assets.latte}
+
+<footer class="main-footer" id="kontakt">
+    <div class="flex-wrapper">
+        <div class="column aboutinfo">
+            <div class="footer-icon-wrapper">
+                <img class="footer-icon" src="{$baseUrl}/assets/images/logo.png">
+            </div>
+            <a href="tel:+420577662484" style="margin-bottom: 10px; display: block;">
+                <div class="flex-wrapper" style="align-items: center;">
+                    <img style="width: 35px; height: 35px;" src="{$baseUrl}/assets/icons/telephone.svg">
+                    <p>+420 577 662 484</p>
+                </div>
+            </a>
+            <a href="mailto:siga@siga.cz">
+                <div class="flex-wrapper" style="align-items: center;">
+                    <img style="width: 35px; height: 35px;" src="{$baseUrl}/assets/icons/mail.svg">
+                    <p>siga@siga.cz</p>
+                </div>
+            </a>
+        </div>
+        <div class="column">
+            <h2>Vše o nákupu</h2>
+            <ul>
+                <li><a href="{plink Shopping:producthelp}"><p>Pomoc s výběrem produktu</p></a></li>
+                <li><a href="{plink Shopping:conditions}"><p>Obchodní Podmínky</p></a></li>
+                <li><a href="{plink Shopping:shipping}"><p>Doprava</p></a></li>
+                <li><a href="{plink Shopping:default}"><p>Podpora</p></a></li>
+                {* 
+                <li><a href=""><p>Reklamační řád</p></a></li>
+                <li><a href=""><p>Nejčastější dotazy</p></a></li>
+                <li><a href=""><p>Ochrana soukromí</p></a></li>
+                <li><a href=""><p>Proč nakupovat u nás?</p></a></li>
+                <li><a href=""><p>Platba</p></a></li>
+                 *}
+            </ul>
+
+        </div>
+        <div class="column">
+            <h2>Objevte</h2>
+            <ul>
+                <li>
+                    <a href="{plink Products:default, 'category' => 'stavebni-chemie'}"><p>Stavební chemie</p></a>
+                </li>
+                <li>
+                    <a href="{plink Products:default, 'category' => 'naterove-hmoty'}"><p>Nátěrové hmoty</p></a>
+                </li>
+                <li>
+                    <a href="{plink Products:default, 'category' => 'osetreni-obuvi'}"><p>Ošetření obuvy</p></a>
+                </li>
+                <li>
+                    <a href="{plink Products:default, 'category' => 'cukrarska-aromata'}"><p>Cukrářská aromata</p></a>
+                </li>
+                <li>
+                    <a href="{plink Products:default, 'category' => 'bazenova-chemie-prislusenstvi'}"><p>Bazénová chemie</p></a>
+                </li>
+                <li>
+                    <a href="{plink Products:default, 'category' => 'doplnkovy-sortiment'}"><p>Doplňkový sortiment</p></a>
+                </li>
+            </ul>
+        </div>
+        <div class="column">
+            <h2>Poznejte nás lépe</h2>
+            <ul>
+                <li>
+                    <a href="{plink Catalog:default}"><p>Katalogy</p></a>
+                </li>
+                <li>
+                    <a href="{plink About:default}"><p>O nás</p></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+<div class="footer-bottom-bar">
+    <p>Všechna práva vyhrazena <span style="color: var(--secondary-color);">© 2024 Nodelogi</span></p>
+</div>

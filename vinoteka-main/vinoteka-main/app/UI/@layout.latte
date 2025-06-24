@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>{$meta_title}</title>
+    <meta content="{$meta_description}" name="description" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="keywords" />
+
+    <link rel="icon" type="image/x-icon" href="{$baseUrl}/favicon.ico">
+
+    {* No cache params *}
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    {include '_assets/_libraries_css.latte'}
+    {include '_assets/_main_css.latte'}
+    {include '_assets/_libraries_js.latte'}
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div n:snippet="flash" class="flashMessageContainer">
+        {foreach $flashes as $flash}
+        <div class="flashMessage {$flash->type}">{$flash->message}</div>
+        {/foreach}
+    </div>
+
+
+    {control core-uiNavbar}
+
+    {control core-notification}
+
+    {include content}
+
+
+    {control core-uiFooter}
+
+
+    {block scripts}
+
+    {include '_assets/_main_js.latte'}
+
+    {/block}
+</body>
+
+</html>

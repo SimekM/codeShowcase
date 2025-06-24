@@ -1,0 +1,115 @@
+<style>
+    .about-image-wrapper img {
+        max-height: 523px;
+        max-width: 791px;
+    }
+
+    .about {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin: 150px 0;
+    }
+
+    section.supplier {
+        padding: 150px 0;
+        text-align: center;
+        background-color: var(--primary-color);
+    }
+
+    .supplier h2 {
+        color: var(--white-text);
+        margin-bottom: 60px;
+    }
+
+    .supplier-info-list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: left;
+        gap: 25px;
+    }
+
+    .supplier-info-item {
+        display: flex;
+        align-items: center;
+        gap: 3vw;
+        background-color: #001E1A;
+        max-width: 1072px;
+        height: 150px;
+        width: 100%;
+        border-radius: 75px 15px 15px 150px;
+        padding-left: 4.15vw;
+    }
+
+    .supplier-img-wrapper {
+        max-width: 100px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .supplier-info-item h4 {
+        color: var(--secondary-color);
+        margin-bottom: 20px;
+    }
+
+    @media screen and (max-width: 700px) {
+        .supplier-info-item {
+            border-radius: 0;
+        }
+
+        section.supplier .page-wrapper {
+            padding: 0;
+        }
+    }
+
+    /* Service section */
+    section.services {
+        padding: 150px 0;
+        text-align: center;
+    }
+
+    .services h2 {
+        margin-bottom: 60px;
+    }
+
+    .services-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .service-item {
+        text-align: left;
+        display: flex;
+        max-width: 666px;
+        width: 100%;
+        height: 250px;
+        background-color: #DDDAD1;
+        border-radius: 15px;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .service-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .service-content {
+        padding: 20px 1.83vw;
+        color: #151515;
+    }
+
+    .service-content h5 {
+        color: #001E1A;
+        margin-bottom: 15px;
+    }
+    .service-content p {
+        color: var(--dark-text);
+    }
+</style>

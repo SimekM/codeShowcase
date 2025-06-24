@@ -1,0 +1,95 @@
+{include _assets.latte}
+
+
+
+<div id="formPopup" class="form-popup">
+<!--     <div class="form-wrapper">
+        <div>
+            <div class="form-logo">
+                <img src="{$baseUrl}/assets/img/form-logo.svg">
+            </div>
+        </div> -->
+        <div class="form-container">
+            <div class="closebutton-wrapper">
+                <button onclick="closeForm()" id="closeFormBtn">✖</button>
+            </div>
+            <h2>Máte vizi? My ji dokážeme uskutečnit.</h2>
+            <div class="form-text-secondary">řekněte nám o sobě více</div>
+            <form>
+                <input class="form-input" type="text" id="name" name="name" placeholder="vaše jméno">
+                <input class="form-input" type="email" id="email" name="email" placeholder="jmeno@email.com">
+
+                <textarea class="form-textarea" id="project" name="project"
+                    placeholder="sdělte nám váš problém"></textarea>
+
+                <label>jak jsi se o nás dozvěděl poprvé</label>
+                <div class="form-bottom">
+                    <div class="form-checkbox-group">
+                        <div style="display: flex; flex-direction: column; margin-right: 20px;">
+                            <div class="checkbox-wrapper">
+                                <input class="inp-cbx" id="cbx-1" type="checkbox" />
+                                <label class="cbx" for="cbx-1"><span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg></span><span>Checkbox</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-wrapper">
+                                <input class="inp-cbx" id="cbx-2" type="checkbox" />
+                                <label class="cbx" for="cbx-2"><span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg></span><span>Checkbox</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column;">
+                            <div class="checkbox-wrapper">
+                                <input class="inp-cbx" id="cbx-3" type="checkbox" />
+                                <label class="cbx" for="cbx-3"><span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg></span><span>Checkbox</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-wrapper">
+                                <input class="inp-cbx" id="cbx-4" type="checkbox" />
+                                <label class="cbx" for="cbx-4"><span>
+                                        <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                            <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                        </svg></span><span>Checkbox</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-button-wrapper">
+                        <button onclick="sendForm()" class="form-button" type="submit">Odeslat</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+<!--     </div> -->
+</div>
+
+
+
+<!-- <div n:snippet="form-contact">
+  {import @form.latte}
+  {include contact-form, form => contactForm, formClass => 'ajax'}
+</div> -->
+
+{block scripts}
+
+	<script src="{$baseUrl}/assets/js/nette.ajax.js"></script>
+	<script src="{$baseUrl}/assets/js/recaptcha.ajax.js"></script>
+
+	<script>
+		(function (window, $) {
+			$(function () {
+				$.nette.init();
+			});
+		})(window, window.jQuery);
+		</script>
+
+{/block}

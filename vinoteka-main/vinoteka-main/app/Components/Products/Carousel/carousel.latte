@@ -1,0 +1,24 @@
+{if !$repeatLoad}
+{include '_assets_carousel.latte'}
+{include '_assets_product.latte'}
+{/if}
+
+  <div class="carousel flex-wrapper">
+    <div id="carouselLeft" class="button-wrapper">
+      <img src="{$baseUrl}/assets/icons/arrow-left.svg">
+    </div>
+    <div class="item-wrapper">
+      <div class="flex-wrapper" style="justify-content: left; width: fit-content;">
+        {foreach $products as $product}
+            {control $presenter->getComponent(core)->getComponent(productItem) $product}
+        {/foreach}
+      </div>
+    </div>
+    <div id="carouselRight" class="button-wrapper">
+        <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+    </div>
+  </div>
+
+<!--   <div class="dot-carousel-wrapper">
+    <div class="dot-carousel"></div>
+</div> -->

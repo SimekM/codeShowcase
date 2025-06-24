@@ -1,0 +1,440 @@
+{block content}
+{include _assets.latte}
+{include _assets_form.latte}
+
+<div class="page-wrapper">
+    <div class="page-container">
+      <div class="top-banner">
+        <div class="icon-text">
+            <div class="number">
+                <h3>1</h3>
+            </div>
+            <p>Košík</p>
+        </div>
+        {* <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+        <div class="icon-text">
+            <div class="number">
+                <h3>2</h3>
+            </div>
+            <p>Doprava a platba</p>
+        </div> *}
+        <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+        <div class="icon-text">
+            <div class="number">
+                <h3>2</h3>
+            </div>
+            <p>Osobní údaje a platba</p>
+        </div>
+        <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+        <div class="icon-text">
+            <div class="number">
+                <h3>3</h3>
+            </div>
+            <p>Shrnutí objednávky</p>
+        </div>
+    </div>
+
+
+
+    <div class="bonus-info" style="display: flex; gap: 15vw; margin-bottom:20px;">
+        <div>
+            <h4>Přihlášení</h4>
+            <p>Jsem již registrovaný/á a chci se <a href="">přihlásit</a></p>
+        </div>
+        <div>
+            <h4>Registrace</h4>
+            <p>Ještě nemám účet a chci se <a href="">zaregistrovat</a></p>
+        </div>
+    </div>
+
+
+
+    <div class="flex-wrapper responsive-wrapper">
+        <div class="contact-container">
+            <form class="form-wrapper">
+                
+                <h3>Nákup bez registrace</h3>
+                
+               
+
+                <div class="flex-input-wrapper">
+                    <label for="input-name">* Jméno a příjmení</label>
+                    <input  id="input-name" name="input-name" type="text" required/>
+                </div>
+
+                <div class="flex-input-wrapper">
+                    <label for="input-phone">* Telefon</label>
+                    <input  id="input-phone" name="input-phone" type="text" required/>
+                </div>
+
+                 <div class="flex-input-wrapper">
+                    <label for="input-email">* Email</label>
+                    <input  id="input-email" name="input-email" type="email" required />
+                </div>
+
+
+                <div class="form-input-grid-wrapper">
+                    <div class="form-grid-item" style="grid-column: span 3;">
+                        <div class="flex-input-wrapper">
+                            <label for="input-city">* Město</label>
+                            <input  id="input-city" name="input-city" type="text" required/>
+                        </div>
+                    </div>
+                    <div class="form-grid-item" style="grid-column: span 1;">
+                        <div class="flex-input-wrapper">
+                            <label for="input-psc">* PSČ</label>
+                            <input  id="input-psc" name="input-psc" type="text" required/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-input-wrapper">
+                    <label for="input-email">* Ulice a číslo popisné</label>
+                    <input  id="input-street" name="input-street" type="text" required/>
+                </div>
+                
+                <div class="flex-input-wrapper">
+                    <label for="input-poznamka">Poznámka</label>
+                    <textarea id="input-poznamka" name="input-poznamka"></textarea>
+                </div>
+                
+                
+                
+                  {* <div style="margin: 60px 0;">
+                  
+                    <div class="icon-text" style="gap: 30px;">
+                        <label class="toggle-button">
+                            <input type="checkbox" />
+                            <span class="button-body"></span>
+                            <svg class="check-icon" viewBox="0 0 16 16">
+                                <polyline points="3 8 6 11 13 4"></polyline>
+                            </svg>
+                        </label>
+                        <p>Kupuji zboží na firmu</p>
+                    </div>
+                </div>  
+
+
+
+                <h3 style="margin: 25px 0;">Adresa pro dodání zboží (pouze ČR!)</h3>
+
+
+                
+                <div class="flex-input-wrapper">
+                    <label for="input-delivery-name">Firma / Jméno</label>
+                    <input  id="input-delivery-name" name="input-delivery-name" type="text" />
+                </div>
+
+                 <div class="form-input-grid-wrapper">
+                    <div class="form-grid-item" style="grid-column: span 3;">
+                        <div class="flex-input-wrapper">
+                            <label for="input-delivery-city">Město</label>
+                            <input  id="input-delivery-city" name="input-delivery-city" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-grid-item" style="grid-column: span 1;">
+                        <div class="flex-input-wrapper">
+                            <label for="input-delivery-psc">PSČ</label>
+                            <input  id="input-delivery-psc" name="input-delivery-psc" type="text" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-input-grid-wrapper">
+                    <div class="form-grid-item" style="grid-column: span 3;">
+                        <div class="flex-input-wrapper">
+                            <label for="input-delivery-street">Ulice</label>
+                            <input  id="input-delivery-street" name="input-delivery-street" type="text" />
+                        </div>
+                    </div>
+                  
+                </div> *}
+
+               
+
+                
+
+
+
+                {* Zpusob platby *}
+                <div class="shipping-container">
+
+                        <h3 style="margin-top: 100px; margin-bottom: 20px;">Způsob platby</h3>
+                        <div class="items-wrapper zpusob-platby">
+                            
+                            {* <div class="item">
+                                <div class="icon-text">
+                                    <label class="toggle-button">
+                                        <input type="checkbox" />
+                                        <span class="button-body"></span>
+                                        <svg class="check-icon" viewBox="0 0 16 16">
+                                            <polyline points="3 8 6 11 13 4"></polyline>
+                                        </svg>
+                                    </label>
+                                    <img src="{$baseUrl}/assets/icons/card.svg">
+                                    <p>Kartou online</p>
+                                </div>
+                                <p>zdarma</p>
+                            </div> *}
+
+                            <div class="item">
+                                <div class="icon-text">
+                                    <label class="toggle-button">
+                                        <input type="checkbox" name="checkbox-platba-hotove" />
+                                        <span class="button-body"></span>
+                                        <svg class="check-icon" viewBox="0 0 16 16">
+                                            <polyline points="3 8 6 11 13 4"></polyline>
+                                        </svg>
+                                    </label>
+                                    <img src="{$baseUrl}/assets/icons/cash.svg">
+                                    <p>Hotově při osobním převzení</p>
+                                </div>
+                                <p>zdarma</p>
+                            </div>
+
+
+                            <div class="item">
+                                <div class="icon-text">
+                                    <label class="toggle-button">
+                                        <input type="checkbox" name="checkbox-platba-bakovni-prevod" />
+                                        <span class="button-body"></span>
+                                        <svg class="check-icon" viewBox="0 0 16 16">
+                                            <polyline points="3 8 6 11 13 4"></polyline>
+                                        </svg>
+                                    </label>
+                                    <img src="{$baseUrl}/assets/icons/coin.svg">
+                                    <p>Bankovním převodem</p>
+                                </div>
+                                <p>zdarma</p>
+                            </div>
+                          
+
+                            <div class="item">
+                                <div class="icon-text">
+                                    <label class="toggle-button">
+                                        <input type="checkbox" name="checkbox-platba-dobirka" />
+                                        <span class="button-body"></span>
+                                        <svg class="check-icon" viewBox="0 0 16 16">
+                                            <polyline points="3 8 6 11 13 4"></polyline>
+                                        </svg>
+                                    </label>
+                                    <img src="{$baseUrl}/assets/icons/wallet.svg">
+                                    <p>Dobírkou</p>
+                                </div>
+                                <p>30 Kč</p>
+                            </div>
+                        </div>
+                    </div>
+
+                
+
+
+
+
+                {* Zpusob dopravy *}
+                    <h3 style="margin-top: 80px; margin-bottom: 20px;">Způsob dopravy</h3>
+                    <div class="items-wrapper zpusob-dopravy">
+                        <!-- Options of delivery -->
+                        <div class="item doprava-hotove">
+                            <div class="icon-text">
+                                <label class="toggle-button">
+                                    <input type="checkbox" name="checkbox-doprava-hotove"/>
+                                    <span class="button-body"></span>
+                                    <svg class="check-icon" viewBox="0 0 16 16">
+                                        <polyline points="3 8 6 11 13 4"></polyline>
+                                    </svg>
+                                </label>
+                                <img src="{$baseUrl}/assets/icons/dobirka.svg">
+                                <p>Osobní odběr na prodejně</p>
+                            </div>
+                            <p>zdarma</p>
+                        </div>
+                        <div class="item doprava-ppl">
+                            <div class="icon-text">
+                                <label class="toggle-button">
+                                    <input type="checkbox" name="checkbox-doprava-ppl"/>
+                                    <span class="button-body"></span>
+                                    <svg class="check-icon" viewBox="0 0 16 16">
+                                        <polyline points="3 8 6 11 13 4"></polyline>
+                                    </svg>
+                                </label>
+                                <img src="{$baseUrl}/assets/icons/ppl-logo.png">
+                                <p>Přeprava službou PPL</p>
+                            </div>
+                            <p>130 Kč</p>
+                        </div>
+                     
+                    </div>
+
+                
+                <div class="bonus-info delivery-info">
+                    <p>Zboží zaplatí zákazník hotově při osobním převzetí. Zákazník si zboží převezme osobně na pobočce Otrokovice.</p>
+
+                </div>
+
+                    
+
+                <div class="bonus-info">
+                    <p>Odesláním objednávky souhlasíte s <a href="">obchodními podmínkami</a>.</p>
+                    <p>Informace o zpracování <a href="">osobních údajů.</a></p>
+                </div>
+
+                <div class="bottom-action">
+                    <a href="{plink Order:default}" class="cta-button outline"><- Zpět do košíku</a>
+                    <button class="cta-button" type="submit">Odeslat objednávku</button>
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+    </div>
+</div>
+
+
+
+
+
+{* {block content}
+{include _assets.latte}
+
+<div class="page-wrapper">
+
+      
+      <div class="top-banner">
+        <div class="icon-text">
+            <div class="number">
+                <h3>1</h3>
+            </div>
+            <p>Košík</p>
+        </div>
+
+        <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+        <div class="icon-text">
+            <div class="number">
+                <h3>2</h3>
+            </div>
+            <p>Osobní údaje a platba</p>
+        </div>
+        <img src="{$baseUrl}/assets/icons/arrow-right.svg">
+        <div class="icon-text">
+            <div class="number">
+                <h3>3</h3>
+            </div>
+            <p>Shrnutí objednávky</p>
+        </div>
+    </div>
+
+
+    <div class="bonus-info" style="display: flex; gap: 15vw;">
+        <div>
+            <h4>Přihlášení</h4>
+            <p>Jsem již registrovaný/á a chci se <a href="">přihlásit</a></p>
+        </div>
+        <div>
+            <h4>Registrace</h4>
+            <p>Ještě nemám účet a chci se <a href="">zaregistrovat</a></p>
+        </div>
+    </div>
+    <div class="flex-wrapper responsive-wrapper">
+        <div class="contact-container">
+            <div class="form-wrapper">
+                <h3>Nákup bez registrace</h3>
+                <div class="form-input-grid-wrapper">
+                    <div class="form-grid-item">
+                        <div class="flex-input-wrapper">
+                            <label for="subject">Jméno</label>
+                            <input onfocusout="handleFocusOut(event)" id="subject" name="subject" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-grid-item">
+                        <div class="flex-input-wrapper">
+                            <label for="surname">Přijmení</label>
+                            <input onfocusout="handleFocusOut(event)" id="surname" name="surname" type="text" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-input-wrapper">
+                    <label for="email">E-mail</label>
+                    <input onfocusout="handleFocusOut(event)" id="email" name="email" type="email" />
+                </div>
+                <div class="flex-input-wrapper">
+                    <label for="name">Telefon</label>
+                    <input onfocusout="handleFocusOut(event)" id="name" name="name" type="text" />
+                </div>
+
+                <div class="form-input-grid-wrapper">
+                    <div class="form-grid-item" style="grid-column: span 3;">
+                        <div class="flex-input-wrapper">
+                            <label for="address">Ulice</label>
+                            <input onfocusout="handleFocusOut(event)" id="address" name="address" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-grid-item" style="grid-column: span 1;">
+                        <div class="flex-input-wrapper">
+                            <label for="address2">Číslo popisné</label>
+                            <input onfocusout="handleFocusOut(event)" id="address2" name="address2" type="email" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-input-grid-wrapper">
+                    <div class="form-grid-item" style="grid-column: span 3;">
+                        <div class="flex-input-wrapper">
+                            <label for="city">Město</label>
+                            <input onfocusout="handleFocusOut(event)" id="city" name="city" type="text" />
+                        </div>
+                    </div>
+                    <div class="form-grid-item" style="grid-column: span 1;">
+                        <div class="flex-input-wrapper">
+                            <label for="psc">PSČ</label>
+                            <input onfocusout="handleFocusOut(event)" id="psc" name="psc" type="email" />
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin: 60px 0;">
+                    <div class="icon-text" style="margin-bottom: 20px; gap: 30px;">
+                        <label class="toggle-button">
+                            <input type="checkbox" />
+                            <span class="button-body"></span>
+                            <svg class="check-icon" viewBox="0 0 16 16">
+                                <polyline points="3 8 6 11 13 4"></polyline>
+                            </svg>
+                        </label>
+                        <p>Chci doručit objednávku na jinou adresu</p>
+                    </div>
+                    <div class="icon-text" style="gap: 30px;">
+                        <label class="toggle-button">
+                            <input type="checkbox" />
+                            <span class="button-body"></span>
+                            <svg class="check-icon" viewBox="0 0 16 16">
+                                <polyline points="3 8 6 11 13 4"></polyline>
+                            </svg>
+                        </label>
+                        <p>Kupuji zboží na firmu</p>
+                    </div>
+                </div>
+
+                <div class="flex-input-wrapper">
+                    <label for="message">Doplňující vzkaz</label>
+                    <textarea id="message" name="message"></textarea>
+                </div>
+
+                <div class="bonus-info">
+                    <p>Odesláním objednávky souhlasíte s <a href="{plink Shoppingterms:default}">obchodními podmínkami</a>.</p>
+                    <p>Informace o zpracování <a href="{plink Privacy:default}">osobních údajů.</a></p>
+                </div>
+
+                <!-- <div id="messageOut" class="error-message"></div> -->
+            </div>
+        </div>
+
+    </div>
+    <div class="bottom-action">
+        <a href="{plink Order:shipping}" class="cta-button outline"><- Zpět na dopravu a platbu</a>
+                <a href="{plink Order:summary}" class="cta-button">Shrnutí objednávky -></a>
+    </div>
+</div> *}

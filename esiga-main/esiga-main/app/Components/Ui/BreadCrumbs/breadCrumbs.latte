@@ -1,0 +1,21 @@
+{include _assets.latte}
+
+
+<div class="breadcrumbs">
+    {foreach $items as $key => $item}
+
+       {var $sellerSlug = $item->sellerSlug ?? null}
+       {var $categorySlug = $item->categorySlug ?? null}
+       {var $presenterAction = $item->presenterAction ?? 'default'}
+
+        
+        {if $key == count($items) - 1}
+            <span>{$item->title}</span>
+        {else}
+            <a href='{plink "{$item->presenter}:{$presenterAction}", "sellerSlug" => $sellerSlug, "category" => $categorySlug}'>{ucfirst($item->title)}</a>
+                    <span style="font-weight: bold;"> > </span>
+
+        {/if}
+        
+    {/foreach}
+</div>

@@ -1,0 +1,254 @@
+{block content}
+{include _assets_detail.latte}
+
+<div class="page-wrapper">
+
+    <div class="product-wrapper">
+        <div class="img-wrapper">
+            <img style="object-fit: contain; position: relative; z-index: 2; max-height: 500px;" src="{$baseUrl}/assets/images/products/{$product->img_src}">
+            <img style="position: absolute; top: 0; left: 0; z-index: 1;"
+                src="{$baseUrl}/assets/images/products/product-bg.png">
+        </div>
+
+        <div class="product-content">
+            <p style="color: #838282;">Kód položky: {$product->id}</p>
+            <h2 style="font-size: 40px;">{$product->title}</h2>
+            <p>{$product->description}</p>
+
+            <div class="product-bottom" style="margin-top: 60px; width: 100%;">
+                <div class="flex-wrapper column" style="align-items: baseline; gap: 0;">
+                    <h3 style="font-size: 52px;">{$product->price} Kč</h3>
+                    <p style="color: #838282;">Skladem > {$product->stock} ks</p>
+                </div>
+                <div class="flex-wrapper" style="flex-wrap: wrap; margin-top: 10px; justify-content: left;">
+                    <div class="cta-button outline quantity" style="cursor: default;">
+                        <button class="qty-count qty-count--minus" data-action="minus" type="button">-</button>
+                        <div class="product-qty" >1</div>
+                        <button class="qty-count qty-count--add" data-action="add" type="button">+</button>
+                    </div>
+                    <button class="cta-button add-to-cart-btn"  productId="{$product->id}">Přidat do košíku</button>
+                </div>
+                <p style="margin-top: 20px; color: #838282;">Odesíláme za 2 dny</p>
+                <p style="color: #838282;">Možnost <strong>osobního odběru</strong> na prodejně</p>
+
+            </div>
+        </div>
+    </div>
+    <div class="description-wrapper">
+        <h2>Popis produktu</h2>
+        <p style="font-size: 28px; color: #222222; margin-left: 20px;">obsahuje sulfidy, siřičitany</p>
+
+        <div class="product-details">
+            <div class="detail-item">
+                <div class="icon-text">
+                    <div class="icon-grapes circle">
+                        <img src="{$baseUrl}/assets/icons/bottle.svg">
+                    </div>
+                    <div class="detail-text"><strong>Vinařství:</strong> {$categories->winery->title}</div>
+                </div>
+            </div>
+
+            {foreach $attributes as $attribute}
+                
+                
+                <div class="detail-item">
+                    <div class="icon-text">
+                        {if $attribute->attribute_name == 'Odrůda'}
+                        <div class="icon-grapes circle">
+                            <img src="{$baseUrl}/assets/icons/grapes.svg">
+                        </div>
+                        {elseif $attribute->attribute_name == 'Doporučení'}
+                        <div class="icon-food circle">
+                            <img src="{$baseUrl}/assets/icons/pasta.svg">
+                        </div>
+                        {elseif $attribute->attribute_name == 'Alkohol'}
+                        <div class="icon-percent circle">
+                            <img src="{$baseUrl}/assets/icons/percentage.svg">
+                        </div>
+                        {else}
+                        <div class="icon-bottle circle">
+                            <img src="{$baseUrl}/assets/icons/bottle.svg">
+                        </div>
+                        {/if}
+                        <div class="detail-text"><strong>{$attribute->attribute_name}</strong> {$attribute->attribute_value}</div>
+                    </div>
+                </div>
+
+            {/foreach}
+       
+            <div class="detail-item">
+                <div class="icon-text">
+                    <div class="icon-globe circle">
+                        <img src="{$baseUrl}/assets/icons/earth.svg">
+                    </div>
+                    <div class="detail-text"><strong>Země původu:</strong> {$categories->country->title}</div>
+                </div>
+            </div>
+        </div>
+
+        {if !empty($categories->food_types)}
+        <h2>K čemu se toto víno hodí</h2>
+        {/if}
+        <div class="product-details">
+            {if !empty($categories->food_types)}
+                {foreach $categories->food_types as $foodType}
+                <div class="detail-item">
+                    <div class="icon-text">
+                        <div class="icon-food circle">
+                            {if $foodType->title == 'Korýši'}
+                                <img src="{$baseUrl}/assets/icons/shrimp.svg">
+                            {elseif $foodType->title == 'Rybí pokrmy'}
+                                <img src="{$baseUrl}/assets/icons/fish.svg">
+                            {elseif $foodType->title == 'Houby'}
+                                <img src="{$baseUrl}/assets/icons/mushroom.svg">
+                            {elseif $foodType->title == 'Sýry'}
+                                <img src="{$baseUrl}/assets/icons/cheese.svg">
+                            {elseif $foodType->title == 'Mořské plody'}
+                                <img src="{$baseUrl}/assets/icons/seafood.svg">
+                            {elseif $foodType->title == 'Těstoviny'}
+                                <img src="{$baseUrl}/assets/icons/pasta.svg">
+                            {elseif $foodType->title == 'Maso'}
+                                <img src="{$baseUrl}/assets/icons/pork.svg">
+                            {elseif $foodType->title == 'Pálivá jídla' || $foodType->title == 'Zelenina'}
+                                <img src="{$baseUrl}/assets/icons/vegetables.svg">
+                            {else}
+                                <img src="{$baseUrl}/assets/icons/pasta.svg">
+                            {/if}
+                        </div>
+                        <div class="detail-text">{$foodType->title}</div>
+                    </div>
+                </div>
+                {/foreach}
+            {else}
+              
+            {/if}
+        </div>
+
+        <h2>Odkud pochází toto víno</h2>
+        <div class="map-container">
+            <div class="origin-section" style="position: relative;">
+                <div class="origin-map">
+                    <div id="osm-map"></div>
+                </div>
+                <div class="flex-wrapper map-info left">
+                    <img src="{$baseUrl}/assets/images/products/{$categories->country->img_src}" style="width: 80px; height: 60px;">
+                    <div>
+                    {dump $categories}
+                        <strong>{$categories->country->title}</strong><br>
+                        {$categories->region->title}, {$categories->winery->title}
+                    </div>
+                </div>
+            </div>
+            <div class="region-wrapper" style="position: relative;">
+                <div class="region-info">
+                    <h3>{$categories->region->title}</h3>
+                    <img src="{$baseUrl}/assets/images/products/{$categories->region->img_src}">
+                    <p>{$categories->region->description}</p>
+                </div>
+                <div class="region-info unactive">
+                    <h3>{$categories->winery->title}</h3>
+                    <img src="{$baseUrl}/assets/images/products/{$categories->winery->img_src}">
+                    <p>{$categories->winery->description}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 290px">
+        <h2 style="text-align: center; margin-top: 115px; margin-bottom: 80px;">Akce</h2>
+        {control core-productCarousel}
+    </div>
+
+    <link href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" rel="stylesheet" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script>
+        var element = document.getElementById('osm-map');
+        element.style = 'height:100%;width:100%;';
+        var map = L.map(element);
+        const calculateDistance = (current_location, loc) => {
+            let loc_lat = L.latLng(loc.split(','));
+            let metres = map.distance(current_location, loc_lat);
+            let kilometers = Math.round(metres / 1000)
+            return kilometers
+        };
+
+        const addToMap = (loc, name) => {
+            var target = L.latLng(loc.split(','));
+            L.marker(target).addTo(map).bindPopup(name);
+        };
+        
+        L.tileLayer('https://{ s }.basemaps.cartocdn.com/rastertiles/voyager/{ z }/{ x }/{ y }.png').addTo(map);
+
+        /* var blackIcon = L.icon({
+            iconUrl: '{$baseUrl}/assets/icons/GPS.png',
+            iconSize:     [30, 30],
+        }); */
+
+        /* Markers */
+        L.marker([50.971452238053956, 10.376913842982903]).addTo(map);
+        {if isset($product->gps_address)}
+            var target = L.latLng({$product->gps_address}.split(','));
+
+            // map.distance(target, target1) // 1000
+            // Set map's center to target with zoom 14.
+            map.setView(target, 14);
+            L.marker(target).addTo(map);
+        {/if}
+
+        var maxBounds = [
+            [48.81871418056202, 12.373910374913605], //Southwest
+            [50.67634075479983, 5]  //Northeast
+        ];
+        map.fitBounds(maxBounds);
+
+        /* description of location */
+ /*        map.locate({ setView: false })
+        .on('locationerror', function(e){
+            sellers.forEach(seller => {
+                if (seller.gps_address) {
+                    addToMap(seller.gps_address, seller.title);
+                    let holdername =`#distance-holder-${ seller.slug }`;
+                    let holder = document.querySelector(holdername);
+                    holder.parentNode.remove();
+                };
+            });
+        })
+        .on('locationfound', function(ev){
+            sellers.forEach(seller => {
+                if (seller.gps_address) {
+                    addToMap(seller.gps_address, seller.title);
+                    let holdername =`#distance-holder-${ seller.slug }`;
+                    let holder = document.querySelector(holdername);
+                    let distance = calculateDistance(ev.latlng, seller.gps_address);
+                    holder.innerText = distance;
+                    holder.innerText += " km";
+                };
+            });
+        }); */
+
+    </script>
+
+    <!-- Description -->
+    {*<div class="description-wrapper" style="display: flex;">
+        <div class="description-container">
+            <h3>Popis</h3>
+            <div class="description-header">
+                <div></div>
+                <div class="wine-name">Jesuitengarten</div>
+            </div>
+
+
+            {foreach $attributes as $attribute}
+            <div class="info-row">
+                <span class="info-label">{$attribute->attribute_name}</span>
+                <span class="info-line"></span>
+                <span class="info-value">{$attribute->attribute_value}</span>
+            </div>
+            {/foreach}
+        </div>
+    </div>
+    *}
+</div>
+
+
+<!-- Carousel -->

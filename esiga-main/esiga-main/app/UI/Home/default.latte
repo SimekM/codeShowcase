@@ -1,0 +1,125 @@
+{block content}
+{include _assets.latte}
+
+<!-- Main Banner -->
+<section class="main-banner">
+  <div class="banner-wrapper">
+    <img src="{$baseUrl}/assets/images/main-banner.png" />
+    <div class="banner-text">
+      <h1 style="line-height: 1;">TMELY</h1>
+      <p >
+        Držíme spoje pohromadě - i v těch <br />
+        nejtěžších chvílích!
+      </p>
+      <a href="{plink Products:default, 'category' => 'tmely'}" style="margin-top: 25px" class="cta-button">
+        Nakupujte nyní
+      </a>
+    </div>
+    <div class="button-wrapper">
+      <div id="b1" class="circle active"></div>
+      <div id="b2" class="circle"></div>
+      <div id="b3" class="circle"></div>
+      <div id="b4" class="circle"></div>
+    </div>
+  </div>
+
+  {* <div class="banner-offer">
+    <div class="banner-wrapper sec"> 
+      <div class="background-banner"></div> 
+      <img src="{$baseUrl}/assets/images/sec-banner.png" style="opacity: .2; z-index: 1; position: relative;" />
+      <div class="banner-text sec" style="z-index: 2;">
+        <h3><span class="title">ZÍSKEJ AŽ</span> <br /><span class="percentage">10%</span></h3>
+        <p style="font-weight: bold;">PŘI NAKUPU NAD 1500</p>
+        <a href="{plink Products:default}" style="z-index: 2; margin-top: 65px; background-color: var(--primary-color)" class="cta-button">
+          Nakupujte nyní
+        </a>
+      </div>
+    </div>
+  </div> *}
+</section>
+
+<!-- Categories Section -->
+<section class="categories">
+  <div class="category-wrapper">
+    <a href="{plink Products:default, 'category' => 'stavebni-chemie'}" class="category-item">
+      <img src="{$baseUrl}/assets/images/categories/stavebni_chemie.png" />
+      <div class="text">STAVEBNÍ CHEMIE</div>
+    </a>
+    <a href="{plink Products:default, 'category' => 'naterove-hmoty'}" class="category-item">
+      <img src="{$baseUrl}/assets/images/categories/naterove_hmoty.png" />
+      <div class="text">NÁTĚROVÉ HMOTY</div>
+    </a>
+    <a href="{plink Products:default, 'category' => 'osetreni-obuvi'}" class="category-item">
+      <img src="{$baseUrl}/assets/images/categories/osetreni_obuvy.png" />
+      <div class="text">OŠETŘENÍ OBUVI</div>
+    </a>
+    <a href="{plink Products:default, 'category' => 'cukrarska-aromata'}" class="category-item">
+      <img src="{$baseUrl}/assets/images/categories/cukrarska_aromata.png" />
+      <div class="text">CUKRÁŘSKÁ AROMATA</div>
+    </a>
+    <a href="{plink Products:default, 'category' => 'bazenova-chemie-prislusenstvi'}" class="category-item">
+      <img src="{$baseUrl}/assets/images/categories/bazenova_chemie_prislusenstvi.png" />
+      <div class="text">BAZÉNOVÁ CHEMIE A PŘÍSLUŠENSTVÍ</div>
+    </a>
+    <a href="{plink Products:default, 'category' => 'doplnkovy-sortiment'}" class="category-item">
+      <img src="{$baseUrl}/assets/images/categories/doplnkovy_sortiment.png" />
+      <div class="text">DOPLŇKOVÝ SORTIMENT</div>
+    </a>
+  </div>
+</section>
+
+<!-- Products Section-->
+<section class="products">
+  <div class="flex-wrapper column">
+    <h2>NAŠE PRODUKTY</h2>
+    {* <div class="product-tabs">
+      <div class="tab">DOPORUČENÉ</div>
+      <div class="tab">NOVINKY</div>
+      <div class="tab">BESTSELLERY</div>
+    </div> *}
+  </div>
+  <div class="product-list">
+    {control core-recomendedProducts}
+  </div>
+
+  <div class="button-wrapper" style="margin-top: 100px">
+    <a href="{plink Products:default}" class="cta-button outline">Přejít na všechny produkty</a>
+  </div>
+</section>
+
+<!-- Help Section-->
+<section class="help-section">
+  <h3>NECHTE SI OD NÁS PORADIT</h3>
+  <div class="help-list">
+    <div class="help-item">
+      <div class="category">
+        <img class="product" src="{$baseUrl}/assets/images/help/hydrolizace.png" />
+        <img class="mark" src="{$baseUrl}/assets/icons/questionMark.svg" />
+      </div>
+      <p>Jak zvolit správnou hydroizolaci?</p>
+    </div>
+    <div class="help-item">
+      <div class="category">
+        <img class="product" src="{$baseUrl}/assets/images/help/tmel.png" />
+        <img class="mark" src="{$baseUrl}/assets/icons/questionMark.svg" />
+      </div>
+      <p>Jak vybrat správný tmel?</p>
+    </div>
+    <div class="help-item">
+      <div class="category">
+        <img class="product" src="{$baseUrl}/assets/images/help/nater.png" />
+        <img class="mark" src="{$baseUrl}/assets/icons/questionMark.svg" />
+      </div>
+      <p>Jaký zvolit nátěr?</p>
+    </div>
+    <div class="help-item">
+      <div class="category">
+        <img class="product" src="{$baseUrl}/assets/images/help/montazni_pena.png" />
+        <img class="mark" src="{$baseUrl}/assets/icons/questionMark.svg" />
+      </div>
+      <p>Jak vybrat montážní pěnu?</p>
+    </div>
+  </div>
+</section>
+
+{control core-uiKeyBottom}

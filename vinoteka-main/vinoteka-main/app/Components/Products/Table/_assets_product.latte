@@ -1,0 +1,96 @@
+<style>
+  .product-item {
+    width: 342px;
+    height: 450px;
+
+    position: relative;
+    border-radius: 40px;
+    border: 1px solid var(--border-primary-color);
+    padding: 20px 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .product-item:hover {
+    background-color: #f5e7ea;
+  }
+
+  .product-item .hiddentext {
+    font-size: 14px;
+    opacity: 0;
+    display: none;
+    transition: opacity 1.2s linear;
+  }
+
+  .product-item:hover .hiddentext {
+    opacity: 1;
+    display: inline-block;
+  }
+
+
+  .product-item .heart {
+    position: absolute;
+    width: 30px;
+    height: 25px;
+    /* Padding */
+    top: 20px;
+    right: 36px;
+    stroke: #222222;
+    fill: none;
+    transition: 1.2s all linear;
+  }
+
+  .heart-clicked {
+    --fill-color: #9C3347;
+    stroke: var(--fill-color);
+    fill: var(--fill-color);
+  }
+
+  .product-item .plus-button {
+    font-size: 24px;
+    color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222222;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+  }
+
+  .product-item:hover .plus-button {
+    padding: 15px 20px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 20px;
+  }
+
+  .product-item:hover .plus-button .plus {
+      display: none;
+  }
+
+  .product-item .product-image {
+    object-fit: cover;
+    width: 115px;
+    height: 260px;
+  }
+
+  .product-text {
+    gap: 10px;
+  }
+
+  .product-text .title {
+    color: var(--black-color);
+    font-size: 24px;
+  }
+
+  .product-text .price {
+    color: var(--black-color);
+    font-weight: 600;
+  }
+</style>
