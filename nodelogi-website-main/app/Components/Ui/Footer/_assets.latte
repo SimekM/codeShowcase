@@ -1,0 +1,224 @@
+<style>
+
+@font-face {
+    font-family: 'Marva';
+    src: url('{$baseUrl}/assets/fonts/Marva/Marva-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+footer {
+    padding-top: 80px;
+    padding-bottom: 35px;
+    border-top-right-radius: 90px;
+    border-top-left-radius: 90px;
+    background-color: var(--dark);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-image: radial-gradient(#535252 1px, transparent 2px);
+    background-size: 25px 25px;
+}
+
+.footer-text::after, 
+.footer-text::before {
+    display: none !important;
+}
+
+.footer-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 8px;
+    gap: 0px;
+}
+
+.footer-text p {
+    color: var(--secondary);
+    font-size: 18px;
+}
+
+.footer-text h2 {
+    color: var(--light);
+    font-size: 100px;
+    max-width: 1200px;
+    font-family: 'Marva', sans-serif !important;
+    text-align: center;
+}
+
+.footer-img  {
+    position: absolute;
+    width: 580.99px;
+    height: 650.68px;
+    left: 0px;
+    bottom: 0px;
+}
+
+.footer-bottom {
+    align-self: center;
+    width: 90vw;
+    border-top: 3px solid var(--grey);
+    padding-right: 50px;
+    padding-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-bottom-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-bottom-text h4 {
+    color: var(--secondary);
+    font-size: 25px;
+}
+
+.footer-bottom-text p {
+    color: #B7B6B4;
+    font-size: 18px;
+}
+
+.footer-bottom-buttons {
+    display: flex;
+    gap: 40px;
+}
+
+.footer-bottom-buttons button {
+    width: 222px;
+    height: 50px;
+    border-radius: 31px;
+    font-size: 20px;
+    border: 1px solid #686868;
+    background: none;
+    color: #BBBBBB;
+}
+
+.footer-bottom-buttons a{
+       color: #BBBBBB;
+}
+
+.footer-znacka {
+    position: relative;
+}
+
+.footer-znacka h2 {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    color: var(--dark) !important;
+}
+
+.footer-znacka-bck {
+    z-index: 1;
+    position: absolute;
+    top: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--secondary);
+    border-radius: 25px;
+    transform: rotate(1.5deg);
+}
+.footer-policy {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    justify-content: end;
+}
+
+.footer-policy a{
+    font-size: 18px;
+    color: #535252 !important;
+}
+
+.footer-pojdme {
+    position: relative;   
+}
+
+.footer-pojdme-img {
+    position: absolute;
+    z-index: 4;
+    top: 50%;
+    left: 50%;
+    width: 115%;
+    margin-top: 5px;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 1200px) {
+    .footer-text h2 {
+        font-size: 70px;
+        max-width: 800px;
+    }
+    .footer-znacka-bck {
+        top: 0;
+    }
+    .footer-img {
+        position: absolute;
+        width: 340.99px;
+        height: auto;
+        left: 0px;
+        bottom: 0px;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .footer-text h2 {
+        font-size: 50px;
+        max-width: 600px;
+    }
+    .footer-bottom-buttons {
+        display: flex;
+        gap: 20px;
+    }
+    .footer-bottom-buttons button {
+        width: 152px;
+        height: 50px;
+        border-radius: 25px;
+        font-size: 18px;
+        border: 1px solid #686868;
+        background: none;
+        color: #BBBBBB;
+    }
+    .footer-znacka-bck {
+        border-radius: 20px;
+    }
+    .footer-policy a {
+        font-size: 14px;
+        color: #535252 !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .footer-bottom {
+        flex-direction: column;
+        align-items: start;
+    }
+    .footer-text h2 {
+        font-size: 40px;
+        max-width: 436px;
+    }
+    .img-strejda-spark {
+        display: none;
+    }
+}
+@media screen and (max-width: 500px) {
+    .footer-text p {
+        text-align: center;
+    }
+    .footer-policy {
+        justify-content: start;
+    }
+}
+</style>
+
+<script>
+
+
+
+</script>
+
+

@@ -1,0 +1,43 @@
+{define contact-form}
+	{default $formClass = ''}
+
+
+
+	<button onClick="sendForm()">TEst metody</button>
+
+	<form n:name=$form n:class="form-horizontal, $formClass">
+		<ul class="error" n:if="$form->ownErrors">
+			<li n:foreach="$form->ownErrors as $error">{$error}</li>
+		</ul>
+
+		<div n:foreach="$form->controls as $name => $input"
+				n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden"
+				n:class="form-group, $input->required ? required, $input->error ? has-error">
+
+			<div class="row mt-2 wow fadeIn">
+				{if $input->getOption(type) in [text, select, textarea]}
+					<div class="form-floating">
+						{input $input class => 'form-control'}
+                  		<label class='ms-2' for="{$input->name}">{$input->caption}</label>
+                	</div>
+				{elseif $input->getOption(type) === button}
+                    {input send, class =>'btn btn-primary w-100 py-3 btn-input hv-slide-up-btn', style => 'background-color: #0041C0;border-color: #0041C0;'}
+				{else}
+					{input $input}
+				{/if}
+
+
+				<span class="repatchaMessageContainer" n:ifcontent>{$input->error ?: $input->getOption(description)}</span>
+				
+
+			</div>
+		</div>
+
+		{if isset($flashMessage)}
+				<span class="repatchaMessageContainer">{$flashMessage}</span>
+				{/if}
+	</form>
+{/define}
+
+
+

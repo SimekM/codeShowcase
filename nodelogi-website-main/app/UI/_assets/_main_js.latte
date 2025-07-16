@@ -1,0 +1,97 @@
+
+	<script>
+
+	var linkMyivCall = {link myivCall!};
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        naja.initialize();
+        $('.carousel').carousel({
+            interval: 2000
+        })
+
+        {if isset($notification)}
+        showAddToCartNotification($notification)
+        {/if}
+        
+    });
+
+  function showAddToCartNotification(message) {
+
+        var notification = document.createElement('div');
+        notification.id = 'notification';
+        
+        var notificationText = document.createElement('div');
+        notificationText.innerText = message;
+        
+       
+        notification.appendChild(notificationText);
+        
+        setTimeout(function() {
+            notification.classList.add('fade-out');
+            setTimeout(function() {
+                notification.remove();
+            }, 1000); 
+        }, 10000);
+    }
+
+
+    function myivCall( request, responseParams = null , successCallbackFunction = null , errorCallback = null ) 
+        {
+            request .usedCall      = 'myivCallRequest';
+            let  methodConsoleText = "CALL1 myivJS_main_MYIVCALL_myivCallRequest | "
+            
+            if (responseParams===null)   { responseParams = { history: false }; method = "POST"; }
+            if (responseParams==="html") { responseParams = { dataType: 'html', history: true } }
+
+
+            naja.makeRequest(method, linkMyivCall, request, responseParams )
+            .then((response) => 
+                    { 
+                     //   console.log("myivCall response:",response)
+                        if (response.callBack)
+                            {
+                                console.log("myivCall callback:",response.callBack);
+                                eval(response.callBack); 
+                            } 
+                        else 
+                            { 
+                                if (successCallbackFunction === null)  { return response; }  
+                                else { successCallbackFunction(response); } 
+                            }
+                        loading = false;    
+                    })
+                .catch((error) => 
+                    { 
+                        if (errorCallback===null) 
+                            { 
+                                errorCallback = function(error) 
+                                    { 
+                                        console.log('myivCallRequest - Nastala chyba: '+error, error)
+                                        alert('myivCallRequest - Nastala chyba: ' + error); 
+                                    }
+                            }
+                
+                        if (errorCallback !== null) { errorCallback(error);  } 
+                        loading = false;
+                    });
+        } 
+    function updateUrlParameter(params) {
+
+        let url = new URL(window.location.href);
+        
+        Object.keys(params).forEach(key => {
+            url.searchParams.set(key, params[key]);
+        });
+        
+    // url.searchParams.set(paramName, paramValue);
+        
+        history.replaceState(null, '', url.toString());
+    }
+
+
+
+
+	</script>

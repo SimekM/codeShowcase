@@ -1,0 +1,4 @@
+database:
+    dsn: 'mysql:host=%DB_HOST%;port=%DB_PORT%;dbname=testing'
+    user: %DB_USER%
+    password: %DB_PASSWORD%
