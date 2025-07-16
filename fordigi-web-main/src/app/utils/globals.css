@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+
+/* Aurora bg */
+ @theme inline {
+   --animate-first: moveVertical 30s ease infinite;
+   --animate-second: moveInCircle 20s reverse infinite;
+   --animate-third: moveInCircle 40s linear infinite;
+   --animate-fourth: moveHorizontal 40s ease infinite;
+   --animate-fifth: moveInCircle 20s ease infinite;
+ 
+   @keyframes moveHorizontal {
+     0% {
+       transform: translateX(-50%) translateY(-20%);
+     }
+     50% {
+       transform: translateX(50%) translateY(0%);
+     }
+     100% {
+       transform: translateX(-50%) translateY(-20%);
+     }
+   }
+ 
+   @keyframes moveInCircle {
+     0% {
+       transform: rotate(0deg) translateY(-5%);
+     }
+     50% {
+       transform: rotate(180deg) translateY(-15%);
+     }
+     100% {
+       transform: rotate(360deg) translateY(-5%);
+     }
+   }
+ 
+   @keyframes moveVertical {
+     0% {
+       transform: translateY(-50%);
+     }
+     50% {
+       transform: translateY(20%);
+     }
+     100% {
+       transform: translateY(-50%);
+     }
+   }
+ }
+ 
+
+
+:root {
+
+  --primary: #F8F9FA;
+  --primary-variant: #B2E3FF;
+  /* --secondary: #0f3c78; */
+  --secondary: #a129f6;
+
+  --secondary-new: #7612fa;
+  
+  --secondary-variant: #1853a3;
+  
+  --text-color: #2E2E2E ;
+}
+
+@theme inline {
+
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-primary-variant: var(--primary-variant);
+  --color-secondary-variant: var(--secondary-variant);
+  --color-text: var(--text-color);
+
+  --font-text: var(--font-inter);
+  --font-heading: var(--font-raleway);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+
+  }
+}
+
+body {
+  background: var(--primary);
+  color: var(--text-color);
+  font-family: var(--font-outfit), sans-serif;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-outfit), sans-serif;
+}
+
+
+
+/* Universal Button Class */
+.btn {
+	pointer-events: auto;
+	cursor: pointer;
+	background: var(--secondary);
+	border: none;
+	border-radius: 50px;
+	padding: 0.6rem 1.8rem;
+	margin: 0;
+	font-family: inherit;
+	font-size: 0.875rem;
+	font-weight: 600;
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	text-decoration: none;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s ease;
+	min-width: 100px;
+	letter-spacing: 0.02em;
+}
+
+.btn span {
+	position: relative;
+	z-index: 1;
+}
+
+.btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	background: var(--secondary-variant);
+}
+
+.btn:active {
+	transform: translateY(1px);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Outlined variant */
+.btn-outlined {
+	background: transparent;
+	border: 2px solid var(--secondary);
+	color: var(--secondary);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.btn-outlined:hover {
+	background: #0f3c78;
+	color: white;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark variant */
+.btn-dark {
+	background: var(--secondary);
+	color: white;
+}
+
+.btn-dark:hover {
+	background: var(--secondary-variant);
+}
+
+/* Small variant */
+.btn-sm {
+	padding: 0.4rem 1.2rem;
+	font-size: 0.8rem;
+	min-width: 80px;
+}
+
+/* Large variant */
+.btn-lg {
+	padding: 0.8rem 2.2rem;
+	font-size: 1rem;
+	min-width: 140px;
+}
+
+
+/* Subtle variant - very low opacity background */
+.btn-subtle {
+	background: rgba(15, 60, 120, 0.08);
+	color: #0f3c78;
+	box-shadow: none;
+}
+
+.btn-subtle:hover {
+	background: rgba(15, 60, 120, 0.15);
+	box-shadow: 0 2px 8px rgba(15, 60, 120, 0.15);
+}
+
+/* Rounded variant */
+.btn-rounded {
+	border-radius: 9999px;
+}
+
+/* Flashy shine effect button - for hero section */
+.btn-shine {
+	position: relative;
+	overflow: hidden;
+	transform-style: preserve-3d;
+	transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.btn-shine::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -75%;
+	z-index: 2;
+	width: 50%;
+	height: 100%;
+	background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 100%);
+	transform: skewX(-25deg);
+	transition: all 0.7s ease;
+	opacity: 0;
+}
+
+.btn-shine:hover::before {
+	animation: shine 1.2s;
+	opacity: 1;
+}
+
+.btn-shine:hover {
+	transform: translateY(-4px) scale(1.02);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-shine.btn-dark:hover,
+.btn-shine.btn-outlined:hover {
+	color: white;
+}
+
+.btn-shine.btn-outlined::after {
+	display: none;
+}
+
+/* For btn-shine outlined variant, ensure hover effect is the same */
+.btn-shine.btn-outlined:hover {
+	background: var(--secondary-variant);
+	border-color: var(--secondary-variant);
+	color: white;
+	transform: translateY(-4px) scale(1.02);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Rising dots effect on hover (for the outlined button) */
+.btn-shine.btn-outlined:hover .dots-rise {
+	opacity: 1;
+}
+
+
+
+@keyframes shine {
+	0% {
+		left: -75%;
+		opacity: 1;
+	}
+	100% {
+		left: 125%;
+		opacity: 1;
+	}
+}
+
+@keyframes riseUp {
+	0% {
+		bottom: 0;
+		opacity: 1;
+	}
+	100% {
+		bottom: 80%;
+		opacity: 0;
+	}
+}
+
+/* Service cards styling */
+.service-card {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    140deg, 
+    rgba(255, 255, 255, 0.3), 
+    rgba(15, 60, 120, 0.4)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
